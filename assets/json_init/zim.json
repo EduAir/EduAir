@@ -1,0 +1,13 @@
+{
+"zim_list":
+    {
+        "wikipedia" :"wikipedia_fr_all_11_2013",
+        "gutenberg": "gutenberg_fr_all_10_2014",
+        "TED":[
+        	"TED_business#ted_business_05_2014",
+        	"TED_entertainment#ted_entertainment_05_2014"
+        	],
+        "medecine": 0,
+        "ubuntu":"ubuntudoc_fr_01_2009"
+    }
+}

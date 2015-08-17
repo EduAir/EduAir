@@ -1,0 +1,11 @@
+<html>
+<head>
+</head>
+<body>
+   <link rel="stylesheet" type="text/css" href="assets/css/bootmetro.css">
+   <link rel="stylesheet" type="text/css" href="assets/css/bootmetro-responsive.css">
+   <link rel="stylesheet" type="text/css" href="assets/css/bootmetro-icons.css">
+   <link rel="stylesheet" type="text/css" href="assets/css/bootmetro-ui-light.css">
+   <link rel="stylesheet" type="text/css" href="assets/css/datepicker.css">
+</body>
+</html>

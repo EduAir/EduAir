@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  <!--skip-->
+        <title>easyRTC Demo: Video Only</title>
+        <!--hide-->
+        <link rel="stylesheet" type="text/css" href="css/landing.css" />
+		
+
+         <!-- Assumes global locations for socket.io.js and easyrtc.js -->
+        <script type="text/javascript" src="http://localhost/begoo/assets/js/jquery/jquery.js"></script>
+		<script type="text/javascript" src="http://localhost/begoo/assets/node/peer.js"></script>
+
+	
+       
+        <!--hide-->
+        <!-- Styles used within the demo -->
+        
+        <!--show-->
+    </head>
+    <body >
+        <!--hide-->
+       <div id="otherClients"> </div>
+            <video  style="float:left" id="self" width="300" height="200"></video>
+            <div style="position:relative;float:left;width:300px">
+                <video id="caller" width="300" height="200"></video>
+            </div>
+			
+		 <div class="random"> oooooo</div>
+		 
+		 
+		 <body>
+  <center>
+    <h1>Video Chat Room</h1>
+    <div id="mypeerid"></div>
+    <input id="remotepeerid" type="text" placeholder="Enter peer id"/>
+    <button id="call" type="button">Call</button>
+  </center>
+ 
+  <div id="videos"></div>
+ 
+
+ 
+ 
+ 
+ 
+
+		
+		 <script type="text/javascript">
+		 
+	var peer = new Peer('gggg',{host:'localhost',port:9000,debug: 3});console.log(peer);
+	
+		/* videochatroom.js */
+// Compatibility shim
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+ 
+// Start user
+
+peer.on('open', function(){
+  $('#mypeerid').append("Your peer id: " + peer.id);
+});
+peer.on('call', function(call){
+  console.log("Call received");
+  // Answer the call automatically (instead of prompting user) for demo purposes
+  call.answer(window.localStream);
+  processCall(call);
+});
+peer.on('error', function(err){
+  console.log(err.message);
+});
+ 
+ 
+$(function(){
+  $('#call').bind('click', callPeer);
+  getLocalVideo();
+});
+ 
+ 
+ 
+// Call/Video Management
+function getLocalVideo() {
+  navigator.getUserMedia({audio: true, video: true}, function(stream){
+    console.log("Local video streaming");
+    $('#videos').append("<video id='" + peer.id + "' autoplay></video>");
+    $('#' + peer.id).prop('src', URL.createObjectURL(stream));
+    window.localStream = stream;
+  }, function(){ alert('Cannot connect to webcam. Allow access.') });
+}
+ 
+function callPeer() {
+  console.log("Calling peer");
+  var call = peer.call($('#remotepeerid').val(), window.localStream);
+  processCall(call);
+}
+ 
+function processCall(call) {
+  // Hang up on an existing call if present
+  if (window.existingCall) {
+    window.existingCall.close();
+  }
+ 
+  // Wait for stream on the call, then set peer video display
+  call.on('stream', function(remoteStream){
+    console.log("Adding video from " + call.peer);
+    $('#videos').append("<video id='" + call.peer + "' autoplay>");
+    $('#' + call.peer).prop('src', URL.createObjectURL(remoteStream));
+  });
+ 
+  // UI stuff
+  window.existingCall = call;
+  //document.getElementById('their-id').text(call.peer);
+  //call.on('close', prepareDebateScreen);
+}
+ 
+function endCall() {
+  window.existingCall.close();
+  step2();
+}
+ 
+function retry() {
+  console.log('Retry...');
+}
+		
+
+
+   
+		
+		</script>
+    </body>
+</html>

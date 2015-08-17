@@ -1,0 +1,13 @@
+
+{
+  "name": "Hi Begoo",
+  "description": "Centraliser et gérer les apllications begoo",
+  "icons": {
+    "128": "../assets/img/begoo_128.png"
+  },
+  "developer": {
+    "name": "Begoo",
+    "url": "http://www.begoo.org"
+  },
+  "default_locale": "fr"
+}
