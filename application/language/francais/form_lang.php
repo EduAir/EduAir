@@ -154,6 +154,7 @@ $lang['form_statu_edited']      = "Modification effectuée";
 $lang['form_edit_pass']         = "Changer de mot de passe";
 $lang['form_follow_me']         = "Follow me";
 $lang['form_stop_follow']       = "Stop";
+$lang['form_allow_cam']         = "Autorisez votre caméra à filmer";
 
 
 

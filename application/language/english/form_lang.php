@@ -152,6 +152,8 @@ $lang['form_statu_edited']      = "Modification edited";
 $lang['form_edit_pass']         = "Change password";
 $lang['form_follow_me']         = "Follow me";
 $lang['form_stop_follow']       = "Stop";
+$lang['form_allow_cam']         = "Allow your camera";
+
 
 
 

@@ -34,6 +34,7 @@
     <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery/json2.js"></script>
 	<script type="text/javascript" src="<?php echo base_url();?>assets/node/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js"></script>
 	<script type="text/javascript" src="<?php echo base_url();?>assets/node/peer.js"></script>
+	<script type="text/javascript" src="<?php echo base_url();?>assets/node/node_modules/simplewebrtc/latest.js"></script>
 	
     <script type="text/javascript" src="<?php echo base_url();?>assets/js/app_socket.js"></script>
 	

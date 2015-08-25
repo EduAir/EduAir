@@ -518,7 +518,7 @@ $(document).ready(function(){
 
           if(window.on_following_duo==true){
             
-            open_hello (false);
+            open_hello (false,false,false);
 
           }else{
 
@@ -1240,7 +1240,7 @@ $(document).ready(function(){
               switch($(this).attr('reason')){
 
                 case 'camera':
-                   open_hello(true);
+                   open_hello(true,'me',window.user_number+'_'+window.interloc_num);
                    break;
 
                 case 'file':
@@ -1264,13 +1264,34 @@ $(document).ready(function(){
           });
         }
 
+        
 
 
-        function open_hello (auto) {
+
+        function open_hello (auto,caller,room) {
         	
         	$('#have_smile').openModal({
         		            dismissible: false,
-                        ready: function() { close_edit();
+                        ready: function() {
+
+                                          close_edit();
+                                          $('.direction_up').effect('bounce');
+
+                                          switch(caller){
+                                            case 'me':
+                                                if(auto==true){ 
+                                                  verif_if_called_busy(window.interloc_num);
+                                                  window.camera = true;
+                                                }
+                                            break;
+
+                                            case 'not_me':
+                                                turn_on_camera(false,room);
+                                            break;
+                                          }
+
+                                            /*
+                                             close_edit();
                                             if(auto==true){
                                                verif_if_called_busy(window.interloc_num);
                                                 window.camera = true;
@@ -1281,12 +1302,29 @@ $(document).ready(function(){
                                               socket.emit('change_statu_camera',window.interloc_num);
                                               socket.emit('open_hello_true',window.interloc_num);
                                               remove_blink();
-                                            }
+                                            } */
                                           }, // Callback for Modal open
                         complete: function() {open_edit() } // Callback for Modal close
                     });
         }
 
+
+      
+
+
+        window.webrtc = false;
+
+        function get_access_to_camera () {
+          
+          window.webrtc = new SimpleWebRTC({
+            // the id/element dom element that will hold "our" video
+            localVideoEl: 'localVideo',
+            // the id/element dom element that will hold remote videos
+            remoteVideosEl: 'remotesVideos',
+            // immediately ask for camera access
+            autoRequestMedia: false
+          });
+        }
 
 
 
@@ -1374,28 +1412,40 @@ $(document).ready(function(){
 
     window.streamed = false; 
 
-    function turn_on_camera (called_id) {
-         	
-       //I turn on the camera
-		  navigator.getUserMedia({video: true, audio: true}, function(stream) {
-		   
-			  window.localStream = stream;
+    function turn_on_camera (called_id,room){	
+       
+      window.webrtc = new SimpleWebRTC({
+            // the id/element dom element that will hold "our" video
+            localVideoEl: 'localVideo',
+            // the id/element dom element that will hold remote videos
+            remoteVideosEl: 'remotesVideos',
+            // immediately ask for camera access
+            autoRequestMedia: true,
 
-        window.streamed = true;
+            url:'http://localhost:8888'
+      });
 
-        verif_if_called_busy(called_id);
 
-        return true;
-        },
-        function(err){
-					 					
-          window.notty_it(err.name);
+      window.webrtc.on('readyToCall', function () {
+             // you can name it anything
+            // webrtc.joinRoom('caller_number+'_'+window.user_number');
+             webrtc.joinRoom(room);
+      });
 
-			    window.streamed = false; 
 
-          return false;    				  
-		  });
+      if(called_id!=false){
+
+          verif_if_called_busy(called_id);
+      }
+
+      $('.ask_camera_enabled').fadeOut();
+      $('.pilot').fadeIn(); 
+
+      //ToDo Statu connection
+      //window.streamed = true;
 	  }
+
+
 
 
     function change_statu_camera () { 
@@ -1440,15 +1490,12 @@ $(document).ready(function(){
 
         
 		function verif_if_called_busy(number_called){
-      
-      //catch the fux of camera before asking if the called is busy
-      if(window.localStream){
-        
-        socket.emit('verif_if_called_busy',{'caller_number':window.user_number,'caller_name':window.username,'called_number':number_called});
-      }else{
 
-        turn_on_camera(number_called);
-      }
+      var room = window.user_number+'_'+number_called;//We create à room for the connection
+      
+      socket.emit('verif_if_called_busy',{'caller_number':window.user_number,'caller_name':window.username,'called_number':number_called,'room':room});
+
+      turn_on_camera(number_called,room);
 		}
 
 
@@ -1469,7 +1516,7 @@ $(document).ready(function(){
 
 		socket.on('called_not_busy',function(data){
 
-			my_direct(data.called_peer_id);
+			my_direct(data.called_number);
 		});
 
 
@@ -1488,8 +1535,8 @@ $(document).ready(function(){
 
         $('.take_call').click(function (data) {
 
-          open_hello (false);
-          socket.emit('called_not_busy',{'caller_id':data.caller_number,'called_peer_id':window.my_peer_id});
+          open_hello(false,'not_me',data.room);
+          socket.emit('called_not_busy',{'caller_number':data.caller_number,'called_number':window.user_number});
 
           window.accepted=false;//We disable the lost of the call
 
@@ -1533,11 +1580,19 @@ $(document).ready(function(){
 
 
         //Make call
-		function my_direct(peer_id){
+		function my_direct(called_number){
 
       window.calling = true;
       play_bell();
 
+      // we have to wait until it's ready
+      window.webrtc.on('readyToCall', function () {
+        // you can name it anything
+        webrtc.joinRoom(window.user_number+'_'+called_number);
+      });
+
+
+      /*
 			var call = peer.call(peer_id,window.localStream);//je lui donne mon flux
 			
 			window.existingCall = call;
@@ -1558,9 +1613,12 @@ $(document).ready(function(){
 
 			   window.calling = false;
 		  });	
+
+      */
 		}
 
 
+    /*
 		peer.on('call', function(call) {
 
 			window.calling = true;
@@ -1608,7 +1666,7 @@ $(document).ready(function(){
 		      // je recoit son flux
 			  $('#my_caller').attr('src',window.URL.createObjectURL(remoteStream));
       });
-    });
+    }); */
 
         
     socket.on('zut',function() {

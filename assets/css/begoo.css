@@ -903,3 +903,24 @@ padding: 0.1em;
   margin: 10px;
 }
 
+
+#localVideo{ 
+  bottom: 0px;
+  position: absolute;
+  z-index: auto;
+  height: 30%;
+  right: 0px;
+}
+
+.controler{
+  top: 0px;
+  position: absolute;
+  z-index: auto;
+  left: 0;
+  right: 0;
+}
+
+#remotesVideos video{
+  height: 100%;
+}
+
