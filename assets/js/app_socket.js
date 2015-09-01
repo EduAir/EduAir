@@ -61,7 +61,7 @@ $(document).ready(function(){
 		var socket  = io.connect($('#url_node').attr('url'));
 		
 		//On créee la room avec le numéro de téléphone 
-		socket.emit('welcome',{'my_id':$.trim($('.peer').text()),'path_upload':$('.message_ajax').attr('url_for_file_upload_dir')});
+		//socket.emit('welcome',{'my_id':$.trim($('.peer').text()),'path_upload':$('.message_ajax').attr('url_for_file_upload_dir')});
 		
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -78,23 +78,7 @@ $(document).ready(function(){
         dismissible: false
       });
     }
-
-
-		var my_ID = $.trim($('.peer').text());
 	
-		var peer = new Peer(my_ID, {host:$('#url_peer').attr('host'), port:$('#url_peer').attr('port'),debug: 3});
-		
-		
-		peer.on('open', function(id) {
-
-            console.log('My peer ID is: ' + id);
-
-            window.my_peer_id = id; 
-        });
-		
-		
-		
-		
 		
 
 
@@ -194,48 +178,41 @@ $(document).ready(function(){
 
 
      //We send file (Take one by one)
-    function send_file(files){ 
+    function send_file(caller,room){ 
 
-        //We look at the number of file
-        var nbre_file = files.length;
+      //We close the calling popup if it is open
+      if(window.my_pinooy){
 
-        if(window.indice < window.denominator){ //If we are allways a file to send
+        window.my_pinooy.close();
+      }
 
-            var ftype = files[window.indice].type;
-            
-            var file = files[window.indice];
 
-            var allowed = ['png','png','gif','zip','rar','pdf','doc','docx','ppt'];
- 
-            if( $.inArray(file.name.split('.').pop().toLowerCase() ,allowed)!= -1){ 
-                
-                if(file.size < 15728640){ //(15 Mo * 1024*1024)
-                    
-                    send_file_with_ajax(file);
-                }else{
+      var webrtc = new SimpleWebRTC({
+      // we don't do video
+        localVideoEl: '',
+        remoteVideosEl: '',
+        // dont ask for camera access
+        autoRequestMedia: false
+          // dont negotiate media
+        receiveMedia: {
+          mandatory: {
+            OfferToReceiveAudio: false,
+            OfferToReceiveVideo: false
+          }
+        }
+      });
 
-                    window.notificate_it($('.upload_message').attr('up_too_big'),'error','bottomRight');
-                    window.in_sending = false;
-                    hide_spinner();
-                }     
-            }else{
+      if(caller=='none'){ //NOne means thats im the sender
 
-                window.notificate_it($('.upload_message').attr('up_not_supported'),'error','bottomRight');
-                window.in_sending = false;
-                hide_spinner();
-            }
-        }else{
-            
-            window.in_sending = false;//We tell him that the sending is finish
-            hide_spinner();
+        socket.emit('can_you_take_this',{'caller_number':window.user_number,'caller_name':window.username,'called_number':window.interloc_num,'room':room});
+        
+        var fileinput = document.createElement('input');
+        fileinput.type = 'file';    
+      }
 
-            if(window.force==true){
+      webrtc.joinRoom(room);
 
-            	window_web_notification('Yep!',{body:$('.upload_message').attr('end_sending')});
-
-            	window.force = false;
-            }
-        }       
+      
     }
 
 
@@ -845,13 +822,10 @@ $(document).ready(function(){
 
                   user = data.result[0];
                   load_data_connection (user)
-                }
-              
+                } 
             }
           });
         }
-
-
 
 
 
@@ -862,11 +836,9 @@ $(document).ready(function(){
         window.user_number = user.user_number;
         window.user_level  = user.user_level;
         $.jStorage.set('my_user_id',window.user_id);
-        socket.emit('welcome',{'user_id':window.user_id,'user_number':window.user_number,'user_level':window.user_level});
+        window.all_my_data = {'user_id':window.user_id,'user_number':window.user_number,'user_level':window.user_level};
+        socket.emit('welcome',window.all_my_data);
       }
-
-
-
 
 
 
@@ -904,7 +876,7 @@ $(document).ready(function(){
        	   	        break;
 
        	   	    case 'end_call':
-       	   	        end_call();
+       	   	        close_hello(true);
        	   	        break;
        	    }
         }
@@ -1229,281 +1201,91 @@ $(document).ready(function(){
 
 
 
-        function command_click_box () {
+        function command_click_box () { 
 
           $(document).ready(function(){
 
             $('.com').unbind('blink');
 
-            $('.com').click(function(){
+            $('.com').click(function(){   
+   
+                switch($(this).attr('reason')){
+
+                  case 'camera':
+                    open_hello('me',false);
+                   break;
+
+                  case 'file':
+                   var room = window.user_number+'_'+window.interloc_num;
+                    send_file('none',room);
+                   break;
+
+                  case 'follow':
+                    if(window.key_follow!=false){
+                      stop_make_him_follow_me(false);
+                    }else{
+                      make_him_follow_me(false);
+                    }
+                   break;
+
+                  case 'close_box':
+                    close_chat_box();
+                   break;
+                }
+               
               
-              switch($(this).attr('reason')){
-
-                case 'camera':
-                   open_hello(true,'me',window.user_number+'_'+window.interloc_num);
-                   break;
-
-                case 'file':
-                   send_file();
-                   break;
-
-                case 'follow':
-                   if(window.key_follow!=false){
-                     stop_make_him_follow_me(false);
-                   }else{
-                    make_him_follow_me(false);
-                   }
-                   break;
-
-                case 'close_box':
-                  close_chat_box();
-                break;
-              }
               return false;
             })
           });
         }
 
+
+        window.my_pinooy_opened = false;
+
+       
+
         
 
 
 
-        function open_hello (auto,caller,room) {
-        	
-        	$('#have_smile').openModal({
-        		            dismissible: false,
-                        ready: function() {
+        function open_hello(caller,room) {
 
-                                          close_edit();
-                                          $('.direction_up').effect('bounce');
+          if(caller=='me'){
 
-                                          switch(caller){
-                                            case 'me':
-                                                if(auto==true){ 
-                                                  verif_if_called_busy(window.interloc_num);
-                                                  window.camera = true;
-                                                }
-                                            break;
+            room = window.user_number+'_'+window.interloc_num;//We create à room for the connection
 
-                                            case 'not_me':
-                                                turn_on_camera(false,room);
-                                            break;
-                                          }
-
-                                            /*
-                                             close_edit();
-                                            if(auto==true){
-                                               verif_if_called_busy(window.interloc_num);
-                                                window.camera = true;
-                                            }
-
-                                            if(window.on_following_duo==true){
-                                              change_statu_camera ();
-                                              socket.emit('change_statu_camera',window.interloc_num);
-                                              socket.emit('open_hello_true',window.interloc_num);
-                                              remove_blink();
-                                            } */
-                                          }, // Callback for Modal open
-                        complete: function() {open_edit() } // Callback for Modal close
-                    });
-        }
-
-
-      
-
-
-        window.webrtc = false;
-
-        function get_access_to_camera () {
-          
-          window.webrtc = new SimpleWebRTC({
-            // the id/element dom element that will hold "our" video
-            localVideoEl: 'localVideo',
-            // the id/element dom element that will hold remote videos
-            remoteVideosEl: 'remotesVideos',
-            // immediately ask for camera access
-            autoRequestMedia: false
-          });
-        }
-
-
-
-        socket.on('open_hello_true',function() { 
-
-          $('#have_smile').openModal({
-                        dismissible: false,
-                        ready: function() { close_edit();remove_blink();}, // Callback for Modal open
-                        complete: function() {open_edit();} // Callback for Modal close
-          });
-        })
-
-
-        function close_hello (type) {
-          
-          if(type==true){
-
-            end_call();
+            turn_on_camera(room,window.interloc_num);
+          }else{
+            turn_on_camera(room,'none')
           }
-   
-          $('#have_smile').closeModal();
-          open_edit();   
+
+          close_edit();
         }
 
 
-        $('.have_smile').click(function() {
-          
-            switch($(this).attr('reason')){
-
-              case 'end_call':
-                 close_hello(true);
-                 socket.emit('end_call',window.interloc_num);
-                 break;
-              
-              case 'statu_cam':
-                 change_statu_camera();
-                 socket.emit('change_statu_camera',window.interloc_num);
-                 break;
-
-              case 'follow_me':
-                 make_him_follow_me(true);
-                 break;
-
-            }
-
-          return false;
-        })
-
-
-
-       window.blinking=1;
-       //var blink = blink_calling();
-
-
-
-       function put_blink () {
-
-        $('.change_phone').removeClass('mdi-communication-chat').addClass('mdi-notification-phone-in-talk');
-
-       	window.setIntervalBlink = setInterval(function  () {
-
-       		if(window.blinking==5){
-            	window.blinking=1;
-            	$('.blink_calling').removeClass('z-depth-5');
-            }
-       		$('.blink_calling').removeClass('z-depth-'+window.blinking);
-       		window.blinking = window.blinking +1;
-       		$('.blink_calling').addClass('z-depth-'+window.blinking);
-
-       	    },200)
-       }
-
-
-
-       function remove_blink() {
-         clearInterval(window.setIntervalBlink);
-         $('.change_phone').removeClass('mdi-notification-phone-in-talk').addClass('mdi-communication-chat');
-       }
 
 
   
 
        /////////////////////////////////////////////DUO  chat/webrtc//////////////////////////////////////////////
 
-
-    window.streamed = false; 
-
-    function turn_on_camera (called_id,room){	
+    function turn_on_camera(room,called) {
        
-      window.webrtc = new SimpleWebRTC({
-            // the id/element dom element that will hold "our" video
-            localVideoEl: 'localVideo',
-            // the id/element dom element that will hold remote videos
-            remoteVideosEl: 'remotesVideos',
-            // immediately ask for camera access
-            autoRequestMedia: true,
+      if(window.my_pinooy){ //We close the popup if it is open
 
-            url:'http://localhost:8888'
-      });
-
-
-      window.webrtc.on('readyToCall', function () {
-             // you can name it anything
-            // webrtc.joinRoom('caller_number+'_'+window.user_number');
-             webrtc.joinRoom(room);
-      });
-
-
-      if(called_id!=false){
-
-          verif_if_called_busy(called_id);
+        window.my_pinooy.close()
       }
-
-      $('.ask_camera_enabled').fadeOut();
-      $('.pilot').fadeIn(); 
-
-      //ToDo Statu connection
-      //window.streamed = true;
-	  }
-
-
-
-
-    function change_statu_camera () { 
-      
-      if(window.camera==true){ 
-
-         mute_video();
-         $('.cam_state').removeClass('mdi-av-videocam-off');
-         $('.cam_state').addClass('mdi-av-videocam');
-         $('.mirror').append('<i class="valign phone large mdi-notification-phone-in-talk"></i>');
-         $('#my_caller').fadeOut();
-         window.camera = false;
-      }else{ 
-
-        unmute_video();
-        $('.cam_state').addClass('mdi-av-videocam-off');
-        $('.cam_state').removeClass('mdi-av-videocam');
-        $('.phone').remove();
-        $('#my_caller').fadeIn();
-        window.camera = true;
-      }
+      window.my_pinooy = window.open($('.hoster').attr('pinooy')+room+'/'+called+'/'+window.user_number+'/'+window.username,"mywindow","status=1,width=650,height=450");
     }
 
-    socket.on('change_statu_camera',function  () {
-      change_statu_camera();
-    })
-
-
-
-
-    //This function is to mute video to allow only video call 
-    function mute_video () {
-      window.localStream.getVideoTracks()[0].enabled = false;
-    }
-
-    function unmute_video () {
-      window.localStream.getVideoTracks()[0].enabled = true;
-    }
-
-    //verif_if_called_busy(ID,'micro');
-
-
-        
-		function verif_if_called_busy(number_called){
-
-      var room = window.user_number+'_'+number_called;//We create à room for the connection
-      
-      socket.emit('verif_if_called_busy',{'caller_number':window.user_number,'caller_name':window.username,'called_number':number_called,'room':room});
-
-      turn_on_camera(number_called,room);
-		}
+  
 
 
 		socket.on('verif_if_called_busy',function(data){ 
 
 			if(window.calling == true){ 
 
-				socket.emit('called_busy',data.caller_number)
+				socket.emit('called_busy',data.caller_number);
 			}else{
 
         ring_the_phone(data);
@@ -1513,32 +1295,39 @@ $(document).ready(function(){
 
 
 
-
-		socket.on('called_not_busy',function(data){
-
-			my_direct(data.called_number);
-		});
-
-
-
-
-    
     function ring_the_phone(data) {
 
-      window.accepted=true;//We enable the lost of the call
+     
+      Materialize.toast($('#alert').attr('new_call')+' '+data.caller_name+' <a class="take_call" href="accept"> &nbsp;<i class="small mdi-communication-call"></i></a>&nbsp;&nbsp;<a class="reject_call" href="reject"> &nbsp;<i class="small mdi-communication-call-end"></i></a>')
+      window.data_calling = data;
+      play_bell();
 
-      Materialize.toast($('#alert').attr('new_call')+' '+data.caller_name+' <a class="take_call" href="accept"> &nbsp;<i class="small mdi-communication-ring-volume"></i></a>', delay_toast,'',function(){call_rejected(data)})
-      
-      $(document).ready(function(data){
 
-        $('.take_call').unbind('click');
+      $(document).ready(function(){
 
-        $('.take_call').click(function (data) {
+        $('.take_call,.reject_call').unbind('click');
 
-          open_hello(false,'not_me',data.room);
-          socket.emit('called_not_busy',{'caller_number':data.caller_number,'called_number':window.user_number});
+        $('.take_call').click(function () { 
 
-          window.accepted=false;//We disable the lost of the call
+          stop_bell();
+
+          socket.emit('called_not_busy',{'caller_number':window.data_calling.caller_number,'called_number':window.user_number});
+          open_hello('not_me',data_calling.room);
+
+          $('#toast-container').html('');
+
+          return false;
+        });
+
+
+        
+        $('.reject_call').click(function () { 
+
+          stop_bell();
+          
+          call_rejected (window.data_calling);
+          
+          $('#toast-container').html('');
 
           return false;
         });
@@ -1546,128 +1335,20 @@ $(document).ready(function(){
     }
 
 
-
-
+    
 
     function call_rejected (data) {
-
-      if(window.accepted==true){ 
-
+      
         socket.emit('call_rejected',data.caller_number);
-      }
     }
 
+    socket.on('call_rejected',function  () {
 
-
-
-    socket.on('call_rejected',function () {
-      
-      notty_it($('#alert').attr('reject_call'));
-
-      close_hello(true);
+      end_call();
     })
 
 
-
-		socket.on('called_busy',function(){
-
-			window.notty_it($('#alert').attr('busy'));
-
-      $('.mirror').html('<i class="valign large mdi-notification-phone-missed"></i>');
-      close_hello(true);
-		})
-
-
-
-        //Make call
-		function my_direct(called_number){
-
-      window.calling = true;
-      play_bell();
-
-      // we have to wait until it's ready
-      window.webrtc.on('readyToCall', function () {
-        // you can name it anything
-        webrtc.joinRoom(window.user_number+'_'+called_number);
-      });
-
-
-      /*
-			var call = peer.call(peer_id,window.localStream);//je lui donne mon flux
-			
-			window.existingCall = call;
-  
-      call.on('stream', function(remoteStream) {
-
-        stop_bell();
-
-         $('.mirror').html('<video style="height:100%" autoplay id="my_caller" src=""></video>');
-
-	            // je recoit son flux
-			    $('#my_caller').attr('src',window.URL.createObjectURL(remoteStream));
-      });
-				
-		  call.on('error', function(err) {
-				
-			   window.notty_it(err.type);
-
-			   window.calling = false;
-		  });	
-
-      */
-		}
-
-
-    /*
-		peer.on('call', function(call) {
-
-			window.calling = true;
-
-      window.camera = true;
-		
-		  window.existingCall = call;
-
-		  play_bell();
-
-
-			window.caller_id = call.peer;
-		   
-		    if(window.streamed==true)
-			  {
-				
-			    call.answer(window.localStream); // Answer the call with an A/V stream.
-			  }
-			  else
-			  {
-          //I turn on the camera
-          navigator.getUserMedia({video: true, audio: true}, function(stream) {
-       
-            window.localStream = stream;
-
-            window.streamed = true;
-
-            call.answer(stream); // Answer the call with an A/V stream.
-            stop_bell();
-          },
-          function(err){
-                    
-            socket.emit('zut',call.peer);
-                
-            window.notty_it(err.name);
-
-            window.calling = false;             
-          });				 
-			  }
-           
-		  call.on('stream', function(remoteStream) {
-
-         $('.mirror').html('<video style="height:100%" autoplay id="my_caller" src=""></video>');
-                          
-		      // je recoit son flux
-			  $('#my_caller').attr('src',window.URL.createObjectURL(remoteStream));
-      });
-    }); */
-
+   
         
     socket.on('zut',function() {
                           
@@ -1675,50 +1356,6 @@ $(document).ready(function(){
 			window.notty_it($('#alert').attr('wat'));	
 
     });
-
-
-
-    function end_call(){
-
-      if(window.existingCall)
-			{
-			    window.existingCall.close();
-			  
-			    window.existingCall = null;
-
-          streamed = false;
-
-          window.camera = false;
-
-          window.calling = false;
-
-          window.stop_following = true;
-
-          //window.localStream.stop();
-
-          $('#my_caller').attr('src','');
-      }else{
-
-        //On stoppe la sonerie de l'aure coté
-        socket.emit('stop_belling',window.caller_id);
-      } 
-
-      $('.mirror').html('<i class="valign phone large mdi-action-settings-phone"></i>');
-    }
-
-
-    socket.on('stop_belling',function(){
-
-      abord_call()
-    })
-
-
-    socket.on('call_ended',function(){
-		    
-			window.notty_it($('#alert').attr('end_call'));
-
-      close_hello(true);
-		});
 
 
 
@@ -1731,16 +1368,34 @@ $(document).ready(function(){
 		function play_bell() 
 		{
 		   //we play song
-        window.audio = new Audio($('#song').attr('url_bell')+'pizzicato.ogg');
-        window.audio.play();
+        window.audioBell = new Audio($('#song').attr('url_bell')+'pizzicato.ogg');
+        window.audioBell.play();
 		}
 
 
 		function stop_bell()
 		{
-      window.audio.pause();
-      window.audio.currentTime = 0;
+      window.audioBell.pause();
+      window.audioBell.currentTime = 0;
 		}
+
+
+
+    socket.on('call_ended',function(){
+        
+        end_call();
+    });
+
+
+
+    function end_call () {
+
+      window.notty_it($('#alert').attr('end_call'));
+
+        //Close the window
+        
+      window.my_pinooy.close();                    
+    }
 
 
 	/////////////////////////////////////////////DUO  chat/webrtc  FIN//////////////////////////////////////////////
@@ -1752,16 +1407,16 @@ $(document).ready(function(){
 
       if(window.key_follow==false){
        var camera_chat = '<a href="camera" class="com com_camera" reason="camera"><i class="mdi-notification-voice-chat"></i></a>';
-       var attach_file = '<a href="file"   class="com com_file">   <i class="mdi-editor-attach-file"></i></a>';
+       var attach_file = '<a href="file"   class="com com_file" reason="file">   <i class="mdi-editor-attach-file"></i></a>';
       }else{
         var camera_chat = '';
         var attach_file = '';
       }
 
       
-       var follow      = '<a href="follow" class="com" reason="follow"> <i class="following mdi-social-share"></i></a>';
-       var minimize    = '<a class="" style="color:#FFF;cursor:pointer;" >  <i class="mdi-content-remove"></i></a>';
-       var close       = '<a href="close" class="com" reason="close_box">  <i class="mdi-navigation-close"></i></a>';
+      var follow      = '<a href="follow" class="com" reason="follow"> <i class="following mdi-social-share"></i></a>';
+      var minimize    = '<a class="" style="color:#FFF;cursor:pointer;" >  <i class="mdi-content-remove"></i></a>';
+      var close       = '<a href="close" class="com" reason="close_box">  <i class="mdi-navigation-close"></i></a>';
 
     
       $("#chat_div").chatbox({id : "chat_div",

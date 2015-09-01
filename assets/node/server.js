@@ -303,8 +303,13 @@ io.sockets.on('connection', function (socket) {
 	    socket.join(data.user_level);	
     });
 
+    socket.on('welcome_pinooy',function  (number) {
+    	
+    	socket.join(number);
+    })
+
 	
-	socket.on('verif_if_called_busy',function(data){
+	socket.on('verif_if_called_busy',function(data){ 
 
 		socket.broadcast.to(data.called_number).emit('verif_if_called_busy',data);
 	})
@@ -331,6 +336,7 @@ io.sockets.on('connection', function (socket) {
 	socket.on('end_call',function(caller_number){
 	
        	socket.broadcast.to(caller_number).emit('call_ended');
+       	socket.emit('call_ended');
 	});
 
 	socket.on('zut',function(caller_ID){

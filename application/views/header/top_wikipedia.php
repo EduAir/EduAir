@@ -2,7 +2,7 @@
     <div class="navbar-fixed">
 <nav class="search_bar"> 
         <div class="nav-wrapper"> 
-           <a href="#!" class="brand-logo right">Kwiizi</a>
+           <a href="<?php echo site_url(); ?>" class="brand-logo right">Kwiizi</a>
             <ul>
                 <li class="hide-on-med-and-up"><a class="btn-floating btn-large waves-effect waves-light blue"><i class="mdi-hardware-keyboard-arrow-left"></i></a></li>
                 <li>

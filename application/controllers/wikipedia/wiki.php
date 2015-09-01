@@ -85,6 +85,29 @@ public function index()
 
 
 
+  public function pinooy($room,$called,$my_number,$my_username)
+  {
+    if($this->session->userdata('logged_in')){
+       //On fait un array des données à transmettre aux entetes et corps de page
+      $data = array(
+      'title'       => 'Kwiizi',
+      'h1'          => 'Kwiizi',
+      'top'         => 'wikipedia',
+      'room'        => $room,
+      'called'      => $called,
+      'my_number'   => $my_number,
+      'my_username' => $my_username
+        );
+       
+     $this->parser->parse('header/header',$data);
+     $this->parser->parse('pinooy/pinooy',$data);
+     $this->parser->parse('footer/footer_wiki',$data); 
+    }  
+     
+  }
+
+
+
 	
 	
 //Ici on affiche le fichier js qui gère l'affichage du wiki

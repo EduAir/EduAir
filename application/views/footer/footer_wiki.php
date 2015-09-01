@@ -261,7 +261,7 @@
             <center>
                 <div class="small mirror pilot" style="display:none;">
                     <video id="localVideo"></video>
-                    <div id="remotesVideos"></div>    
+                    <div id="remotesVideos"><i class="mdi-av-videocam small"></i><br></div>    
                 </div>
             </center>
             
@@ -434,7 +434,7 @@
 	   
 		<div id="get_API" get_random_article="<?php echo site_url().'/wikipedia/wiki/get_random_article'; ?>" ping="<?php echo site_url().'/wikipedia/wiki/ping' ; ?>" local_db="<?php echo WEB_STORAGE_NAME ; ?>" video_zim="<?php echo base_url().'assets/TED/' ; ?>" api_category="<?php echo site_url().'/wikipedia/wiki/get_category' ; ?>" api="<?php echo site_url().'/wikipedia/wiki/get_article' ; ?>" api_search="<?php echo site_url().'/wikipedia/wiki/search' ; ?>" api_search_plus="<?php echo site_url().'/wikipedia/wiki/search_plus' ; ?>"></div>
 
-		<div class="hoster" gutenberg="<?php echo GUTENBERG ; ?>" gutenberg_url="<?php echo site_url().'/wikipedia/wiki/' ; ?>" url="<?php echo HOSTER ; ?>" port_kiwix="<?php echo KIWIX_PORT ; ?>" host="<?php echo HOST ; ?>" host_wiki="<?php echo HOST_WIKI ; ?>" zim="<?php echo ZIM ; ?>" kiwix="<?php echo KIWIX ; ?>" zim_list="<?php echo ZIM_LIST ; ?>" url_for_seek="http://<?php echo HOSTER ; ?>:<?php echo KIWIX_PORT ; ?>/search?content="></div>
+		<div class="hoster" pinooy="<?php echo site_url().'/wikipedia/wiki/pinooy/' ; ?>" gutenberg="<?php echo GUTENBERG ; ?>" gutenberg_url="<?php echo site_url().'/wikipedia/wiki/' ; ?>" url="<?php echo HOSTER ; ?>" port_kiwix="<?php echo KIWIX_PORT ; ?>" host="<?php echo HOST ; ?>" host_wiki="<?php echo HOST_WIKI ; ?>" zim="<?php echo ZIM ; ?>" kiwix="<?php echo KIWIX ; ?>" zim_list="<?php echo ZIM_LIST ; ?>" url_for_seek="http://<?php echo HOSTER ; ?>:<?php echo KIWIX_PORT ; ?>/search?content="></div>
 		
 	    <div id="site_url"  url="<?php echo site_url().'/wikipedia/wiki'; ?>"></div>
 		
