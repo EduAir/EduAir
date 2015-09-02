@@ -153,6 +153,13 @@ $lang['form_edit_pass']         = "Change password";
 $lang['form_follow_me']         = "Follow me";
 $lang['form_stop_follow']       = "Stop";
 $lang['form_allow_cam']         = "Allow your camera";
+$lang['form_file_ask']          = "want o send you a file";
+$lang['form_file_yes']          = "Accept";
+$lang['form_file_decline']      = "Refuse";
+$lang['form_file_declined']     = "Rejected file";
+$lang['form_file_transfert']    = "Choose your fie to send";
+$lang['form_file_asker']        = "Please Wait...";
+
 
 
 

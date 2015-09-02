@@ -3,71 +3,14 @@ var PeerServer = require('peer').PeerServer;
 var server = new PeerServer({ port: 9000 });
 
 
-var delete_timer = 600000;//10*60000; //10 min
-
-var path_upload_dir = null;
 
 var tab_verif_connected = [];//Ce tableau verifi les followed qui son connectés
 
 var io = require('socket.io').listen(8080,{ log: false }) ;
 var fs = require('fs');
 
-console.log('kwiki Ready');
+console.log('We Learn Better');
 
-//File manager
-
-//We delete all the file of the upload directory
-
-//We create a list of file
-var list_file_hash_name = [];
-var list_file_name = [];
-var list_file_time = [];
-
-var timer = 0;
-
-function add_file(file_name,file_hash_name){
-   
-   list_file_name.push(file_name);
-   list_file_hash_name.push(file_hash_name);
-   list_file_time.push(timer);
-}
-
-
-function delete_file(entry){
-    
-    list_file_name.splice(entry,1);
-    list_file_time.splice(entry,1);
-    fs.unlinkSync('../uploader/uploads/'+list_file_hash_name[entry]);
-
-    list_file_hash_name.splice(entry,1);
-}
-
-var timer_to_delete_file =  timer_to_delete_file();
-
-function timer_to_delete_file(){
-    
-    setInterval(function(){
-
-    	var file_number = list_file_name.length
-
-    	if(file_number > 0 && path_upload_dir!=null){
-             
-            for(i=0;i < list_file_time.length; i++){
-
-            	var verif_time_file = list_file_time[i]+3600;
-
-            	if(timer <= verif_time_file){
-
-                    //We dilete the file
-                    delete_file(i);
-            	}
-            }
-    	}
-
-    	timer = timer + delete_timer;//We increment time every delete_timer in order to replace Date object.
-
-    },delete_timer);
-}
 
 // Upon a socket connection, a socket is created for the life of the connection
 io.sockets.on('connection', function (socket) {
@@ -351,13 +294,20 @@ io.sockets.on('connection', function (socket) {
     })
 
 
-    socket.on('file_sended',function(data){
+    socket.on('can_you_take_this',function(data){
 
-    	socket.broadcast.to(data.receiver).emit('file_sended',data);
+    	socket.broadcast.to(data.called_number).emit('can_you_take_this',data);
+    })
 
-    	add_file(data.file_name,data.message);
 
-    	//We put the name of file in list file in order to delete tthe file after 1 hour
+    socket.on('dont_send_it',function(data){
+
+    	socket.broadcast.to(data.caller_number).emit('dont_send_it',data);
+    })
+
+     socket.on('yes_send_it',function(data){
+
+    	socket.broadcast.to(data.caller_number).emit('yes_send_it',data);
     })
 
 

@@ -155,6 +155,14 @@ $lang['form_edit_pass']         = "Changer de mot de passe";
 $lang['form_follow_me']         = "Follow me";
 $lang['form_stop_follow']       = "Stop";
 $lang['form_allow_cam']         = "Autorisez votre caméra à filmer";
+$lang['form_file_ask']          = "veut vous envoyer un fichier";
+$lang['form_file_yes']          = "Accepter";
+$lang['form_file_decline']      = "Refuser";
+$lang['form_file_declined']     = "Fichier rejeté";
+$lang['form_file_transfert']    = "Selectionnez votre fichier à envoyer";
+$lang['form_file_asker']        = "Patientez s'il vous plait...";
+
+
 
 
 

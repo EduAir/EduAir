@@ -24,6 +24,7 @@ define('DOMAINE_NAME','kwiki');
 
 define('HOSTER', 'localhost');
 define('KIWIX_PORT', 8100);
+define('SIGNAL_SERVER','http://'.HOSTER.':8888');
 define('ZIM', 'wikipedia_fr_all_11_2013');
 define('GUTENBERG','gutenberg_fr_all_10_2014');
 

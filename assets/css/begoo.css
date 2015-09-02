@@ -924,3 +924,7 @@ padding: 0.1em;
   height: 100%;
 }
 
+.get_input input{
+  display: none;
+}
+

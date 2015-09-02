@@ -21,7 +21,7 @@ $(document).ready(function(){
             // immediately ask for camera access
             autoRequestMedia: true,
 
-            url:'http://localhost:8888'
+            url:$('.hoster').attr('signal_server')
         });
 
 

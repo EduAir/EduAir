@@ -97,88 +97,8 @@ $(document).ready(function(){
     }
 
 
-    $(".drag_file").on('dragover',dragover)
-                   .on("drop",drop);
-
-
-    $('.upload').on('change',function(evt){ 
-
-        //On récupère le fichier
-        window.files = evt.target.files;
-
-        sender();
-
-        $('.upload').val('');
-    })
-
-    
-    function drop(e) { 
-       
-        e.stopPropagation();
-        
-        e.preventDefault();
-
-        //On envoi le fichier en direct s'il est connecté
-        var dt = e.dataTransfer || (e.originalEvent && e.originalEvent.dataTransfer);
-        window.files = e.target.files || (dt && dt.files); 
-
-        $('#form_up').attr('class','alert alert-info')
-
-        sender();
-  
-        return false;
-    }
-
-
-    function dragover(){ 
-
-       $('#form_up').attr('class','alert alert-success')
-        return false;
-    }
-
-
-   
-    function sender(){
-
-        if(window.in_sending!=true){ //If we are not sending a file to another person
-
-            //This is initaitor of multiupload
-            window.denominator = window.files.length;
-            window.numerator = 1;
-            window.indice = 0;
-            window.file_receiver = window.caller_id;
-            window.in_sending = true;
-
-            show_spinner();
-
-            send_file(window.files);//We send files to this function
-        }else{
-
-        	window.notificate_it($('.upload_message').attr('in_sending'),'error','bottomRight');//Prevent if we are aready sending a file
-
-        	window.force = true; //This variable determine if the user attempted to send a new file during another proccess
-        }
-    }
-
-
-    //We display loading image
-    function show_spinner(){
-
-        $('.progressor').fadeIn();
-        $('.ended').fadeOut();     
-    }
-
-
-    //We hide image loading
-    function hide_spinner(){
-
-        $('.progressor').fadeOut();
-        $('.ended').fadeIn();
-    }
-
-
      //We send file (Take one by one)
-    function send_file(caller,room){ 
+    function send_file(caller,room){
 
       //We close the calling popup if it is open
       if(window.my_pinooy){
@@ -192,139 +112,176 @@ $(document).ready(function(){
         localVideoEl: '',
         remoteVideosEl: '',
         // dont ask for camera access
-        autoRequestMedia: false
+        autoRequestMedia: false,
           // dont negotiate media
         receiveMedia: {
           mandatory: {
             OfferToReceiveAudio: false,
             OfferToReceiveVideo: false
           }
-        }
+        },
+
+        url:$('.hoster').attr('signal_server')
       });
 
-      if(caller=='none'){ //NOne means thats im the sender
-
-        socket.emit('can_you_take_this',{'caller_number':window.user_number,'caller_name':window.username,'called_number':window.interloc_num,'room':room});
-        
-        var fileinput = document.createElement('input');
-        fileinput.type = 'file';    
-      }
 
       webrtc.joinRoom(room);
 
-      
-    }
+      // called when a peer is created
+      webrtc.on('createdPeer', function (peer) {
+           
+          // send a file
+          $("input:file").change(function  () {
+            
+            $(this).disabled = true;
+            var file = document.getElementById('filer').files[0];
+            var sender = peer.sendFile(file);
+            window.file_size = file.size;
+
+            sender.on('progress', function (bytesSent) {
+              $('.load_button').html('<a class="btn-floating btn-large waves-effect waves-light blue"><i class="mdi-device-access-time"></i></a>');
+              $('.close_filer').fadeOut();//We hide the dismiss button closing the modal
+
+              var percentage = Math.floor((bytesSent/window.file_size)*100);
+              progress_loaeder(percentage);
+            });
+
+            sender.on('complete', function () {
+              // safe to disconnect now
+              $('.load_button').html('<a class="btn-floating btn-large waves-effect waves-light red"><i class="mdi-action-done"></i></a>');
+              $('.close_filer').fadeIn();//We hide the dismiss button closing the modal
+            });  
+          });
 
 
-    function send_file_with_ajax(file){
+          // receiving an incoming filetransfer
+        peer.on('fileTransfer', function (metadata, receiver) {
+          console.log('incoming filetransfer', metadata.name, metadata);
+          config_loader_as_receiver(metadata.name);
+          receiver.on('progress', function (bytesReceived) {
+            console.log('receive progress', bytesReceived, 'out of', metadata.size);
+            $('.close_filer').fadeOut();//We hide the dismiss button closing the modal
+            var percentage = Math.floor((bytesReceived/metadata.size)*100);
+            progress_loaeder(percentage);
+          });
+        
+          // get notified when file is done
+          receiver.on('receivedFile', function (file, metadata) {
+            console.log('received file', metadata.name, metadata.size);
+            $('.load_button').html('<a class="btn-floating btn-large waves-effect waves-light red" download="'+metadata.name+'" href="'+ URL.createObjectURL(file)+'"><i class="mdi-file-file-download"></i></a>');
+            $('.close_filer').fadeIn();
 
-        window.file_name = file.name;//We take image file as an message
-        window.type_mime = file.type;
-
-        //We display popup of file
-        play_file_loader();
-
-        window.numerator = 1 + window.numerator;//We add +1 to the number of file to send
+            // close the channel
+            receiver.channel.close();
+          });
        
-        show_spinner();
-
-       var formdata = new FormData();
-       formdata.append("fichier", file);
-       var ajax = new XMLHttpRequest();
-       ajax.addEventListener("load", actionTerminee, false);
-       ajax.addEventListener("error", enErreur, false);
-       ajax.addEventListener("abort", operationAnnulee, false);
-       ajax.upload.addEventListener("progress", enProgression, false);
- 
-       ajax.open("POST", $('.message_ajax').attr('url_for_file_upload'));
-       ajax.send(formdata);
-    }
-
-
-
-    function play_file_loader(){
-
-        jQuery(document).ready(function(){
-   
-            percent_loader(0) ;   
-        })
-    }
-
-
-    function percent_loader(percent){
-
-        $('.bar').attr('style','width:'+percent+'%');
-        $('.percenter').html(percent+'%');
-    }
-
-
-    function enProgression(e){
-       var pourcentage = Math.round((e.loaded * 100) / e.total);
-       percent_loader(pourcentage);
-    }
-
-
-    function actionTerminee(e){ 
-
-        var file_name_md5 = e.target.responseText;
-        
-        var data = {'message':file_name_md5,'sender':my_ID,'receiver':window.caller_id,'file_name':window.file_name,'type_file':window.type_file};
- 
-        socket.emit('file_sended',data);
-        percent_loader(0);
-
-        //send_file_with_ajax_to_database(file_name_md5);
-
-        //On efface le loader pour le remplacer par le nom du fichier envoyé
-        $('.file_name').html(window.file_name+' <span class="glyphicon glyphicon-saved"></span>');
-
-        hide_spinner();
-        
-        window.indice = window.indice + 1; //ON incrménte l'indicce du table pour passer à l'indice suivant
-
-        send_file(window.files);//On r'appelle la fonction d'envo s'l ya d'autre fichier dans la lste d'attente
-    }
-
-    function enErreur(e){ 
-
-        window.notificate_it('Upload Failed','error','bottomRight');
-
-        window.indice = window.indice + 1; //ON incrménte l'indicce du table pour passer à l'indice suivant
-        
-        send_file(window.files);//On r'appelle la fonction d'envo s'l ya d'autre fichier dans la lste d'attente
-        percent_loader(0);
-    }
-
-    function operationAnnulee(e){
-
-        window.notificate_it($('.upload_message').attr('up_'+e),'error','bottomRight');
-
-        window.indice = window.indice + 1; //ON incrménte l'indicce du table pour passer à l'indice suivant
-        
-        send_file(window.files);//On r'appelle la fonction d'envo s'l ya d'autre fichier dans la lste d'attente
-        percent_loader(0);
-
-    }
-
-
-
-    socket.on('file_sended',function(data){ console.log(data);
-
-    	//Hide the loader
-    	hide_spinner();
-
-    	//Put the link
-        $('.file_name').html('<a href="'+$('.message_ajax').attr('url_for_file_upload_dir')+data.message+'" target="_blank" download="'+data.file_name+'" >' +data.file_name+' <span class="glyphicon glyphicon-saved"></span></a>');
-    });
-
-
-    function window_web_notification(title,message){
-
-    	var notification = new Notification(title, {
-            body: message
+          filelist.appendChild(item);
         });
+      });  
     }
 
+
+    socket.on('can_you_take_this',function  (data) {
+      window.data_sender = data;
+
+      Materialize.toast(data.caller_name+' '+$('.get_input').attr('ask')+' <a class="accept" href="accept"> &nbsp;'+$('.get_input').attr('yes')+'</a>&nbsp;&nbsp;<a class="decline" href="decline"> &nbsp;'+$('.get_input').attr('no')+'</a>')
+
+      //play a song: Todo
+      $(document).ready(function(){
+
+        $('.accept,.decline').unbind('click');
+
+        $('.accept').click(function () { 
+
+          socket.emit('yes_send_it',{'caller_number':window.data_sender.caller_number,'called_number':window.user_number,'room':window.data_sender.room});
+          send_file(window.data_sender.caller_number,window.data_sender.room);
+
+          $('#toast-container').html('');
+
+          return false;
+        });
+
+
+        
+        $('.decline').click(function () { 
+
+          socket.emit('dont_send_it',{'caller_number':window.data_sender.caller_number,'called_number':window.user_number,'room':window.data_sender.room});
+          
+          $('#toast-container').html('');
+
+          return false;
+        });
+      });
+    })
+
+    socket.on('dont_send_it',function () {
+       
+       $('#toast-container').html('');
+       Materialize.toast($('.get_input').attr('rejected'),4000);
+    })
+
+    
+    socket.on('yes_send_it',function  (data) { 
+       
+       $('#toast-container').html('');
+       config_loader_as_sender();
+       send_file('none',data.room);
+    })
+
+
+    function config_loader_as_sender () {
+      
+      $('.file_name').hide();
+      $('.choose_file').show();
+      $('.determinate').attr('style','width:0%');
+      $('.number_progress').html('');
+      open_file_transfert('sender');
+    }
+
+
+    function config_loader_as_receiver (filename) {
+      $('.file_name').show();
+      $('.file_name').html(filename);
+      $('.choose_file').hide();
+      $('.determinate').attr('style','width:0%');
+      $('.number_progress').html('');
+      open_file_transfert('receiver');
+    }
+
+    function progress_loaeder (percentage) {
+      $('.number_progress').html(percentage+'%');
+      $('.determinate').attr('style','width:'+percentage+'%');
+    }
+
+
+    function open_file_transfert (type) { 
+      
+      $('#file_transfert').openModal({
+         dismissible: false, // Modal can be dismissed by clicking outside of the modal
+         opacity: .5, // Opacity of modal background
+         in_duration: 300, // Transition in duration
+         out_duration: 200, // Transition out duration
+         ready: function() {
+          if(type=='sender'){
+            $('.load_button').html('<a class="btn-floating btn-large waves-effect waves-light red choose_file"><i class="mdi-content-add"></i></a>');
+            
+            $(document).ready(function(){
+
+              $('.choose_file').click(function() { 
+
+                 $('.get_input input').click();
+              })
+            })
+          }else{
+            $('.load_button').html('');
+          } 
+        }, // Callback for Modal open
+        complete: function() {
+            
+          } // Callback for Modal close
+      });
+
+    }
 
 	/////////////////////////////////////////////Share file///////////////////////////////////////////////////////////	
 
@@ -341,52 +298,9 @@ $(document).ready(function(){
 	
 	//////////////////////////////////////////webrtc/////////////////////////////////////////////////
 
-    var connected = false;
-	
-	var mediaStream;
-		
-
-       //Ici on envoi une photo à son interlocuteur
-        $('#takePhoto').click(function() {
-		
-             var canvas = document.getElementById('photo_ready'); 
-             
-			 canvas.getContext('2d').drawImage(document.getElementById('my_self'),0,0,320,240);
-              
-			 var data = canvas.toDataURL('image/png');
-              
-			 $('#picture').attr('src', data);
-			 
-			 $('#my_space').fadeOut();//on ferme le my_space
-		   		   
-             $('#my_tof').modal('show');//on fait appataitre la photo
-        });
-
   
-        var streamed = false;//false si on déjà accès à sa caméra et true au cas contraire
-	
-		
-		
-		
-		//Ici on envoi une photo à son interlocuteur
-        $('#sendPhoto').click(function() {
-		
-		   socket.emit('my_tof',{'interloc_num':$('#interloc').attr('number'),'sender_name':my_username,'image':$('#picture').attr('src')});
-		  
-		  window.open_my_space();//on reouvre le my_space
-		  
-		  var notify = 'Photo envoyée';
-		  window.notificate_it(notify,'information','centerLeft');//j'affiche le message en notification		
-        });
 
-
-        //Ici on annule l'envoi une photo à son interlocuteur
-        $('#Cancel_sendPhoto').click(function() {
-		
-		   window.open_my_space();//on reouvre le my_space		
-        }); 
-
-
+       
 
         /////////////////////easyrtc//////////////////////////////////////
 		
@@ -1217,7 +1131,9 @@ $(document).ready(function(){
 
                   case 'file':
                    var room = window.user_number+'_'+window.interloc_num;
-                    send_file('none',room);
+                    //Send permission
+                    Materialize.toast($('.get_input').attr('asker'));
+                    socket.emit('can_you_take_this',{'caller_number':window.user_number,'caller_name':window.username,'called_number':window.interloc_num,'room':room});
                    break;
 
                   case 'follow':

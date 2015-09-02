@@ -177,8 +177,23 @@
                        <a href="<?php echo base_url(); ?>/assets/logi/firefox.exe"><span class="waves-effect waves-light btn-large blue"><i class="icon-windows icon-white"></i> Firefox (windows XP,7,8)</span></a>  
                        <a href="<?php echo base_url(); ?>/assets/logi/chrome.exe"><span class="waves-effect waves-light btn-large blue"><i class="icon-windows icon-white"></i> Chrome (windows XP,7,8)</span></a>  
                     </div>
-               
-           
+        </div>    
+    </div>
+
+
+     <!-- For the file tranfert-->        
+    <div class="modal" id="file_transfert">
+        
+        <div class="modal-content">
+            <center>
+                <p class="red-text text-darken-2 choose_file" ><?php echo $this->lang->line('form_file_transfert'); ?></p>
+                <p class="red-text text-darken-2 file_name" ></p>
+                <span class="load_button"><a class="btn-floating btn-large waves-effect waves-light red choose_file"><i class="mdi-content-add"></i></a></span><br>
+                <div class="progress"><div class="determinate" style="width: 0%"></div></div><div class="number_progress"></div>
+            </center>
+        </div>
+        <div class="modal-footer">
+           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat close_filer">X</a>
         </div>    
     </div>
 
@@ -282,48 +297,6 @@
     <div class="no_connected" no_connected="<?php echo $this->lang->line('form_no_connected'); ?>" ></div>
 
 
-    <div class="modal hide fade " id="facetimer" aria-labelledby="facetimerLabel" data-backdrop="static" aria-hidden="false">
-        
-        <div class="modal-body drag_file">
-        	<form action="#" method="post">
-
-        		<div class="fileUpload label label-warning" style="display:none;">
-                    <span class="glyphicon glyphicon-paperclip"></span>
-                    <input type="file" class="upload" />
-                </div>
-
-        	    <div class="waiting_response"></div>
-
-        	    <div class="row progressor" style="display:none;">
-                    <div class="span4">
-                        <div class="progress progress-striped active" >
-                            <div class="bar" style="width:100%;"></div>
-                            <br>
-                            <div class="fraction">
-        				        <span class="label label-info">'+window.numerator+'/'+window.denominator+'</span>: '+window.file_name+' '+$('.upload_message').attr('up_to')+' <span class="label label-default">'+window.file_receiver_name+'</span>
-        			        </div>
-                        </div>
-                    </div>
-                    <div class="span1">
-                        <span class="badge percenter">0%</span>
-                    </div>
-                </div>
-                <div class="ended" style="display:none;"><div class="alert alert-success file_name"></div></div>
-        	    
-                
-               			
-                <video id="caller" class="facetime" src="" autoplay><div class="waiting_response"></div></video>
-            </form>
-        </div>
-
-        <div class="modal-footer">
-            <div id="form_up" class="alert alert-info">! <?php echo $this->lang->line('form_up_draganddrop'); ?></div>              
-	        <button class="btn btn-danger" id="end_this_call" data-dismiss="modal" aria-hidden="true">
-	            <i class="icon-facetime-video icon-white"></i> <?php echo $this->lang->line('form_end_call'); ?>
-	        </button>  
-        </div> 
-    </div>
-
 
     <div class="upload_message" drag="<?php echo $this->lang->line('form_up_drag'); ?>" end_sending="<?php echo $this->lang->line('form_up_end_sending'); ?>" in_sending="<?php echo $this->lang->line('form_up_in_sending'); ?>" up_to="<?php echo $this->lang->line('form_up_to'); ?>" url_ajax_list="<?php echo site_url();?>/user/record_file/" up_error_unknow="<?php echo $this->lang->line('form_up_unknow'); ?>" up_error="<?php echo $this->lang->line('form_up_error'); ?>" up_not_supported="<?php echo $this->lang->line('form_up_not_supported'); ?>" up_too_big="<?php echo $this->lang->line('form_up_too_big'); ?>"  up_no_file="<?php echo $this->lang->line('form_up_no_file'); ?>"> </div>
     <div class="loader" style="display:none;"><div class="loaderbar">Loading...</div></span> <?php echo $this->lang->line('statu_wait'); ?>...</div>
@@ -411,6 +384,8 @@
 	<span action="<?php echo site_url().'/msg/notification/ListePub/'; ?>" class="my_msg_pub" ></span>
 	<span action="<?php echo site_url().'/msg/notification/ListePub_out/'; ?>" class=" my_msg_pub_out" ></span>
 
+    <div class="get_input" asker="<?php echo $this->lang->line('form_file_asker'); ?>" rejected="<?php echo $this->lang->line('form_file_declined'); ?>" ask="<?php echo $this->lang->line('form_file_ask'); ?>" yes="<?php echo $this->lang->line('form_file_yes'); ?>" no="<?php echo $this->lang->line('form_file_decline'); ?>" ><input type="file" id="filer" name="filer"></div>
+
 	<div class="result_label" wikipedia="<?php echo $this->lang->line('form_wikipedia'); ?>" library="<?php echo $this->lang->line('form_library'); ?>" video="<?php echo $this->lang->line('form_videotek'); ?>"></div>
 
 	
@@ -434,7 +409,7 @@
 	   
 		<div id="get_API" get_random_article="<?php echo site_url().'/wikipedia/wiki/get_random_article'; ?>" ping="<?php echo site_url().'/wikipedia/wiki/ping' ; ?>" local_db="<?php echo WEB_STORAGE_NAME ; ?>" video_zim="<?php echo base_url().'assets/TED/' ; ?>" api_category="<?php echo site_url().'/wikipedia/wiki/get_category' ; ?>" api="<?php echo site_url().'/wikipedia/wiki/get_article' ; ?>" api_search="<?php echo site_url().'/wikipedia/wiki/search' ; ?>" api_search_plus="<?php echo site_url().'/wikipedia/wiki/search_plus' ; ?>"></div>
 
-		<div class="hoster" pinooy="<?php echo site_url().'/wikipedia/wiki/pinooy/' ; ?>" gutenberg="<?php echo GUTENBERG ; ?>" gutenberg_url="<?php echo site_url().'/wikipedia/wiki/' ; ?>" url="<?php echo HOSTER ; ?>" port_kiwix="<?php echo KIWIX_PORT ; ?>" host="<?php echo HOST ; ?>" host_wiki="<?php echo HOST_WIKI ; ?>" zim="<?php echo ZIM ; ?>" kiwix="<?php echo KIWIX ; ?>" zim_list="<?php echo ZIM_LIST ; ?>" url_for_seek="http://<?php echo HOSTER ; ?>:<?php echo KIWIX_PORT ; ?>/search?content="></div>
+		<div class="hoster" signal_server="<?php echo SIGNAL_SERVER ; ?>" pinooy="<?php echo site_url().'/wikipedia/wiki/pinooy/' ; ?>" gutenberg="<?php echo GUTENBERG ; ?>" gutenberg_url="<?php echo site_url().'/wikipedia/wiki/' ; ?>" url="<?php echo HOSTER ; ?>" port_kiwix="<?php echo KIWIX_PORT ; ?>" host="<?php echo HOST ; ?>" host_wiki="<?php echo HOST_WIKI ; ?>" zim="<?php echo ZIM ; ?>" kiwix="<?php echo KIWIX ; ?>" zim_list="<?php echo ZIM_LIST ; ?>" url_for_seek="http://<?php echo HOSTER ; ?>:<?php echo KIWIX_PORT ; ?>/search?content="></div>
 		
 	    <div id="site_url"  url="<?php echo site_url().'/wikipedia/wiki'; ?>"></div>
 		
