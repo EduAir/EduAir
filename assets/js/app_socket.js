@@ -66,15 +66,9 @@ $(document).ready(function(){
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 		
-    if(navigator.getUserMedia && window.Notification){
+    if(!navigator.getUserMedia){
 
-      if(window.Notification.permission=='default' || window.Notification.permission=='denied'){
-                     
-          window.Notification.requestPermission();
-        }
-    }else{
-
-      $('#browser').openModal({
+       $('#browser').openModal({
         dismissible: false
       });
     }

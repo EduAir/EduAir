@@ -762,7 +762,8 @@ $(document).ready(function(){
                         		}
                                 $('.wiki_content img').eq(i).attr('src',src);
                                 $('.wiki_content img').eq(i).parent().removeAttr('href');
-                     
+                                
+                                /* //Agrandissement de photo
                                 $('.wiki_content img').eq(i).addClass('materialboxed');
                                 $('.wiki_content img').eq(i).attr('data-caption',$('.wiki_content img').attr('title'));
 
@@ -772,7 +773,7 @@ $(document).ready(function(){
 	                                        
 	                                   $('.materialboxed').materialbox();//To enlarge the piture                                         
                                     })
-                                }
+                                }*/
                         	}                       	
                         }    
                     }
@@ -839,10 +840,12 @@ $(document).ready(function(){
         	        	}              	    
         	        })
                     
-
+                    /* //Agrandissement de photo
                     $('.wiki_content img').parent().removeAttr('href') ;
+                    
                     $('.wiki_content img').addClass('materialboxed');
                     $('.materialboxed').materialbox();//To enlarge the piture
+                    */
 
                 });
 				
