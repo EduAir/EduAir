@@ -91,88 +91,26 @@ $(document).ready(function(){
     }
 
 
-     //We send file (Take one by one)
-    function send_file(caller,room){
-
-      //We close the calling popup if it is open
-      if(window.my_pinooy){
-
-        window.my_pinooy.close();
-      }
-
-
-      var webrtc = new SimpleWebRTC({
-      // we don't do video
-        localVideoEl: '',
-        remoteVideosEl: '',
-        // dont ask for camera access
-        autoRequestMedia: false,
-          // dont negotiate media
-        receiveMedia: {
-          mandatory: {
-            OfferToReceiveAudio: false,
-            OfferToReceiveVideo: false
-          }
-        },
-
-        url:$('.hoster').attr('signal_server')
-      });
-
-
-      webrtc.joinRoom(room);
-
-      // called when a peer is created
-      webrtc.on('createdPeer', function (peer) {
-           
-          // send a file
-          $("input:file").change(function  () {
-            
-            $(this).disabled = true;
-            var file = document.getElementById('filer').files[0];
-            var sender = peer.sendFile(file);
-            window.file_size = file.size;
-
-            sender.on('progress', function (bytesSent) {
-              $('.load_button').html('<a class="btn-floating btn-large waves-effect waves-light blue"><i class="mdi-device-access-time"></i></a>');
-              $('.close_filer').fadeOut();//We hide the dismiss button closing the modal
-
-              var percentage = Math.floor((bytesSent/window.file_size)*100);
-              progress_loaeder(percentage);
-            });
-
-            sender.on('complete', function () {
-              // safe to disconnect now
-              $('.load_button').html('<a class="btn-floating btn-large waves-effect waves-light red"><i class="mdi-action-done"></i></a>');
-              $('.close_filer').fadeIn();//We hide the dismiss button closing the modal
-            });  
-          });
-
-
-          // receiving an incoming filetransfer
-        peer.on('fileTransfer', function (metadata, receiver) {
-          console.log('incoming filetransfer', metadata.name, metadata);
-          config_loader_as_receiver(metadata.name);
-          receiver.on('progress', function (bytesReceived) {
-            console.log('receive progress', bytesReceived, 'out of', metadata.size);
-            $('.close_filer').fadeOut();//We hide the dismiss button closing the modal
-            var percentage = Math.floor((bytesReceived/metadata.size)*100);
-            progress_loaeder(percentage);
-          });
-        
-          // get notified when file is done
-          receiver.on('receivedFile', function (file, metadata) {
-            console.log('received file', metadata.name, metadata.size);
-            $('.load_button').html('<a class="btn-floating btn-large waves-effect waves-light red" download="'+metadata.name+'" href="'+ URL.createObjectURL(file)+'"><i class="mdi-file-file-download"></i></a>');
-            $('.close_filer').fadeIn();
-
-            // close the channel
-            receiver.channel.close();
-          });
+    function send_file(caller,room) {
        
-          filelist.appendChild(item);
-        });
-      });  
+      if(window.my_pinooy){ //We close the popup if it is open
+
+        window.my_pinooy.close()
+      }
+      window.my_pinooy = window.open($('.hoster').attr('pinooy')+room+'/'+caller+'/'+window.user_number+'/'+window.username+'/share_file',"mywindow","status=1,width=650,height=450");
     }
+
+
+    socket.on('close_box',function () {
+      close_box();
+    })
+
+
+    function close_box () {
+
+      window.my_pinooy.close(); 
+    }
+
 
 
     socket.on('can_you_take_this',function  (data) {
@@ -218,64 +156,11 @@ $(document).ready(function(){
     socket.on('yes_send_it',function  (data) { 
        
        $('#toast-container').html('');
-       config_loader_as_sender();
        send_file('none',data.room);
     })
 
 
-    function config_loader_as_sender () {
-      
-      $('.file_name').hide();
-      $('.choose_file').show();
-      $('.determinate').attr('style','width:0%');
-      $('.number_progress').html('');
-      open_file_transfert('sender');
-    }
 
-
-    function config_loader_as_receiver (filename) {
-      $('.file_name').show();
-      $('.file_name').html(filename);
-      $('.choose_file').hide();
-      $('.determinate').attr('style','width:0%');
-      $('.number_progress').html('');
-      open_file_transfert('receiver');
-    }
-
-    function progress_loaeder (percentage) {
-      $('.number_progress').html(percentage+'%');
-      $('.determinate').attr('style','width:'+percentage+'%');
-    }
-
-
-    function open_file_transfert (type) { 
-      
-      $('#file_transfert').openModal({
-         dismissible: false, // Modal can be dismissed by clicking outside of the modal
-         opacity: .5, // Opacity of modal background
-         in_duration: 300, // Transition in duration
-         out_duration: 200, // Transition out duration
-         ready: function() {
-          if(type=='sender'){
-            $('.load_button').html('<a class="btn-floating btn-large waves-effect waves-light red choose_file"><i class="mdi-content-add"></i></a>');
-            
-            $(document).ready(function(){
-
-              $('.choose_file').click(function() { 
-
-                 $('.get_input input').click();
-              })
-            })
-          }else{
-            $('.load_button').html('');
-          } 
-        }, // Callback for Modal open
-        complete: function() {
-            
-          } // Callback for Modal close
-      });
-
-    }
 
 	/////////////////////////////////////////////Share file///////////////////////////////////////////////////////////	
 
@@ -290,14 +175,6 @@ $(document).ready(function(){
 		}
 
 	
-	//////////////////////////////////////////webrtc/////////////////////////////////////////////////
-
-  
-
-       
-
-        /////////////////////easyrtc//////////////////////////////////////
-		
 
         
         function htmlspecialchars (string, quote_style, charset, double_encode) {
@@ -442,10 +319,7 @@ $(document).ready(function(){
                       }
                   }
                 });
-            }
- 
-             
-          
+            }          
           }
 
           return false;
@@ -898,8 +772,6 @@ $(document).ready(function(){
 
               if(list_friend){
 
-                
-
                 if(list_friend.length==0){//if ther is no friend
                  //We send message to notice no friend list
                   no_friends();
@@ -1185,7 +1057,7 @@ $(document).ready(function(){
 
         window.my_pinooy.close()
       }
-      window.my_pinooy = window.open($('.hoster').attr('pinooy')+room+'/'+called+'/'+window.user_number+'/'+window.username,"mywindow","status=1,width=650,height=450");
+      window.my_pinooy = window.open($('.hoster').attr('pinooy')+room+'/'+called+'/'+window.user_number+'/'+window.username+'/video_call',"mywindow","status=1,width=650,height=450");
     }
 
   
@@ -1306,6 +1178,7 @@ $(document).ready(function(){
         
       window.my_pinooy.close();                    
     }
+
 
 
 	/////////////////////////////////////////////DUO  chat/webrtc  FIN//////////////////////////////////////////////

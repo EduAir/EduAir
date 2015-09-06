@@ -85,7 +85,7 @@ public function index()
 
 
 
-  public function pinooy($room,$called,$my_number,$my_username)
+  public function pinooy($room,$called,$my_number,$my_username,$type)
   {
     if($this->session->userdata('logged_in')){
        //On fait un array des données à transmettre aux entetes et corps de page
@@ -98,9 +98,18 @@ public function index()
       'my_number'   => $my_number,
       'my_username' => $my_username
         );
+
        
      $this->parser->parse('header/header',$data);
-     $this->parser->parse('pinooy/pinooy',$data);
+     switch ($type) {
+      case 'share_file':
+         $this->parser->parse('pinooy/share_file',$data);
+        break;
+
+      case 'video_call':
+         $this->parser->parse('pinooy/pinooy',$data);
+        break;
+     }
      $this->parser->parse('footer/footer_wiki',$data); 
     }  
      

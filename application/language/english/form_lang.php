@@ -159,6 +159,8 @@ $lang['form_file_decline']      = "Refuse";
 $lang['form_file_declined']     = "Rejected file";
 $lang['form_file_transfert']    = "Choose your fie to send";
 $lang['form_file_asker']        = "Please Wait...";
+$lang['form_file_download']     = "Download";
+
 
 
 

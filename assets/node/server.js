@@ -305,9 +305,16 @@ io.sockets.on('connection', function (socket) {
     	socket.broadcast.to(data.caller_number).emit('dont_send_it',data);
     })
 
-     socket.on('yes_send_it',function(data){
+    socket.on('yes_send_it',function(data){
 
     	socket.broadcast.to(data.caller_number).emit('yes_send_it',data);
+    })
+
+
+
+    socket.on('close_box',function  () {
+    	
+    	socket.emit('close_box');
     })
 
 

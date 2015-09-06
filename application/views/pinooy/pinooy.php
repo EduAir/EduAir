@@ -7,9 +7,7 @@
       
   
 
-
-       
-            
+    
             <div class="ask_camera_enabled">
                 <center>
                     <i class="large mdi-hardware-keyboard-arrow-up direction_up"></i>   

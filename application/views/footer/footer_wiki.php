@@ -254,34 +254,6 @@
         </div>
     </div>
 
-	
-	<div id="have_smile" class="modal">
-        <div class="modal-content">
-            
-            <div class="ask_camera_enabled">
-                <center>
-                    <i class="large mdi-hardware-keyboard-arrow-up direction_up"></i>   
-                    <p class="red-text text-darken-2" style="font-size:2em;"><?php echo $this->lang->line('form_allow_cam'); ?></p>
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat"><?php echo $this->lang->line('form_close'); ?></a>
-                </center>
-            </div>
-            
-            <div class="row pilot controler" style="display:none;">
-                <div class="col s3"><center><a class="btn-floating btn-large waves-effect waves-light have_smile orange" reason="statu_cam" statu_cam="on"><i class="cam_state mdi-av-videocam-off"></i></a></center></div>
-                <div class="col s3"><center><a class="btn-floating btn-large waves-effect waves-light have_smile orange" reason="follow_me" statu_follow="off"><i class="mdi-action-group-work"></i></a></center></div>
-                <div class="col s3"><center><a class="btn-floating btn-large waves-effect waves-light have_smile orange" reason="send_file"><i class="mdi-editor-attach-file"></i></a></center></div>
-                <div class="col s3"><center><a class="btn-floating btn-large waves-effect waves-light have_smile red"    reason="end_call"><i class="mdi-notification-phone-missed"></i></a></center></div>
-            </div>
-
-            <center>
-                <div class="small mirror pilot" style="display:none;">
-                    <video id="localVideo"></video>
-                    <div id="remotesVideos"><i class="mdi-av-videocam small"></i><br></div>    
-                </div>
-            </center>
-            
-        </div>
-    </div>
 
 
 
@@ -384,7 +356,7 @@
 	<span action="<?php echo site_url().'/msg/notification/ListePub/'; ?>" class="my_msg_pub" ></span>
 	<span action="<?php echo site_url().'/msg/notification/ListePub_out/'; ?>" class=" my_msg_pub_out" ></span>
 
-    <div class="get_input" asker="<?php echo $this->lang->line('form_file_asker'); ?>" rejected="<?php echo $this->lang->line('form_file_declined'); ?>" ask="<?php echo $this->lang->line('form_file_ask'); ?>" yes="<?php echo $this->lang->line('form_file_yes'); ?>" no="<?php echo $this->lang->line('form_file_decline'); ?>" ><input type="file" id="filer" name="filer"></div>
+    <div class="get_input" asker="<?php echo $this->lang->line('form_file_asker'); ?>" rejected="<?php echo $this->lang->line('form_file_declined'); ?>" ask="<?php echo $this->lang->line('form_file_ask'); ?>" yes="<?php echo $this->lang->line('form_file_yes'); ?>" no="<?php echo $this->lang->line('form_file_decline'); ?>" ></div>
 
 	<div class="result_label" wikipedia="<?php echo $this->lang->line('form_wikipedia'); ?>" library="<?php echo $this->lang->line('form_library'); ?>" video="<?php echo $this->lang->line('form_videotek'); ?>"></div>
 
@@ -409,7 +381,7 @@
 	   
 		<div id="get_API" get_random_article="<?php echo site_url().'/wikipedia/wiki/get_random_article'; ?>" ping="<?php echo site_url().'/wikipedia/wiki/ping' ; ?>" local_db="<?php echo WEB_STORAGE_NAME ; ?>" video_zim="<?php echo base_url().'assets/TED/' ; ?>" api_category="<?php echo site_url().'/wikipedia/wiki/get_category' ; ?>" api="<?php echo site_url().'/wikipedia/wiki/get_article' ; ?>" api_search="<?php echo site_url().'/wikipedia/wiki/search' ; ?>" api_search_plus="<?php echo site_url().'/wikipedia/wiki/search_plus' ; ?>"></div>
 
-		<div class="hoster" signal_server="<?php echo SIGNAL_SERVER ; ?>" pinooy="<?php echo site_url().'/wikipedia/wiki/pinooy/' ; ?>" gutenberg="<?php echo GUTENBERG ; ?>" gutenberg_url="<?php echo site_url().'/wikipedia/wiki/' ; ?>" url="<?php echo HOSTER ; ?>" port_kiwix="<?php echo KIWIX_PORT ; ?>" host="<?php echo HOST ; ?>" host_wiki="<?php echo HOST_WIKI ; ?>" zim="<?php echo ZIM ; ?>" kiwix="<?php echo KIWIX ; ?>" zim_list="<?php echo ZIM_LIST ; ?>" url_for_seek="http://<?php echo HOSTER ; ?>:<?php echo KIWIX_PORT ; ?>/search?content="></div>
+		<div class="hoster"  signal_server="<?php echo SIGNAL_SERVER ; ?>" pinooy="<?php echo site_url().'/wikipedia/wiki/pinooy/' ; ?>" gutenberg="<?php echo GUTENBERG ; ?>" gutenberg_url="<?php echo site_url().'/wikipedia/wiki/' ; ?>" url="<?php echo HOSTER ; ?>" port_kiwix="<?php echo KIWIX_PORT ; ?>" host="<?php echo HOST ; ?>" host_wiki="<?php echo HOST_WIKI ; ?>" zim="<?php echo ZIM ; ?>" kiwix="<?php echo KIWIX ; ?>" zim_list="<?php echo ZIM_LIST ; ?>" url_for_seek="http://<?php echo HOSTER ; ?>:<?php echo KIWIX_PORT ; ?>/search?content="></div>
 		
 	    <div id="site_url"  url="<?php echo site_url().'/wikipedia/wiki'; ?>"></div>
 		
