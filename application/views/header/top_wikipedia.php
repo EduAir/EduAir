@@ -1,6 +1,6 @@
     <!-- Navbar ================================================== -->
     <div class="navbar-fixed">
-<nav class="search_bar"> 
+    <nav class="search_bar hide-on-small-only"> 
         <div class="nav-wrapper"> 
            <a href="<?php echo site_url(); ?>" class="brand-logo right">Kwiizi</a>
             <ul>
@@ -19,13 +19,19 @@
         </div>
     </nav>
 
-    <nav class="hide-on-med-and-up back_list" style="display:none;cursor:pointer;"> 
-        <div class="nav-wrapper">  
-            <i class="mdi-navigation-chevron-left left"></i>
-            <span class="right"></span>   
+    <nav class="search_bar hide-on-med-and-up"> 
+        <div class="nav-wrapper"> 
+            <ul>
+                <li class="menu_back" style="display:none;"><a class="btn-floating btn-large waves-effect waves-light blue"><i class="mdi-hardware-keyboard-arrow-left"></i></a></li>
+                <li>
+                    <div class="input-field">
+                        <input id="searcher" type="text" class="input_search" />
+                        <label for="searcher"><i class="mdi-action-search"></i></label>
+                    </div>
+                </li>
+            </ul>  
         </div>
     </nav>
-
     </div>
     
 

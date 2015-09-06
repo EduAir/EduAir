@@ -86,7 +86,15 @@ $(document).ready(function(){
 		
 		
 		//C'est ici qu'on lit contenu de rechercher en appuyant sur recherche pour traiter
-		function search_the_string() {	
+		function search_the_string() {
+
+            
+            if(window.device=='mobile'){
+
+                if(window.page_open=='yes'){
+                    window.hide_page(); //We hide the principal page
+                }
+            }	
 
             $('.witch_zim').show('slide');
 						    

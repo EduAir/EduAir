@@ -756,6 +756,11 @@ $(document).ready(function(){
 
    
         function open_list_friend() {
+
+          if(window.device=='mobile'){
+            window.hide_page();
+          }
+
         	
         	//We take the number of friend in localStorage
             var list_friend = $.jStorage.get('my_friends',false);

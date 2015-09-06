@@ -70,6 +70,9 @@ $(document).ready(function(){
 
         	window.device ='mobile';
 
+        	$('.principal').attr('id','');
+            $('.liste').attr('id','');
+
         	    $('#form_up').fadeOut();
 
         		$('.one').show();$('.two').hide();
@@ -95,6 +98,9 @@ $(document).ready(function(){
         }else{
 
         	window.device ='standart';
+
+        	$('.principal').attr('id','horizontal-b');
+            $('.liste').attr('id','horizontal-a');
 
 		    $('.fileUpload').fadeOut();
 
@@ -151,10 +157,15 @@ $(document).ready(function(){
 
     		$('.liste').hide("slide", { direction: "left" }, 500)
 
-            $('.contenu_liste').show("slide", { direction: "left" }, 500)
+            $('.principal').show("slide", { direction: "left" }, 500)
 
             $('.liste').attr('class','liste span1');
-            $('.contenu_liste').attr('class','contenu_liste span11');
+            $('.principal').attr('class','principal col s12');
+
+            $('.principal').attr('id','');
+            $('.liste').attr('id','');
+
+            $('.menu_back').fadeIn();
 
             $('.hide_list_mobil').parent().fadeIn();
 
@@ -167,18 +178,30 @@ $(document).ready(function(){
 
     	if(window.page_open=='yes'){
 
-    		$('.contenu_liste').hide("slide", { direction: "left" }, 500)
+    		$('.principal').hide("slide", { direction: "left" }, 500)
         
             $('.liste').show("slide", { direction: "left" }, 500);
 
-            $('.liste').attr('class','liste span11');
-            $('.contenu_liste').attr('class','contenu_liste span1');
+            $('.liste').attr('class','liste col s12');
+            $('.principal').attr('class','principal');
+            
+            $('.principal').attr('id','');
+            $('.liste').attr('id','');
+
+            $('.menu_back').fadeOut();
+
 
             $('.hide_list_mobil').parent().fadeOut();
 
             window.page_open ='no';
     	}   
     }
+
+
+    $('.menu_back').click(function  () {
+    	
+    	window.hide_page();
+    })
 
   
  //$.jStorage.flush(); //décommenter pour supprimer les données téléchargés dans le cache
@@ -1256,9 +1279,8 @@ $(document).ready(function(){
 			                        //on détache les évènements précédents
 	                                $('.list_link').unbind('click');//Ne pas enlever unbind sur .cat_wiki
 	
-		                            //pour les articles de wikipedia
-			                        $('.list_link').click(function() { 
-
+		                            //pour les articles 
+			                        $('.list_link').click(function() {
 			  
 			                            if(window.device=='mobile'){ 
 
