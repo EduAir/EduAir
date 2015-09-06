@@ -1197,13 +1197,13 @@ $(document).ready(function(){
       }
 
       
-      var follow      = '<a href="follow" class="com" reason="follow"> <i class="following mdi-social-share"></i></a>';
+     // var follow      = '<a href="follow" class="com" reason="follow"> <i class="following mdi-social-share"></i></a>';
       var minimize    = '<a class="" style="color:#FFF;cursor:pointer;" >  <i class="mdi-content-remove"></i></a>';
       var close       = '<a href="close" class="com" reason="close_box">  <i class="mdi-navigation-close"></i></a>';
 
     
       $("#chat_div").chatbox({id : "chat_div",
-                                  title : '<span class="name_box truncate"></span><span class="title_box_style"><span class="ui-chatbox-icon">'+camera_chat+attach_file+follow+minimize+close+'</span></span>',
+                                  title : '<span class="name_box truncate"></span><span class="title_box_style"><span class="ui-chatbox-icon">'+camera_chat+attach_file+minimize+close+'</span></span>',
                                   user : "can be anything",
                                   hidden: false, // show or hide the chatbox
                                   offset:0,
