@@ -783,8 +783,8 @@ $(document).ready(function(){
                     
                 }else{
 
-                  $('.liste').html('<div class="user_list collection"><a href="+" class="collection-item add_friend card-panel blue-text text-darken-2">'+$('.no_friend').attr('add_contact')+'<i class="small mdi-social-person-add"></i></a></div>');
-
+                  $('.content_of_list').html('<div class="user_list collection"><a href="+" class="collection-item add_friend card-panel blue-text text-darken-2">'+$('.no_friend').attr('add_contact')+'<i class="small mdi-social-person-add"></i></a></div>');
+                  $('.other_choice').fadeOut();
                   for (var i = 0; i < list_friend.length; i++) { 
 
                     if(list_friend[0]==false){

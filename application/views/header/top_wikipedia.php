@@ -42,7 +42,24 @@
 
     <div class="row" id="page">
        
-        <div class="col s5 liste" id="horizontal-a " list_article="true" ref="yes"></div>
+        <div class="col s5 liste" id="horizontal-a " list_article="true" ref="yes">
+		 <div class="other_choice" style="display:none;">
+                <div>
+                    <a class="zim_click waves-effect waves-teal btn-flat zim_wikipedia green" title="<?php echo $this->lang->line('form_wikipedia');?>"><?php echo $this->lang->line('form_wikipedia');?></a>
+                    <a class="zim_click waves-effect waves-teal btn-flat zim_gutenberg" title="<?php echo $this->lang->line('form_library');?>"><?php echo $this->lang->line('form_library');?></a>
+                    <a class="zim_click waves-effect waves-teal btn-flat zim_TED" title="<?php echo $this->lang->line('form_videotek');?>"><?php echo $this->lang->line('form_videotek');?></a>
+                        <!-- Dropdown Trigger -->
+                    <a class='waves-effect waves-teal btn-flat plus_menu' href='#'><?php echo $this->lang->line('form_plus'); ?></a>
+                </div><br>
+                <div class="hidden_plus_menu"  style="display:none;">
+                    <a class="zim_click waves-effect waves-teal btn-flat  zim_medecine" title="<?php echo $this->lang->line('form_medecine');?>"><?php echo $this->lang->line('form_medecine');?></a>
+                    <a class="zim_click waves-effect waves-teal btn-flat  zim_linux" title="<?php echo $this->lang->line('form_linux');?>"><?php echo $this->lang->line('form_linux');?></a>
+                </div>
+
+            </div>
+            <div class="content_of_list" list_article="true"></div>
+		
+		</div>
 
         <div id="horizontal-b" class="col s7 principal">
 
@@ -67,52 +84,7 @@
                 <a class="waves-effect waves-light btn blue tooltipped historic" href="<?php echo site_url().'/search/search_wiki/historic/'; ?>" data-placement="bottom"  data-tooltip="<?php echo $this->lang->line('form_historic');?> !"><i class="mdi-action-history right"></i><?php echo $this->lang->line('form_historic');?></a>
             
             <div class="second_menu">
-            	<div class="witch_zim" style="display:none;">
-                    <div class="desktop hide-on-med-and-down">
-                        <a class="zim_click waves-effect waves-teal btn-flat zim_wikipedia green" title="<?php echo $this->lang->line('form_wikipedia');?>"><?php echo $this->lang->line('form_wikipedia');?></a>
-                        <a class="zim_click waves-effect waves-teal btn-flat zim_gutenberg" title="<?php echo $this->lang->line('form_library');?>"><?php echo $this->lang->line('form_library');?></a>
-                        <a class="zim_click waves-effect waves-teal btn-flat zim_TED" title="<?php echo $this->lang->line('form_videotek');?>"><?php echo $this->lang->line('form_videotek');?></a>
-                        <!-- Dropdown Trigger -->
-                        <a class='dropdown-button waves-effect waves-teal btn-flat' href='#' data-activates='plus_menu'><?php echo $this->lang->line('form_plus'); ?></a>
-                            <!-- Dropdown Structure -->
-                            <ul id='plus_menu' class='dropdown-content'>
-                                <li><a class="zim_click waves-effect waves-teal  zim_medecine" title="<?php echo $this->lang->line('form_medecine');?>"><?php echo $this->lang->line('form_medecine');?></a></li>
-                                <li><a class="zim_click waves-effect waves-teal  zim_linux" title="<?php echo $this->lang->line('form_linux');?>"><?php echo $this->lang->line('form_linux');?></a></li>
-                            </ul>
-
-                        </ul>
-                    	
-                    </div>
-
-                    <div class="tablet hide-on-small-only hide-on-large-only">
-                    	<a class="zim_click waves-effect waves-teal btn-flat zim_wikipedia green" title="<?php echo $this->lang->line('form_wikipedia');?>"><?php echo $this->lang->line('form_wikipedia');?></a>
-                    	<a class="zim_click waves-effect waves-teal btn-flat zim_gutenberg" title="<?php echo $this->lang->line('form_library');?>"><?php echo $this->lang->line('form_library');?></a>
-                    	<a class="zim_click waves-effect waves-teal btn-flat zim_TED" title="<?php echo $this->lang->line('form_videotek');?>"><?php echo $this->lang->line('form_videotek');?></a>
-                    	
-                        <!-- Dropdown Trigger -->
-                        <a class='dropdown-button waves-effect waves-teal btn-flat' href='#' data-activates='dropdown1'><?php echo $this->lang->line('form_plus');?></a>
-
-                        <!-- Dropdown Structure -->
-                        <ul id='dropdown1' class='dropdown-content'>
-                            <li><a class="zim_click waves-effect waves-teal zim_medecine" title="<?php echo $this->lang->line('form_medecine');?>"><?php echo $this->lang->line('form_medecine');?></a></li>
-                            <li><a class="zim_click waves-effect waves-teal zim_linux" title="<?php echo $this->lang->line('form_linux');?>"><?php echo $this->lang->line('form_linux');?></a></li>
-                        </ul>
-                    </div>
-
-                    <div class="phone hide-on-med-and-up">
-                    	<!-- Dropdown Trigger -->
-                        <a class='dropdown-button waves-effect waves-teal btn-flat' href='#' data-activates='dropdown2'><?php echo $this->lang->line('form_plus');?></a>
-
-                        <!-- Dropdown Structure -->
-                        <ul id='dropdown2' class='dropdown-content'>
-                           <li><a class="zim_click waves-effect waves-teal  zim_wikipedia green" title="<?php echo $this->lang->line('form_wikipedia');?>"><?php echo $this->lang->line('form_wikipedia');?></a></li>
-                    	   <li><a class="zim_click waves-effect waves-teal  zim_gutenberg" title="<?php echo $this->lang->line('form_library');?>"><?php echo $this->lang->line('form_library');?></a></li>
-                    	   <li><a class="zim_click waves-effect waves-teal  zim_TED" title="<?php echo $this->lang->line('form_videotek');?>"><?php echo $this->lang->line('form_videotek');?></a></li>
-                    	   <li><a class="zim_click waves-effect waves-teal  zim_medecine" title="<?php echo $this->lang->line('form_medecine');?>"><?php echo $this->lang->line('form_medecine');?></a></li>
-                    	   <li><a class="zim_click waves-effect waves-teal  zim_linux" title="<?php echo $this->lang->line('form_linux');?>"><?php echo $this->lang->line('form_linux');?></a></li>
-                        </ul>
-                    </div>
-            	</div>
+            	
                 <div class="row">
                     <div class="col s3"> 
 				
