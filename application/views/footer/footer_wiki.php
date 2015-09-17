@@ -171,12 +171,11 @@
         <div class="modal-content">
             
                
-                   <p class="red-text text-darken-2" ><?php echo $this->lang->line('form_browser'); ?></p>
-                    <a class="waves-effect waves-light btn hide-on-large-only blue" href="<?php echo base_url(); ?>/assets/logi/com.android.chrome.apk"><i class="mdi-action-android"></i> Chrome (Android)</a>
-                    <div class="hide-on-med-and-down">
-                       <a href="<?php echo base_url(); ?>/assets/logi/firefox.exe"><span class="waves-effect waves-light btn-large blue"><i class="icon-windows icon-white"></i> Firefox (windows XP,7,8)</span></a>  
-                       <a href="<?php echo base_url(); ?>/assets/logi/chrome.exe"><span class="waves-effect waves-light btn-large blue"><i class="icon-windows icon-white"></i> Chrome (windows XP,7,8)</span></a>  
-                    </div>
+                    <p class="red-text text-darken-2" ><?php echo $this->lang->line('form_browser'); ?></p>
+                    <a class="waves-effect waves-light btn blue" href="<?php echo base_url(); ?>/assets/logi/com.android.chrome.apk"><i class="mdi-action-android"></i> Chrome (Android)</a><br>
+                    <a href="<?php echo base_url(); ?>/assets/logi/firefox.exe"><span class="waves-effect waves-light btn-large blue"><i class="icon-windows icon-white"></i> Firefox (windows XP,7,8)</span></a><br>  
+                    <a href="<?php echo base_url(); ?>/assets/logi/chrome.exe"><span class="waves-effect waves-light btn-large blue"><i class="icon-windows icon-white"></i> Chrome (windows XP,7,8)</span></a>  
+                   
         </div>    
     </div>
 
@@ -377,7 +376,6 @@
 
 	<span class="ted_video_message" help_language="<?php echo $this->lang->line('form_help_ted'); ?>" go_back="<?php echo $this->lang->line('form_help_back'); ?>"></span>
 
-	
 	   
 		<div id="get_API" get_random_article="<?php echo site_url().'/wikipedia/wiki/get_random_article'; ?>" ping="<?php echo site_url().'/wikipedia/wiki/ping' ; ?>" local_db="<?php echo WEB_STORAGE_NAME ; ?>" video_zim="<?php echo base_url().'assets/TED/' ; ?>" api_category="<?php echo site_url().'/wikipedia/wiki/get_category' ; ?>" api="<?php echo site_url().'/wikipedia/wiki/get_article' ; ?>" api_search="<?php echo site_url().'/wikipedia/wiki/search' ; ?>" api_search_plus="<?php echo site_url().'/wikipedia/wiki/search_plus' ; ?>"></div>
 

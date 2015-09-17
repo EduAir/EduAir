@@ -70,7 +70,14 @@ $(document).ready(function(){
 
         	window.device ='mobile';
 
+        	$('.logo_kwiki').attr('height','') ;//We resise the logo image
+        	$('.logo_kwiki').css('width','70%') ;//We resise the logo image
+        	$('.logo_kwiki').css('height','') ;//We resise the logo image
+
+
         	$('.principal').attr('id','');
+        	$('.principal').removeClass('col');
+        	$('.principal').removeClass('s7');
             $('.liste').attr('id','');
 
         	    $('#form_up').fadeOut();
@@ -99,7 +106,14 @@ $(document).ready(function(){
 
         	window.device ='standart';
 
+        	$('.logo_kwiki').css('width','') ;//We resise the logo image
+        	$('.logo_kwiki').css('height','100px') ;//We resise the logo image
+
+
         	$('.principal').attr('id','horizontal-b');
+        	$('.principal').addClass('col');
+        	$('.principal').addClass('s7');
+
             $('.liste').attr('id','horizontal-a');
 
 		    $('.fileUpload').fadeOut();

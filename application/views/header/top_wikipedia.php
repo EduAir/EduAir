@@ -11,9 +11,10 @@
                         <label for="searcher"><i class="mdi-action-search"></i></label>
                     </div>
                 </li>
+                 
                 <li><a class="hello follow_me" reason="follow_me" href="follow_me"><?php echo $this->lang->line('form_follow_me');?></a></li>
-                <li><a href="components.html">Notification </a></li>
-                <li><a href="javascript.html">Profil</i></a></li>
+                <!--<li><a href="components.html">Notification </a></li>
+                <li><a href="javascript.html">Profil</i></a></li>-->
             </ul>  
                 
         </div>
