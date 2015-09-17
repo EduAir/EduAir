@@ -475,56 +475,33 @@ public function explodeIt_and_FeelPAgeId()
     public function search_plus(){
 
     	 //on définit les règles de succès: 	      
-	    $this->form_validation->set_rules('url','url','required|trim');
+	    $this->form_validation->set_rules('zim_file','zim_file','required|trim');
+      $this->form_validation->set_rules('page','page','required|trim');
+      $this->form_validation->set_rules('string_search','string_search','required|trim');
+      $this->form_validation->set_rules('zim','string_search','required|trim');
   	
 	    if($this->form_validation->run()) 
-		{ 	          
-		   
-		   $url = str_replace('http://'.HOSTER,'http://'.HOSTER.':'.KIWIX_PORT,str_replace('http://'.DOMAINE_NAME,'http://'.HOSTER,str_replace("'","%27",str_replace(' ','+',$this->input->post('url')))));//Des apostrophes par des %27
-		   
-           $response = file_get_contents($url);
-       
-            if($response)
-            { 
+		  { 	          
+		     //We get the zim file now
+          $str_data = file_get_contents(base_url().'assets/json/zim.json');
 
-               $header = $this->get_class_by_name($response,'header');
+		      $data = json_decode($str_data,true);
 
-               $footer = $this->get_class_by_name($response,'footer');
+          $page_end = $this->input->post('page')+25;
 
-               $result = $this->get_class_by_name($response,'results');
+          $response = file_get_contents('http://'.HOSTER.':'.KIWIX_PORT.'/search?content='.$this->input->post('zim_file').'&pattern='.$this->input->post('string_search').'%20&start='.$this->input->post('page').'&end='.$page_end);
 
-               $statu  = 'success';
+          $header   = $this->get_class_by_name($response,'header');
 
-            }else{
+          $footer   = $this->get_class_by_name($response,'footer');
 
-               $header = false;
+          $result   = $this->get_class_by_name($response,'results');
 
-               $footer = false;
+          $response = array('header' =>$header,'footer'=>$footer,'result'=>$result,'zim'=>$this->input->post('zim'),'zim_file'=>$this->input->post('zim_file'));
 
-               $result = $this->lang->line('form_error');
-
-               $statu  = 'fail';
-            }		  
-		}else{
-
-			$header = false;
-
-			$footer = false;
-
-            $result = validation_errors();
-
-            $statu  = 'fail';
-		}
-
-		$reponses['header']              = $header;
-		$reponses['footer']              = $footer;
-		$reponses['result']              = $result;
-		$reponses['statu']               = $statu;
-  
-	    // on a notre objet $reponse (un array en fait)
-        // reste juste à l'encoder en JSON et l'envoyer
-        header('Content-Type: application/json');
-        echo json_encode($reponses);  
+          header('Content-Type: application/json');
+          echo json_encode($response);   
+		  }
     }
 
 

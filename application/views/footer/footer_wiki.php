@@ -291,7 +291,8 @@
 		    }
 		?>
 	
-	<div class="plus_menu" plus_menu="<?php echo $this->lang->line('form_plus'); ?>"></div>
+    <div class="plus_menu" plus_menu="<?php echo $this->lang->line('form_plus'); ?>"></div>
+	<div class="plus_result" plus_result="<?php echo $this->lang->line('form_plus_result'); ?>"></div>
 
 	<!-- url pour les critiques -->
 	<div id="url_critik" action="<?php echo site_url().'/user/user/critik'; ?>" ></div>

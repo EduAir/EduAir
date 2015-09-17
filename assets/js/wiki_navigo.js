@@ -1417,24 +1417,16 @@ $(document).ready(function(){
                                     }); 
 
                                      //Gestion du bouton pour afficher plus d'articles
+                                    $('.plus_wiki_b').unbind();
                                     $('.plus_wiki_b').click(function(){
 
                                         //On affiche la box pour patienter
-                                        $('#info_msg_wait').html($('#Please_wait').html()).fadeIn();
+                                        $('.this_progress').fadeIn();
 
-                                        //ON récupère l'url actuel
-                                        var form_data = {url: window.nbre_page_resultat[window.nbre_page_resultat_actuel]};
-
-                                        //On remplace par l'url suivant s'il y en a
-                                        if(window.nbre_page_resultat.length>=window.nbre_page_resultat_actuel){
-
-        	                                window.nbre_page_resultat_actuel = window.nbre_page_resultat_actuel+1;
-                                        }else{
-
-                                        	$('.plus_wiki_b').fadeOut();//On cache le bouton plus s'il n y a plus de résultats
-                                        }
-					   
-	                                    $.ajax({ 
+                                        //We prepare results
+                                        var form_data = {'zim_file':window.actual_zim,'page':window.actual_number_of_result,'string_search':window.chaine,'zim':window.actual_zim_type};
+                                        console.log(form_data);
+                                        $.ajax({ 
 
                                             url: $('#get_API').attr('api_search_plus'),
 
@@ -1453,35 +1445,30 @@ $(document).ready(function(){
                                             data: form_data,
 
                                             success: function(papi) {
-							                    //regardons si on a un résultat
-							                    //si oui
-							                    if(papi.statu =='success')
-							                    {
-												
-								                    $('.stock_engine').html(papi.result);//ON met le résultal dans un div
-
-								                    $('.liste_click').append($('.results ul').html()).fadeIn('slow');//On extrait du résultat ce qui nous interesse
-
-								                    $('.stock_engine').html('');//O efface le contenu de ce div pour économiser la mémoire de l'user
-
-								                    $(document).ready(function(){
-
-                                                        window.click_by_url();//Gestion des clicks des articles
-								                    });						                         						                         
 							                    
-							                        //On cache le bouton plus s'il nya plus de rsultat
-                                                    if(window.nbre_page_resultat.length==window.nbre_page_resultat_actuel){
+												    switch(window.actual_zim_type){
+												   	  case'wikipedia':
+												   	    window.list_wikipedia(papi,true);
+												   	  break;
 
-                                        	            $('.plus_wiki_b').fadeOut();
-                                                    }
-							                    
-                                                    $('.header_result').html(papi.header);//On affiche l'avancement des résultats
-							                    }	 
+												   	  case'gutenberg':
+												   	    window.list_gutenberg(papi,true);
+												   	  break;
+
+												   	  case'ubuntu':
+												   	    window.list_ubuntu(papi,true);
+												   	  break;
+
+												   	  case'medecine':
+												   	    window.list_medecine(papi,true);
+												   	  break;
+												    }
+							                    	 
 						                        
                                                 $('#info_msg_wait').fadeOut();//On efface la box qui fait patienter 		 
 					                        }
                                         });
-				   			
+
                                         return false;   
                                     });
 

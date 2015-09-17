@@ -108,6 +108,7 @@ $(document).ready(function(){
 				}
 				else{
 
+                   window.chaine = chaine;
 					//On affiche certains menu cachés
 					$('.install').fadeIn();
 
@@ -167,11 +168,11 @@ $(document).ready(function(){
                             switch (papi.zim){
 
                                 case 'wikipedia':
-                                list_wikipedia(papi);
+                                window.list_wikipedia(papi,false);
                                 break;
 
                                 case 'gutenberg':
-                                list_gutenberg(papi);
+                                window.list_gutenberg(papi,false);
                                 break;
 
                                 case 'TED':
@@ -179,11 +180,11 @@ $(document).ready(function(){
                                 break;
 
                                 case 'ubuntu':
-                                list_ubuntu(papi);
+                                window.list_ubuntu(papi,false);
                                 break;
 
                                 case 'medecine':
-                                list_medecine(papi);
+                                window.list_medecine(papi,false);
                                 break;
                             }
                         } 	
@@ -215,18 +216,30 @@ $(document).ready(function(){
 
 
 
-        function list_wikipedia (papi) {
+        window.list_wikipedia = function (papi,plus) {
              
 
         	//We get image of article in a json file
-        	$.getJSON($('#url_json').attr('url')+'image.json?'+ new Date().getTime(), function(data) { console.log(data)
+        	$.getJSON($('#url_json').attr('url')+'image.json?'+ new Date().getTime(), function(data) { 
 
                 $('.stock_engine_wikipedia').html(papi.result);//ON met le résultal dans un div
 
                 var nber_li = $('.stock_engine_wikipedia li').length;
 
-                $('.content_of_list').html('<div class="receive_list collection"></div>');
+                //These datas are for the the plus botton for more search
+                window.actual_zim = papi.zim_file;
+                window.actual_zim_type = papi.zim;
 
+                if(plus==false){
+                    window.actual_number_of_result = 25;
+                    $('.content_of_list').html('<div class="receive_list collection"></div><center><div class="progress this_progress" style="display:none"><div class="indeterminate"></div></div><a class="btn-floating btn-large waves-effect waves-light blue plus_wiki_b"><i class="mdi-content-add"></i></a><a class="blue-text text-darken-2 plus_wiki_b" href="plus"> '+$('.plus_result').attr('plus_result') +' (<span class="rango">'+papi.header.replace('Results','')+'</span>)</a></center>');
+
+                }else{
+                    window.actual_number_of_result = window.actual_number_of_result+25;
+
+                    $('.rango').text(papi.header.replace('Results',''));
+                }
+                                
                 window.number_color=0;
 
                 var reagi;
@@ -267,7 +280,23 @@ $(document).ready(function(){
                             $('.stock_engine_wikipedia').html('');//Wipe the temporally container
 
                             $('#info_msg_wait').fadeOut();//On efface la box qui fait patienter	
+
+                            //We keep the global number of result
+                            window.number_of_result_string = $.trim($('.rango').text()).split(' ');
+                            window.number_of_result = window.number_of_result_string[2];
+                            
+                            //We hide the plus botton if there is no more result
+                            window.last_number = window.number_of_result_string[0].split('-');
+                            window.last_number = window.last_number[1]
+                            if(window.last_number==window.number_of_result){
+                                
+                                $('.plus_wiki_b').fadeOut();
+                            }else{
+                                $('.plus_wiki_b').fadeIn();
+                            }
 					    });
+
+                        $('.this_progress').fadeOut();
             	    }
                 }
             });  
@@ -275,13 +304,24 @@ $(document).ready(function(){
 
 
 
-        function list_gutenberg (papi) {
+        window.list_gutenberg = function (papi,plus) {
             
             $('.stock_engine_gutenberg').html(papi.result);//ON met le résultal dans un div
 
             var nber_li = $('.stock_engine_gutenberg li').length;
 
-            $('.content_of_list').html('<div class="receive_list collection"></div>');
+            window.actual_zim = papi.zim_file;
+            window.actual_zim_type = papi.zim;
+
+            if(plus==false){
+                    window.actual_number_of_result = 25;
+                    $('.content_of_list').html('<div class="receive_list collection"></div><center><div class="progress this_progress" style="display:none"><div class="indeterminate"></div></div><a class="btn-floating btn-large waves-effect waves-light blue plus_wiki_b"><i class="mdi-content-add"></i></a><a class="blue-text text-darken-2 plus_wiki_b" href="plus"> '+$('.plus_result').attr('plus_result') +' (<span class="rango">'+papi.header.replace('Results','')+'</span>)</a></center>');
+
+                }else{
+                    window.actual_number_of_result = window.actual_number_of_result+25;
+
+                    $('.rango').text(papi.header.replace('Results',''));
+                }
 
             window.number_color=0;
 
@@ -306,8 +346,24 @@ $(document).ready(function(){
 
                             $('.stock_engine_gutenberg').html('');//Wipe the temporally container
 
-                            $('#info_msg_wait').fadeOut();//On efface la box qui fait patienter 
+                            $('#info_msg_wait').fadeOut();//On efface la box qui fait patienter
+
+                            //We keep the global number of result
+                            window.number_of_result_string = $.trim($('.rango').text()).split(' ');
+                            window.number_of_result = window.number_of_result_string[2];
+                            
+                            //We hide the plus botton if there is no more result
+                            window.last_number = window.number_of_result_string[0].split('-');
+                            window.last_number = window.last_number[1];
+                           
+                            if(window.last_number==window.number_of_result){
+                                
+                                $('.plus_wiki_b').fadeOut();
+                            }else{
+                                $('.plus_wiki_b').fadeIn();
+                            } 
                         });
+                    $('.this_progress').fadeOut();
                 }
             }   
         }
@@ -396,13 +452,26 @@ $(document).ready(function(){
 
 
 
-         function list_ubuntu (papi) {
+        window.list_ubuntu =  function (papi,plus) {
 
             $('.stock_engine_wikipedia').html(papi.result);//ON met le résultal dans un div
 
             var nber_li = $('.stock_engine_wikipedia li').length;
 
-            $('.content_of_list').html('<div class="receive_list collection"></div>');
+            //These datas are for the the plus botton for more search
+                window.actual_zim = papi.zim_file;
+                window.actual_zim_type = papi.zim;
+
+                if(plus==false){
+
+                    window.actual_number_of_result = 25;
+                    $('.content_of_list').html('<div class="receive_list collection"></div><center><div class="progress this_progress" style="display:none"><div class="indeterminate"></div></div><a class="btn-floating btn-large waves-effect waves-light blue plus_wiki_b"><i class="mdi-content-add"></i></a><a class="blue-text text-darken-2 plus_wiki_b" href="plus"> '+$('.plus_result').attr('plus_result') +' (<span class="rango">'+papi.header.replace('Results','')+'</span>)</a></center>');
+
+                }else{
+                    window.actual_number_of_result = window.actual_number_of_result+25;
+
+                    $('.rango').text(papi.header.replace('Results',''));
+                }
 
             window.number_color=0;
 
@@ -427,14 +496,29 @@ $(document).ready(function(){
                         $('.stock_engine_wikipedia').html('');//Wipe the temporally container
 
                         $('#info_msg_wait').fadeOut();//On efface la box qui fait patienter 
+
+                         //We keep the global number of result
+                            window.number_of_result_string = $.trim($('.rango').text()).split(' ');
+                            window.number_of_result = window.number_of_result_string[2];
+                            
+                            //We hide the plus botton if there is no more result
+                            window.last_number = window.number_of_result_string[0].split('-');
+                            window.last_number = window.last_number[1]
+                            if(window.last_number==window.number_of_result){
+                                
+                                $('.plus_wiki_b').fadeOut();
+                            }else{
+                                $('.plus_wiki_b').fadeIn();
+                            }
                     });
+                $('.this_progress').fadeOut();
                 }
             }          
         }
 
 
 
-        function list_medecine (papi) {
+        window.list_medecine =  function (papi,plus) {
 
             //We get image of article in a json file
             $.getJSON($('#url_json').attr('url')+'image_medecine.json?'+ new Date().getTime(), function(data) { 
@@ -443,7 +527,21 @@ $(document).ready(function(){
 
                 var nber_li = $('.stock_engine_wikipedia li').length;
 
-                $('.content_of_list').html('<div class="receive_list collection"></div>');
+                
+            //These datas are for the the plus botton for more search
+                window.actual_zim = papi.zim_file;
+                window.actual_zim_type = papi.zim;
+
+                if(plus==false){
+
+                    window.actual_number_of_result = 25;
+                    $('.content_of_list').html('<div class="receive_list collection"></div><center><div class="progress this_progress" style="display:none"><div class="indeterminate"></div></div><a class="btn-floating btn-large waves-effect waves-light blue plus_wiki_b"><i class="mdi-content-add"></i></a><a class="blue-text text-darken-2 plus_wiki_b" href="plus"> '+$('.plus_result').attr('plus_result') +' (<span class="rango">'+papi.header.replace('Results','')+'</span>)</a></center>');
+
+                }else{
+                    window.actual_number_of_result = window.actual_number_of_result+25;
+
+                    $('.rango').text(papi.header.replace('Results',''));
+                }
 
                 window.number_color=0;
 
@@ -482,7 +580,23 @@ $(document).ready(function(){
                             $('.stock_engine_wikipedia').html('');//Wipe the temporally container
 
                             $('#info_msg_wait').fadeOut();//On efface la box qui fait patienter 
+
+                             //We keep the global number of result
+                            window.number_of_result_string = $.trim($('.rango').text()).split(' ');
+                            window.number_of_result = window.number_of_result_string[2];
+                            
+                            //We hide the plus botton if there is no more result
+                            window.last_number = window.number_of_result_string[0].split('-');
+                            window.last_number = window.last_number[1]
+                            if(window.last_number==window.number_of_result){
+                                
+                                $('.plus_wiki_b').fadeOut();
+                            }else{
+                                $('.plus_wiki_b').fadeIn();
+                            }
                         });
+
+                    $('.this_progress').fadeOut();
                     }
                 }
             });  
