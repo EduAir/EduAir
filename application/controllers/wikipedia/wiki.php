@@ -116,6 +116,23 @@ public function index()
   }
 
 
+  public function see_video($file_hash)
+  {
+    
+       //On fait un array des données à transmettre aux entetes et corps de page
+      $data = array(
+      'title'       => 'Kwiizi',
+      'h1'          => 'Kwiizi',
+      'top'         => 'Video',
+      'file_hash'   =>  $file_hash
+        );
+
+      $this->parser->parse('header/header',$data);
+      $this->parser->parse('wikipedia/video',$data);
+      $this->parser->parse('footer/footer_wiki',$data); 
+  }
+
+
 
 	
 	
@@ -513,6 +530,55 @@ public function explodeIt_and_FeelPAgeId()
     }
 
 
+
+    public function record_file(){
+
+       //on définit les règles de succès:         
+      $this->form_validation->set_rules('title','title','required|trim');
+      $this->form_validation->set_rules('hash','hash','required|trim');
+      $this->form_validation->set_rules('copy_to_disc','copy_to_disc','required|trim');
+      $this->form_validation->set_rules('size','size','required|trim');
+    
+      if($this->form_validation->run()) 
+      { 
+        $response = $this->wikis->record_file($this->input->post('title'),$this->input->post('hash'),$this->input->post('copy_to_disc'),$this->input->post('size'));            
+        
+        if($response)
+        {
+          header('Content-Type: application/json');
+          echo json_encode($response);   
+        }else{
+          echo "fail";
+        } 
+      }
+    }
+
+
+    public function complete_record_file(){
+
+       //on définit les règles de succès:         
+      $this->form_validation->set_rules('category','category','trim');
+      $this->form_validation->set_rules('file_hash','hash','required|trim');
+      $this->form_validation->set_rules('description','description','trim');
+    
+      if($this->form_validation->run()) 
+      {             
+        $this->wikis->complete_record_file($this->input->post('category'),$this->input->post('description'),$this->input->post('file_hash'));
+      }
+    }
+
+
+
+
+    public function update_view_file($file_hash)
+    {
+    
+      $this->wikis->update_view_file($file_hash);         
+    }
+
+
+
+
       //Cette fonction va chercher les articles hasard de wikipedia sur Kiwix
     public function get_random_article(){ //http://library.kiwix.org/random?content=wiktionary_fr_all
 	            
@@ -543,8 +609,8 @@ public function explodeIt_and_FeelPAgeId()
             }		  
 		
 
-		$reponses['page_title']              = $title_text;
-		$reponses['page_text']               = $full_text;
+		      $reponses['page_title']              = $title_text;
+		      $reponses['page_text']               = $full_text;
   
 	    // on a notre objet $reponse (un array en fait)
         // reste juste à l'encoder en JSON et l'envoyer

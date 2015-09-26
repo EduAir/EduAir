@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<!-- saved from url=(0105)http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/ -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+<!-- Mobile viewport optimized -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+<!-- Title -->
+<title>Force your Raspberry Pi to mount an external USB drive every time it starts up</title>
+
+<!-- Stylesheet -->	
+<link rel="stylesheet" href="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/style.css" type="text/css">
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://kwilson.me.uk/blog/xmlrpc.php">
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://kwilson.me.uk/opensearch.xml" title="Kevin Wilson Search">
+
+<!-- WP Head -->
+<meta name="generator" content="WordPress 3.9.1">
+<meta name="template" content="Kevin Wilson Blog Theme based on Origin 0.2.9">
+<link rel="alternate" type="application/rss+xml" title="Kevin Wilson » Feed" href="http://kwilson.me.uk/blog/feed/">
+<link rel="alternate" type="application/rss+xml" title="Kevin Wilson » Comments Feed" href="http://kwilson.me.uk/blog/comments/feed/">
+
+            <div class="fit-vids-style">­<style>               .fluid-width-video-wrapper {                 width: 100%;                              position: relative;                       padding: 0;                            }                                                                                   .fluid-width-video-wrapper iframe,        .fluid-width-video-wrapper object,        .fluid-width-video-wrapper embed {           position: absolute;                       top: 0;                                   left: 0;                                  width: 100%;                              height: 100%;                          }                                       </style></div><script type="text/javascript" async="" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/ga.js"></script><script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.5 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-118210-12']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<link rel="alternate" type="application/rss+xml" title="Kevin Wilson » Force your Raspberry Pi to mount an external USB drive every time it starts up Comments Feed" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/feed/">
+<link rel="stylesheet" id="mt-shcore-style-css" href="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/shCore.css" type="text/css" media="all">
+<link rel="stylesheet" id="mt-theme-style-css" href="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/shThemeDefault.css" type="text/css" media="all">
+<link rel="stylesheet" id="origin_fancybox-stylesheet-css" href="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/jquery.fancybox-1.3.4.css" type="text/css" media="screen">
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/shCore.js"></script>
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/shAutoloader.js"></script>
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/jquery.js"></script>
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/jquery-migrate.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://kwilson.me.uk/blog/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://kwilson.me.uk/blog/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Slow Cooker Barbeque Pulled Pork" href="http://kwilson.me.uk/blog/slow-cooker-barbeque-pulled-pork/">
+<link rel="next" title="Viewing files on a Samba share that seem to be invisible from Windows" href="http://kwilson.me.uk/blog/viewing-files-on-a-samba-share-that-seem-to-be-invisible-from-windows/">
+<link rel="canonical" href="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/Force your Raspberry Pi to mount an external USB drive every time it starts up.htm">
+<link rel="shortlink" href="http://yoast.com/wordpress/bitly-shortlinks/configure-bitly/">
+
+<!-- Style settings -->
+<style type="text/css" media="all">
+html { font-size: 17px; }
+body { font-family: Georgia, serif; }
+a, a:visited, #footer a:hover, .entry-title a:hover { color: #dd5424; }
+#respond #submit, .button, a.button, .wpcf7-submit, #loginform .button-primary { background-color: #dd5424; }
+a:hover, a:focus { color: #000; }
+.syntaxhighlighter {
+  padding: 1em 0;
+  overflow-y: hidden !important;
+}
+
+p.disclaimer {
+padding: 1em;
+border: dashed 1px red;
+color: red;
+}
+
+#respond {
+width: auto;
+}
+
+#fb-root &gt; div { left:-575px !important; }
+
+@media only screen and (max-width: 767px) {
+	.wrap { max-width: 96%; }
+    #menu-primary ul li { clear: none; margin-right: 1em; }
+}
+</style>
+
+<!-- WordPress Facebook Open Graph protocol plugin (WPFBOGP v2.0.10) http://rynoweb.com/wordpress-plugins/ -->
+<meta property="fb:admins" content="557497594">
+<meta property="og:url" content="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/">
+<meta property="og:title" content="Force your Raspberry Pi to mount an external USB drive every time it starts up">
+<meta property="og:site_name" content="Kevin Wilson">
+<meta property="og:description" content="I spent a while figuring this out about a month ago with a Linux expert colleague (hi, Caz!) but didn&#39;t write any of it down because it was going to be &quot;fixed i">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://kwilson.me.uk/blog/wp-content/uploads/2012/05/profile-200.jpg">
+<meta property="og:locale" content="en_us">
+<!-- // end wpfbogp -->
+
+</head>
+
+<body class="wordpress ltr en_US parent-theme y2014 m07 d09 h19 wednesday logged-out singular singular-post singular-post-598">
+
+	
+	<div id="container">
+		
+		<div class="wrap">
+
+				
+			<div id="header">
+	
+					
+					<div id="branding">
+						
+												
+							<div id="site-title"><a href="http://kwilson.me.uk/blog" title="Kevin Wilson" rel="home"><span>Kevin Wilson</span></a></div>						
+												
+					</div><!-- #branding -->
+					
+					
+	
+	<div id="menu-primary" class="menu-container">
+
+		
+		<div class="menu"><ul id="menu-primary-items" class="sf-js-enabled"><li id="menu-item-821" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-821"><a rel="author" href="http://kwilson.me.uk/blog/about/">About</a></li>
+<li id="menu-item-911" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-911"><a href="http://kwilson.me.uk/blog/archives/">Archives</a></li>
+<li id="menu-item-921" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-921"><a rel="alternate" href="http://feeds.feedburner.com/KevinWilson" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-menu&#39;,&#39;http://feeds.feedburner.com&#39;]);">Feed</a></li>
+</ul></div>
+		
+	</div><!-- #menu-primary .menu-container -->
+
+	
+					
+					
+			<div id="site-description"><span>Code, tech, recipes, stuff.</span></div>
+	
+						
+				<div class="breadcrumb breadcrumbs"><div class="breadcrumb-trail"><a href="http://kwilson.me.uk/blog" title="Kevin Wilson" rel="home" class="trail-begin">Home</a> <span class="sep">»</span> <span class="trail-end">Force your Raspberry Pi to mount an external USB drive every time it starts up</span></div></div>	
+			</div><!-- #header -->
+	
+				
+				
+			<div id="main">
+	
+				
+	
+	<div id="content">
+
+		
+		<div class="hfeed">
+
+			
+				
+					
+					<div id="post-598" class="hentry post publish post-1 odd author-kev category-uncategorized post_tag-how-to post_tag-linux post_tag-raspberry-pi post_tag-tech">
+
+												
+						<div class="post-content">
+						
+														
+							<h1 class="post-title entry-title">Force your Raspberry Pi to mount an external USB drive every time it starts up</h1>
+							<div class="byline"><abbr class="published" title="Tuesday, September 11th, 2012, 10:15 am">September 11, 2012</abbr> · by <span class="author vcard"><a class="url fn n" href="http://kwilson.me.uk/blog/author/kev/" title="kev">kev</a></span> </div>
+							<div class="entry-content">
+								
+								<p>I spent a while figuring this out about a month ago with a Linux expert colleague (hi, Caz!) but didn’t write any of it down because it was going to be “fixed in the next release of Raspbmc”.</p>
+<p>I’m still getting the issue with the latest release so thought I’d best document the steps for when I inevitably have to do this again in another month.</p>
+<h2>The Issue</h2>
+<p>I’m using the excellent <a href="http://www.raspbmc.com/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://www.raspbmc.com&#39;]);">Raspbmc</a> distribution to turn the Pi into a mini media centre PC using XBMC. I’m using an external USB drive to store media.</p>
+<p>Sometimes, when I boot up the Pi, it doesn’t mount the external drive. So, media is unavailable and, if you do a clean through XBMC (like I did ten minutes ago), it’ll wipe all media info from the database.</p>
+<h2>The Solution</h2>
+<p>So, we need to get the drive to automatically mount when the Pi starts up.</p>
+<h3>fstab</h3>
+<p>The fstab (/etc/fstab) (or file systems table) file is a system configuration file that lists all available disks and disk partitions and indicates how they are to be initialised or otherwise integrated into the overall system’s file system.</p>
+<p>We can edit this to include our USB drive and make sure it is mounted where we want it to be on every boot.</p>
+<h3>The Location</h3>
+<p>To work out where we want the drive to mount, I found it easiest to just get the Pi to mount it itself to see where it put it by default. Then we can just use that location as our “forced” one.</p>
+<p>So, start up your Pi with the USB drive disconnected and wait till it boots. Once done, plug in the drive and wait for it to mount.</p>
+<p>Once that’s done, we need to jump into the command line (this is Linux – were you expecting anything else?). So, either open up a terminal on the machine or connect via Putty.</p>
+<p>Use the <strong>df</strong> command to work out where your device is mounted:</p>
+<div><div id="highlighter_384501" class="syntaxhighlighter  bash"><div class="toolbar"><span><a href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2 highlighted">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">pi@raspbmc:~$ </code><code class="bash functions">df</code></div><div class="line number2 index1 alt1"><code class="bash plain">Filesystem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1K-blocks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Used Available Use% Mounted on</code></div><div class="line number3 index2 alt2"><code class="bash plain">/dev/mmcblk0p3</code>&nbsp;&nbsp; <code class="bash plain">15203328&nbsp;&nbsp;&nbsp; 1468324&nbsp; 12962704&nbsp; 11% /</code></div><div class="line number4 index3 alt1"><code class="bash plain">/dev/mmcblk0p1</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="bash plain">71569&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4365&nbsp;&nbsp;&nbsp;&nbsp; 67204&nbsp;&nbsp; 7% </code><code class="bash plain">/boot</code></div><div class="line number5 index4 alt2 highlighted"><code class="bash plain">/dev/sda1</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="bash plain">1953512000 1897227140&nbsp; 56284860&nbsp; 98% </code><code class="bash plain">/media/usb0</code></div></div></td></tr></tbody></table></div></div>
+<p>From that result, I can see that my USB drive is device <strong>/dev/sda1</strong> and is mounted at <strong>/media/usb0</strong>. Take note of these two values; this is where we’ll mount it within <em>fstab</em>.</p>
+<h3>Edit fstab</h3>
+<p>You can edit the <em>fstab</em> file using the built-in text editor. This is a system file, so you’ll need to use sudo to edit it as root. So use <strong>sudo pico /etc/fstab</strong>.</p>
+<p>This will bring up a text editor with something like this:</p>
+<div><div id="highlighter_905051" class="syntaxhighlighter  bash"><div class="toolbar"><span><a href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">GNU nano 2.2.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; File: </code><code class="bash plain">/etc/fstab</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="bash plain">proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="bash plain">/proc</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="bash plain">proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</code></div><div class="line number4 index3 alt1"><code class="bash plain">devpts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="bash plain">/dev/pts</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="bash plain">devpts&nbsp;&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</code></div><div class="line number5 index4 alt2"><code class="bash plain">/dev/mmcblk0p1</code>&nbsp;&nbsp;&nbsp; <code class="bash plain">/boot</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="bash plain">vfat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</code></div><div class="line number6 index5 alt1"><code class="bash plain">/dev/mmcblk0p2</code>&nbsp;&nbsp;&nbsp; <code class="bash plain">none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</code></div><div class="line number7 index6 alt2"><code class="bash plain">/dev/mmcblk0p3</code>&nbsp;&nbsp;&nbsp; <code class="bash plain">/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; defaults,noatime&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</code></div></div></td></tr></tbody></table></div></div>
+<p>We can ignore the existing content. All we want to do is add another entry at the bottom for our USB drive.</p>
+<p>The columns are as follows:</p>
+<ol>
+<li>The device name or other means of locating the partition or data source.</li>
+<li>The mount point, where the data is to be attached to the filesystem.</li>
+<li>The filesystem type, or the algorithm used to interpret the filesystem.</li>
+<li>Options, including if the filesystem should be mounted at boot.</li>
+<li>dump-freq adjusts the archiving schedule for the partition (used by dump).</li>
+<li>pass-num Controls the order in which fsck checks the device/partition for errors at boot time. The root device should be 1. Other partitions should be either 2 (to check after root) or 0 (to disable checking for that partition altogether).</li>
+</ol>
+<p>A value of zero in either of the last 2 columns disables the corresponding feature.</p>
+<p>I know that my USB drive is NTFS, so this is the entry I’ll be adding:</p>
+<div><div id="highlighter_986362" class="syntaxhighlighter  bash"><div class="toolbar"><span><a href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">/dev/sda1</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="bash plain">/media/usb0</code>&nbsp;&nbsp;&nbsp;&nbsp; <code class="bash plain">ntfs-3g&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</code></div></div></td></tr></tbody></table></div></div>
+<p>If my drive had been FAT, I’d use <strong>vfat</strong> instead of <strong>ntfs-3g</strong>.</p>
+<h3>Save the settings</h3>
+<p>To save your settings, use <em>Ctrl + X</em> to exit Pico. You’ll be prompted on whether you want to save so select <em>Y</em>.</p>
+<p>You’ll now be asked to enter a save filename. This will already be filled in with the current filename so just hit return to accept that.</p>
+<p>So, there you have it. You can now restart your Pi as much as you want and your drive should always be mounted where you expect it.</p>
+<h2>Thanks</h2>
+<p>A large chunk of this came from picking the brain of <a href="https://twitter.com/caszimodo" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://twitter.com&#39;]);">Caz</a>, so many thanks for that.</p>
+								
+																
+							</div><!-- .entry-content -->
+
+							<div class="entry-meta"><span class="post_tag"><span class="before">Tags: </span><a href="http://kwilson.me.uk/blog/tag/how-to/" rel="tag">How To</a>, <a href="http://kwilson.me.uk/blog/tag/linux/" rel="tag">Linux</a>, <a href="http://kwilson.me.uk/blog/tag/raspberry-pi/" rel="tag">Raspberry Pi</a>, <a href="http://kwilson.me.uk/blog/tag/tech/" rel="tag">Tech</a></span></div>
+													
+						</div><!-- .post-content -->
+
+					</div><!-- .hentry -->
+
+					
+					
+					
+					
+<div id="comments-template">
+
+	<div class="comments-wrap">
+
+		<div id="comments">
+
+			
+				<h3 id="comments-number" class="comments-header block-title"><span>15 Responses</span></h3>
+
+				
+				<ol class="comment-list">
+					
+	<li id="comment-361" class="comment even thread-even depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="Mathias" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/2d9d97a000e221f874ac8896efd42b30" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Mathias</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Friday, September 28th, 2012, 10:35 pm">September 28, 2012</abbr> at <abbr class="comment-time" title="Friday, September 28th, 2012, 10:35 pm">22:35</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=361#respond" onclick="return addComment.moveForm(&quot;comment-361&quot;, &quot;361&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>thank you! it helped me a lot ! (French)</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-371" class="comment odd alt thread-odd thread-alt depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="Manaf" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/6c327201ffa048f993138758bfd3e106" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Manaf</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Friday, November 30th, 2012, 12:29 pm">November 30, 2012</abbr> at <abbr class="comment-time" title="Friday, November 30th, 2012, 12:29 pm">12:29</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=371#respond" onclick="return addComment.moveForm(&quot;comment-371&quot;, &quot;371&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Hi.<br>
+Thanks for this informative post.<br>
+I struggled with this issue for a long time but gave up. </p>
+<p>What I really wanted was to modify the default rasbpmc behavior when it automounts. </p>
+<p>Do you know how to do this?</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	<ol class="children">
+
+	<li id="comment-381" class="comment byuser comment-author-kev bypostauthor even depth-2 comment role-administrator role-backwpup_admin user-kev entry-author has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="Kevin Wilson" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/45a6f0e5fdd57e16c9f0c229ced58976" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Kevin Wilson</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Friday, November 30th, 2012, 12:36 pm">November 30, 2012</abbr> at <abbr class="comment-time" title="Friday, November 30th, 2012, 12:36 pm">12:36</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=381#respond" onclick="return addComment.moveForm(&quot;comment-381&quot;, &quot;381&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>As far as I know (my knowledge of Linux is limited), you can modify the mounting behaviour for the disk in the options column of <em>fstab</em>.</p>
+<p>There are quite a few sample entries on the <a href="http://en.wikipedia.org/wiki/Fstab#Common_options_to_all_filesystems" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-comment&#39;,&#39;http://en.wikipedia.org&#39;]);" rel="nofollow">fstab Wikipedia page</a> that might help you.</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment --></ol><!-- .children -->
+</li><!-- .comment -->
+	<li id="comment-391" class="comment odd alt thread-even depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="Colin" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/c66aa7a89db457dc3f92b544fc186a24" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Colin</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Tuesday, February 19th, 2013, 3:44 pm">February 19, 2013</abbr> at <abbr class="comment-time" title="Tuesday, February 19th, 2013, 3:44 pm">15:44</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=391#respond" onclick="return addComment.moveForm(&quot;comment-391&quot;, &quot;391&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Thanks a lot Kevin, this was really helpful. Great blog over all, thanks for all your effort here!</p>
+<p>Colin.</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-401" class="comment even thread-odd thread-alt depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="anonymous" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/b1b01a4f9fea55e1bac1e4289231ebe8" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">anonymous</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Friday, March 1st, 2013, 5:06 pm">March 1, 2013</abbr> at <abbr class="comment-time" title="Friday, March 1st, 2013, 5:06 pm">17:06</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=401#respond" onclick="return addComment.moveForm(&quot;comment-401&quot;, &quot;401&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>You are a legend. I appreciate your time you put into this It helped me. I thank you for your effort. Laterz</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-411" class="comment odd alt thread-even depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="anonymous" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/b1b01a4f9fea55e1bac1e4289231ebe8" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">anonymous</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Friday, March 1st, 2013, 5:13 pm">March 1, 2013</abbr> at <abbr class="comment-time" title="Friday, March 1st, 2013, 5:13 pm">17:13</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=411#respond" onclick="return addComment.moveForm(&quot;comment-411&quot;, &quot;411&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>one more thing I wasn’t sure what my hard drive was formatted in and it took a while searching for the right command. The command I found to work was<br>
+sudo blkid<br>
+This  might help others and you might want to add this in the grate guide. And I don’t know if this makes any difference but I read somewhere else that you have to give the new directory access permissions. Blog<br>
+<a href="http://eraldmariano.com/how-to-install-xbmc-transmission-on-raspberry-pi/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-comment&#39;,&#39;http://eraldmariano.com&#39;]);" rel="nofollow">http://eraldmariano.com/how-to-install-xbmc-transmission-on-raspberry-pi/</a><br>
+(this is to get transmission working to) run the following: command<br>
+sudo chmod g+rw /media/usb0<br>
+sudo chgrp -R debian-transmission /media/usb0</p>
+<p>I’m not sure if this is needed Kevin but it works for me.<br>
+Peace and thankyou again</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-421" class="comment even thread-odd thread-alt depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="bohony" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/3b358d0fd1668656cebb67a2270c1360" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">bohony</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Friday, April 5th, 2013, 1:11 am">April 5, 2013</abbr> at <abbr class="comment-time" title="Friday, April 5th, 2013, 1:11 am">01:11</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=421#respond" onclick="return addComment.moveForm(&quot;comment-421&quot;, &quot;421&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>I hooked up a 2TB WD My Passport to my powered hub and XBMC detected and mounted it no problem. I was surprised it was so easy but it was! Haven’t tried any other types of external drives but My Passport is a zero problem solution.</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	<ol class="children">
+
+	<li id="comment-431" class="comment byuser comment-author-kev bypostauthor odd alt depth-2 comment role-administrator role-backwpup_admin user-kev entry-author has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="Kevin Wilson" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/45a6f0e5fdd57e16c9f0c229ced58976" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Kevin Wilson</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Tuesday, April 9th, 2013, 9:10 am">April 9, 2013</abbr> at <abbr class="comment-time" title="Tuesday, April 9th, 2013, 9:10 am">09:10</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=431#respond" onclick="return addComment.moveForm(&quot;comment-431&quot;, &quot;431&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>I think the newer versions of Raspbmc handle mounting of external drives on reboot now. The prerelease version I was using when I wrote this didn’t.</p>
+<p>I’ve not gone back and tested it since (I don’t have an external drive any more). Glad it’s working out of the box now.</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment --></ol><!-- .children -->
+</li><!-- .comment -->
+	<li id="comment-441" class="comment even thread-even depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<a href="http://www.techjawab.com/" rel="external nofollow" title="Abhishek Mitra"><img alt="Abhishek Mitra" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/a82d0d0117602bedfcbeeada3548aae9" class="avatar avatar-50 photo" height="50" width="50"></a>
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn" title="http://www.techjawab.com"><a href="http://www.techjawab.com/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-commentauthor&#39;,&#39;http://www.techjawab.com&#39;]);" title="Abhishek Mitra" class="url" rel="external nofollow">Abhishek Mitra</a></cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Monday, July 15th, 2013, 9:30 am">July 15, 2013</abbr> at <abbr class="comment-time" title="Monday, July 15th, 2013, 9:30 am">09:30</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=441#respond" onclick="return addComment.moveForm(&quot;comment-441&quot;, &quot;441&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Current versions of Raspbian auto mounts only if the GUI mode (X-mode) in enabled.</p>
+<p>Check this guide here for instructions on how to explicitly auto mount your USB Hard drive (includes ntfs)<br>
+<a href="http://www.techjawab.com/2013/06/how-to-setup-mount-auto-mount-usb-hard.html" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-comment&#39;,&#39;http://www.techjawab.com&#39;]);" rel="nofollow">http://www.techjawab.com/2013/06/how-to-setup-mount-auto-mount-usb-hard.html</a></p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-451" class="comment odd alt thread-odd thread-alt depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="asphixmx" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/4fe36baf9acea8c33812e02d6c6479d1" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">asphixmx</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Tuesday, September 17th, 2013, 5:04 pm">September 17, 2013</abbr> at <abbr class="comment-time" title="Tuesday, September 17th, 2013, 5:04 pm">17:04</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=451#respond" onclick="return addComment.moveForm(&quot;comment-451&quot;, &quot;451&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>When you start the GUI (with startx command) the usb automounts. But on reboot if you stay in command line, it’s not automounted. You have to modify the fstab as stated in this article.<br>
+One problem I found is that sometimes when it is mounted, you have no permissions to write to the usb disk, only to read it. I found a solution to this, openning a command prompt and typing:</p>
+<p>sudo chown pi:pi /media/usbhdd<br>
+sudo chmod 777 /media/usbhdd</p>
+<p>That fixes the problem forever. I don’t know why it happens sometimes (when I re-format my external hd using gparted).</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-461" class="comment even thread-even depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="Sushant" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/fd9af8ba2960dfa589b1b7bebe18f3a3" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Sushant</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Tuesday, December 3rd, 2013, 6:57 pm">December 3, 2013</abbr> at <abbr class="comment-time" title="Tuesday, December 3rd, 2013, 6:57 pm">18:57</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=461#respond" onclick="return addComment.moveForm(&quot;comment-461&quot;, &quot;461&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Hi, I’m using RASPBMC and it auto mounts my WD 1TB HDD. I’m able to view it on my WLAN network even and read from it, but i’m unable to write to it. Any help on this??</p>
+<p>Its formatted in ntfs format<br>
+And I’m not really tech person so would need some explanation <img src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+<p>Thanks!</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	<ol class="children">
+
+	<li id="comment-491" class="comment byuser comment-author-kev bypostauthor odd alt depth-2 comment role-administrator role-backwpup_admin user-kev entry-author has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="Kevin Wilson" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/45a6f0e5fdd57e16c9f0c229ced58976" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Kevin Wilson</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Sunday, December 22nd, 2013, 10:26 am">December 22, 2013</abbr> at <abbr class="comment-time" title="Sunday, December 22nd, 2013, 10:26 am">10:26</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=491#respond" onclick="return addComment.moveForm(&quot;comment-491&quot;, &quot;491&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Sorry for the late reply – can you write to the disk from the local machine? Is it just over the network that you’re having issues?</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment --></ol><!-- .children -->
+</li><!-- .comment -->
+	<li id="comment-471" class="comment even thread-odd thread-alt depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="Sushant" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/fd9af8ba2960dfa589b1b7bebe18f3a3" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Sushant</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Tuesday, December 3rd, 2013, 6:58 pm">December 3, 2013</abbr> at <abbr class="comment-time" title="Tuesday, December 3rd, 2013, 6:58 pm">18:58</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=471#respond" onclick="return addComment.moveForm(&quot;comment-471&quot;, &quot;471&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Correction – Sorry, can not even read from it through my windows machine.</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-481" class="comment odd alt thread-even depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="RichTea" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/c602d44a8044867a150cdd18e9c98a07" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">RichTea</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Monday, December 9th, 2013, 11:32 pm">December 9, 2013</abbr> at <abbr class="comment-time" title="Monday, December 9th, 2013, 11:32 pm">23:32</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=481#respond" onclick="return addComment.moveForm(&quot;comment-481&quot;, &quot;481&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Thanks for the clear and simple instructions.  I’m using Raspbmc too, for the first time, and these instructions and links were just what I needed to get started.  USB stick now working!</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->
+	<li id="comment-105951" class="comment even thread-odd thread-alt depth-1 comment reader has-avatar">
+
+		
+		<div class="comment-wrap">
+
+			
+			<img alt="Brian" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/75f6d6940ef0950290b613d4d1ad0ff4" class="avatar avatar-50 photo" height="50" width="50">
+			<div class="comment-meta"><span class="comment-author vcard"><cite class="fn">Brian</cite></span><!-- .comment-author .vcard --> <span class="published"><abbr class="comment-date" title="Friday, May 9th, 2014, 7:16 am">May 9, 2014</abbr> at <abbr class="comment-time" title="Friday, May 9th, 2014, 7:16 am">07:16</abbr></span>  · <a class="comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/?replytocom=105951#respond" onclick="return addComment.moveForm(&quot;comment-105951&quot;, &quot;105951&quot;, &quot;respond&quot;, &quot;598&quot;)">Reply</a> →</div>
+			<div class="comment-content comment-text">
+				
+				
+				<p>Thanks for info, was starting to pull out my hair, could not save on WD Elements 500Gb drive, but you helped a newbie to the Rasberry Pi world, many thanks</p>
+			</div><!-- .comment-content .comment-text -->
+
+			
+		</div><!-- .comment-wrap -->
+
+		
+	</li><!-- .comment -->				</ol><!-- .comment-list -->
+
+				
+				
+			
+			
+		</div><!-- #comments -->
+
+										<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://kwilson.me.uk/blog/force-your-raspberry-pi-to-mount-an-external-usb-drive-every-time-it-starts-up/#respond" style="display:none;">Click here to cancel reply.</a></small></h3>
+									<form action="http://kwilson.me.uk/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										<p class="form-author req"><input type="text" class="text-input" name="author" id="author" value="" size="40"><label for="author">Name <span class="required">*</span> </label></p>
+<p class="form-email req"><input type="text" class="text-input" name="email" id="email" value="" size="40"><label for="email">Email <span class="required">*</span> </label></p>
+<p class="form-url"><input type="text" class="text-input" name="url" id="url" value="" size="40"><label for="url">Website</label></p>
+												<p class="form-textarea req"><!--<label for="comment">Comment</label>--><textarea name="comment" id="comment" cols="60" rows="10"></textarea></p>												<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Post Comment →">
+							<input type="hidden" name="comment_post_ID" value="598" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="c4fc780267"></p><script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/form.js"></script>
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1404992117340"></form>
+							</div><!-- #respond -->
+			        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('#commentform').submit(function () {
+                    _gaq.push(
+                            ['_setAccount', 'UA-118210-12'],
+                            ['_trackEvent', 'comment', 'submit']
+                    );
+                });
+            });
+        </script>
+		
+	</div><!-- .comments-wrap -->
+
+</div><!-- #comments-template -->
+				
+			
+		</div><!-- .hfeed -->
+
+		
+		
+	
+		<div class="loop-nav">
+			<div class="previous">← <a href="http://kwilson.me.uk/blog/slow-cooker-barbeque-pulled-pork/" rel="prev">Slow Cooker Barbeque Pulled Pork</a></div>			<div class="next"><a href="http://kwilson.me.uk/blog/viewing-files-on-a-samba-share-that-seem-to-be-invisible-from-windows/" rel="next">Viewing files on a Samba share that seem to be invisible from Windows</a> →</div>		</div><!-- .loop-nav -->
+
+	
+	</div><!-- #content -->
+
+	
+				
+	
+	<div id="sidebar-primary" class="sidebar">
+
+		
+		<div id="hybrid-search-2" class="widget search widget-search"><div class="widget-wrap widget-inside"><h3 class="widget-title">Search</h3>			<div class="search">
+
+				<form method="get" class="search-form" action="http://kwilson.me.uk/blog/">
+				
+				<div>
+					
+					<input class="search-text" type="text" name="s" value="Search this site..." onfocus="if(this.value==this.defaultValue)this.value=&#39;&#39;;" onblur="if(this.value==&#39;&#39;)this.value=this.defaultValue;">
+					
+					<input class="search-submit button" name="submit" type="submit" value="Search">
+					
+				</div>
+				
+				</form><!-- .search-form -->
+
+			</div><!-- .search --></div></div><div id="hybrid-archives-2" class="widget archives widget-archives"><div class="widget-wrap widget-inside"><h3 class="widget-title">Recent Posts</h3><ul class="xoxo archives"><li><a href="http://kwilson.me.uk/blog/inject-css-from-your-requirejs-module-into-the-main-app/">Inject CSS From Your RequireJS Module Into The Main App</a></li><li><a href="http://kwilson.me.uk/blog/using-flexi-time-like-a-boss/">Using Flexi-Time Like a Boss</a></li><li><a href="http://kwilson.me.uk/blog/so-youre-a-professional-web-developer-are-you/">So You’re a Professional Web Developer Are you?</a></li><li><a href="http://kwilson.me.uk/blog/use-karma-and-grunt-to-run-your-jasmine-tests-in-real-time/">Use Karma and Grunt to Run Your Jasmine Tests in Real-Time</a></li><li><a href="http://kwilson.me.uk/blog/net-distance-model/">.NET Distance Model</a></li><li><a href="http://kwilson.me.uk/blog/amazon-prime-a-mini-review/">Amazon Prime: A Mini Review</a></li><li><a href="http://kwilson.me.uk/blog/post-an-array-of-objects-to-webapi-using-jquery/">Post an array of objects to WebAPI using jQuery</a></li><li><a href="http://kwilson.me.uk/blog/inked/">Inked</a></li><li><a href="http://kwilson.me.uk/blog/stop-getting-random-post-notifications-from-the-facebook-app/">Stop Getting Random Post Notifications from the Facebook App</a></li><li><a href="http://kwilson.me.uk/blog/trailer-trash-meatloaf/">Trailer Trash Meatloaf</a></li></ul><!-- .xoxo .archives --></div></div><div id="hybrid-tags-2" class="widget tags widget-tags"><div class="widget-wrap widget-inside"><h3 class="widget-title">Tags</h3><p class="post_tag-cloud term-cloud"><a href="http://kwilson.me.uk/blog/tag/net/" class="tag-link-11" title="2 topics" style="font-size: 10.191304347826pt;">.NET</a> <a href="http://kwilson.me.uk/blog/tag/amazon/" class="tag-link-21" title="1 topic" style="font-size: 8pt;">Amazon</a> <a href="http://kwilson.me.uk/blog/tag/amazon-prime/" class="tag-link-31" title="1 topic" style="font-size: 8pt;">Amazon Prime</a> <a href="http://kwilson.me.uk/blog/tag/aop/" class="tag-link-61" title="1 topic" style="font-size: 8pt;">AOP</a> <a href="http://kwilson.me.uk/blog/tag/beef/" class="tag-link-101" title="1 topic" style="font-size: 8pt;">Beef</a> <a href="http://kwilson.me.uk/blog/tag/c/" class="tag-link-821" title="1 topic" style="font-size: 8pt;">C#</a> <a href="http://kwilson.me.uk/blog/tag/castle-windsor/" class="tag-link-131" title="1 topic" style="font-size: 8pt;">Castle Windsor</a> <a href="http://kwilson.me.uk/blog/tag/chicken/" class="tag-link-141" title="1 topic" style="font-size: 8pt;">Chicken</a> <a href="http://kwilson.me.uk/blog/tag/chilli/" class="tag-link-151" title="1 topic" style="font-size: 8pt;">Chilli</a> <a href="http://kwilson.me.uk/blog/tag/code/" class="tag-link-181" title="27 topics" style="font-size: 22pt;">Code</a> <a href="http://kwilson.me.uk/blog/tag/code-karma/" class="tag-link-861" title="1 topic" style="font-size: 8pt;">Code. Karma</a> <a href="http://kwilson.me.uk/blog/tag/css/" class="tag-link-201" title="1 topic" style="font-size: 8pt;">CSS</a> <a href="http://kwilson.me.uk/blog/tag/deezer/" class="tag-link-211" title="1 topic" style="font-size: 8pt;">Deezer</a> <a href="http://kwilson.me.uk/blog/tag/facebook/" class="tag-link-231" title="2 topics" style="font-size: 10.191304347826pt;">Facebook</a> <a href="http://kwilson.me.uk/blog/tag/google-chrome/" class="tag-link-281" title="2 topics" style="font-size: 10.191304347826pt;">Google Chrome</a> <a href="http://kwilson.me.uk/blog/tag/google-music/" class="tag-link-291" title="1 topic" style="font-size: 8pt;">Google Music</a> <a href="http://kwilson.me.uk/blog/tag/grunt/" class="tag-link-851" title="1 topic" style="font-size: 8pt;">Grunt</a> <a href="http://kwilson.me.uk/blog/tag/hardware/" class="tag-link-311" title="1 topic" style="font-size: 8pt;">Hardware</a> <a href="http://kwilson.me.uk/blog/tag/honey/" class="tag-link-321" title="1 topic" style="font-size: 8pt;">Honey</a> <a href="http://kwilson.me.uk/blog/tag/how-to/" class="tag-link-341" title="13 topics" style="font-size: 18.347826086957pt;">How To</a> <a href="http://kwilson.me.uk/blog/tag/html/" class="tag-link-911" title="1 topic" style="font-size: 8pt;">HTML</a> <a href="http://kwilson.me.uk/blog/tag/jasmine/" class="tag-link-871" title="1 topic" style="font-size: 8pt;">Jasmine</a> <a href="http://kwilson.me.uk/blog/tag/javascript/" class="tag-link-381" title="10 topics" style="font-size: 17.008695652174pt;">JavaScript</a> <a href="http://kwilson.me.uk/blog/tag/jquery/" class="tag-link-391" title="1 topic" style="font-size: 8pt;">jQuery</a> <a href="http://kwilson.me.uk/blog/tag/media-centre/" class="tag-link-421" title="1 topic" style="font-size: 8pt;">Media Centre</a> <a href="http://kwilson.me.uk/blog/tag/mustard/" class="tag-link-471" title="1 topic" style="font-size: 8pt;">Mustard</a> <a href="http://kwilson.me.uk/blog/tag/nodejs/" class="tag-link-481" title="3 topics" style="font-size: 11.652173913043pt;">Node.js</a> <a href="http://kwilson.me.uk/blog/tag/nuget/" class="tag-link-831" title="1 topic" style="font-size: 8pt;">NuGet</a> <a href="http://kwilson.me.uk/blog/tag/openelec/" class="tag-link-491" title="1 topic" style="font-size: 8pt;">OpenElec</a> <a href="http://kwilson.me.uk/blog/tag/open-source/" class="tag-link-841" title="1 topic" style="font-size: 8pt;">Open Source</a> <a href="http://kwilson.me.uk/blog/tag/pc/" class="tag-link-501" title="1 topic" style="font-size: 8pt;">PC</a> <a href="http://kwilson.me.uk/blog/tag/quality/" class="tag-link-901" title="1 topic" style="font-size: 8pt;">Quality</a> <a href="http://kwilson.me.uk/blog/tag/rants/" class="tag-link-531" title="23 topics" style="font-size: 21.147826086957pt;">Rants</a> <a href="http://kwilson.me.uk/blog/tag/recipe/" class="tag-link-551" title="9 topics" style="font-size: 16.521739130435pt;">Recipe</a> <a href="http://kwilson.me.uk/blog/tag/requirejs/" class="tag-link-931" title="1 topic" style="font-size: 8pt;">RequireJS</a> <a href="http://kwilson.me.uk/blog/tag/review/" class="tag-link-561" title="1 topic" style="font-size: 8pt;">Review</a> <a href="http://kwilson.me.uk/blog/tag/spl/" class="tag-link-631" title="1 topic" style="font-size: 8pt;">SPL</a> <a href="http://kwilson.me.uk/blog/tag/spotify/" class="tag-link-641" title="1 topic" style="font-size: 8pt;">Spotify</a> <a href="http://kwilson.me.uk/blog/tag/tattoo/" class="tag-link-651" title="1 topic" style="font-size: 8pt;">Tattoo</a> <a href="http://kwilson.me.uk/blog/tag/tdd/" class="tag-link-881" title="1 topic" style="font-size: 8pt;">TDD</a> <a href="http://kwilson.me.uk/blog/tag/unit-testing/" class="tag-link-711" title="2 topics" style="font-size: 10.191304347826pt;">Unit Testing</a> <a href="http://kwilson.me.uk/blog/tag/webapi/" class="tag-link-771" title="1 topic" style="font-size: 8pt;">WebAPI</a> <a href="http://kwilson.me.uk/blog/tag/web-development/" class="tag-link-891" title="1 topic" style="font-size: 8pt;">Web Development</a> <a href="http://kwilson.me.uk/blog/tag/work/" class="tag-link-921" title="1 topic" style="font-size: 8pt;">Work</a> <a href="http://kwilson.me.uk/blog/tag/xbmc/" class="tag-link-801" title="1 topic" style="font-size: 8pt;">XBMC</a></p></div></div>
+		
+	</div><!-- #sidebar-primary .aside -->
+
+	
+
+				
+		</div><!-- #main -->
+
+		
+				
+
+		
+		<div id="footer">
+
+							
+				<p class="copyright">Copyright © 2014 <a class="site-link" href="http://kwilson.me.uk/blog" title="Kevin Wilson" rel="home"><span>Kevin Wilson</span></a></p>
+				
+			
+		</div><!-- #footer -->
+
+				
+		</div><!-- .wrap -->
+
+	</div><!-- #container -->
+
+	
+	<script type="text/javascript">
+/* <![CDATA[ */
+var MTBrushParams = {"baseUrl":"http:\/\/kwilson.me.uk\/blog\/wp-content\/plugins\/syntax-highlighter-mt"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/brushTypes.js"></script>
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/jquery.fitvids.js"></script>
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/footer-scripts.js"></script>
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./Force your Raspberry Pi to mount an external USB drive every time it starts up_files/drop-downs.js"></script>
+	
+
+
+<!-- Dynamic page generated in 0.406 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2014-07-09 19:58:35 -->
+
+<!-- super cache --><div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body></html>

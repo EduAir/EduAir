@@ -275,84 +275,92 @@ public function follow_him($user)
 	}
 
 
+ 	
+//We record file
+public function record_file($title,$hash,$copy_to_disc,$size)
+    { 
+	    $data = array(
+                  'file_title'      => $title,
+                  'file_hash'       => $hash,
+                  'file_timestamp'  => time(),
+                  'file_size'		=> $size 
+                  );
 
-//on le fait suivre ne plus suivre quelqu'un
-public function stop_follow_him($user)
-    {	   
-	  //j'enlève 1 ssur le nombre de followers de l'user
-	  $query = $this->db->query('SELECT id_follow FROM begoo_wiki_follow WHERE follow_user ="'.$user.'"');
+        $this->db->insert('begoo_file', $data); 
+
+        //We copy the file to the disc if $copy_to_disc is 'yes'
+        if($copy_to_disc=='yes'){
+
+        	//Sintax to copy to the extrernal disc
+        	rename(base_url().'assets/uploader/uploads/'.$hash,'/mnt/usb/file_uploded/'.$hash);
+        }
+
+        return $this->update_json_file_list();
+	}
+
+
+
+	//We complete record file
+public function complete_record_file($category,$description,$file_hash)
+    { 
+
+    	if($category==''){
+
+    	   $data = array('file_description' => $description);	
+    	}
+
+    	if($description==''){
+
+    	   $data = array('file_cat' => $category);	
+    	}
+
+    	if($category!='' && $description!=''){
+    		$data = array(
+                  'file_description'      => $description,
+                  'file_cat'              => $category
+                  );
+    	}
+	    
+
+        $this->db->where('file_hash', $file_hash);
+        $this->db->update('begoo_file', $data);
+
+        $this->update_json_file_list();
+	}
+
+
+
+
+	public function update_json_file_list()
+	{
+    
+		//We record this table to the Json file
+        $this->db->select('*');
+        $this->db->from('begoo_file');
+		$query = $this->db->get();
 		
-		if ($query->num_rows() > 0)
-        {
-          $row = $query->row();
-          
-		  $reponse = $row->id_follow;
-		    
-		  //j'efface mon nom des followers
-          $this->db->delete('begoo_wiki_follower', array('follower' => $this->session->userdata('user_id')));
-	   
-		 return true;		
+		$verdict = $query->num_rows(); 
+
+		if($verdict > 0)
+		{
+			write_file('./assets/json/all_file_uploaded.json',json_encode(array_reverse($query->result_array())));
+
+			$this->db->select('file_cat');
+            $this->db->from('begoo_file');
+            $this->db->distinct();
+		    $query2 = $this->db->get();
+
+		    write_file('./assets/json/all_file_uploaded_cat.json',json_encode(array_reverse($query2->result_array())));
+			return $query2->result_array();
 		}
-	 return true;
-	} 	
-
-
-	
-//je renvoi l'id du chat d'un user qui suit dans la table des follower
-public function his_id_follower($user)
-    { 
-	     $this->db->select('id_follow');
-	     $this->db->from('begoo_wiki_follower');
-		 $this->db->where('follower',$user);
-	     $query = $this->db->get();
-	  
-		    if($query->num_rows() > 0)
-			{		
-	         $row = $query->row();
-             return $row->id_follow;
-			}	
 	}
-	
-	
-	
-//je sélectionne les dernieres personnes qui veulent qu'on les suivent
-public function leader()
-    { 
-	  //on récupère maintenant la liste de tous ceux qui sont suivi
-	  $this->db->select('begoo_wiki_follow.id_follow,begoo_wiki_follow.follow_user,begoo_user.last_username');
-	  $this->db->from('begoo_wiki_follow');
-	  $this->db->join('begoo_user','begoo_wiki_follow.follow_user = begoo_user.user_id','left');
-	  $this->db->where('begoo_wiki_follow.follow_user <>',$this->session->userdata('user_id'));
-	  $this->db->order_by("begoo_wiki_follow.id_follow", "desc");
-	  $this->db->limit(5);
-	  $query = $this->db->get();
-	 
-		if($query->num_rows() > 0)
-		{		
-         return $query->result();
-		}	
-	}
-	
-	
 
-	
-	
-//je sélectionne les dernieres personnes qui veulent qu'on les suivent dont le nom ou le numérocommence par...
-public function find_leader($chaine)
-    { 
-	  $this->db->select('begoo_wiki_follow.id_follow,begoo_wiki_follow.follow_user,begoo_user.last_username,begoo_user.user_number');
-	  $this->db->from('begoo_wiki_follow');
-	  $this->db->join('begoo_user','begoo_wiki_follow.follow_user = begoo_user.user_id','left');
-	  $this->db->like('begoo_user.user_number',$chaine);
-	  $this->db->or_like('begoo_user.last_username',$chaine);
-	  $this->db->where('begoo_user.user_id <>',$this->session->userdata('user_id'));
-	  $this->db->order_by("begoo_wiki_follow.id_follow","desc");
-	  $query = $this->db->get();
-	  
-		if($query->num_rows() > 0)
-		{		
-         return $query->result();
-		}	
-	}	
+
+	public function update_view_file($file_hash)
+	{
+	    $this->db->query('UPDATE begoo_file SET file_view = file_view + 1 WHERE file_hash ="'.$file_hash.'"');				
+	}
+
 }
+
 ?>	

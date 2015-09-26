@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     $('.input_search').focus(function(){ 
 
-        $('.input_search').keyup(function(evenement){
+        $('.input_search').keyup(function(evenement){ 
 
         	wipe_val();
 
@@ -15,16 +15,40 @@ $(document).ready(function(){
                 var codeTouche = evenement.which || evenement.keyCode;
 
                 if(codeTouche==13)//On lance la recherche si on appui sur la touche Entré
-				{	
+				{ 	
                   search_the_string();
 
-                  $('.witch_zim').fadeIn();
+                  $('.witch_zim').fadeIn(); 
 
                   return false;	  
 			    }  
         });
 
         return false;  	 
+    });
+
+
+    $('.input_search_mobil').focus(function(){ 
+
+        $('.input_search_mobil').keyup(function(evenement){ 
+
+            wipe_val();
+
+            // Si evenement.which existe, codeTouche vaut celui-ci.
+            // Sinon codeTouche vaut evenement.keyCode.
+                var codeTouche = evenement.which || evenement.keyCode;
+
+                if(codeTouche==13)//On lance la recherche si on appui sur la touche Entré
+                {   
+                  search_the_string();
+
+                  $('.witch_zim').fadeIn(); 
+
+                  return false;   
+                }  
+        });
+
+        return false;    
     });
 
 
@@ -86,7 +110,7 @@ $(document).ready(function(){
 		
 		
 		//C'est ici qu'on lit contenu de rechercher en appuyant sur recherche pour traiter
-		function search_the_string() {
+		function search_the_string() { 
 
             
             if(window.device=='mobile'){
@@ -96,17 +120,19 @@ $(document).ready(function(){
                 }
             }	
 
-            $('.other_choice').fadeIn();
+            $('.other_choice').fadeIn(); 
 						    
-			if($.trim($('.input_search').val())!=='')
+			if($.trim($('.input_search').val())!=='' || $.trim($('.input_search_mobil').val())!=='')
 			{
-				var chaine = $(".input_search").val().toLowerCase();
+                var string_to_search = $.trim($('.input_search').val()) + $.trim($('.input_search_mobil').val());
+
+				var chaine = string_to_search.toLowerCase();
 
 				if(chaine.length <= 2 ){
 
                     window.notificate_it($('.notif_search').attr('short'),'error','bottomRight');//ON affiche le msg d'échec
 				}
-				else{
+				else{ 
 
                    window.chaine = chaine;
 					//On affiche certains menu cachés

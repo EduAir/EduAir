@@ -7,7 +7,7 @@
 
   $nbre_entre =  count($extention);
 
-   $allowed =  array('gif','png' ,'jpg', 'pdf','doc','docx','ppt','zip','rar');
+   $allowed =  array('gif','png' ,'jpg', 'pdf','doc','docx','ppt','zip','rar','mp4','mp3');
 
       if($nbre_entre > 1){
 
@@ -32,13 +32,6 @@
                echo 'not_supported';
                exit();
             }else{
-               //Is file size is less than allowed size(15 Mo * 1024*1024).
-               if ($fileSize > 15728640) {
-           
-                  echo "too_big";
-                  exit();
-               }else{
-
                   if(move_uploaded_file($fileTmp, 'uploads/'.$fileName)){
 
                      echo $fileName;
@@ -47,12 +40,11 @@
                     echo 'error';
                     exit();
                   }
-               }
             }
          }   
     }else{
 
-   	  echo "error_unknow";
+      echo "error_unknow";
    }
 
 ?>

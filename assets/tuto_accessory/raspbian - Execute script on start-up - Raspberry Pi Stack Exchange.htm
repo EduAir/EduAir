@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>raspbian - Execute script on start-up - Raspberry Pi Stack Exchange</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/raspberrypi/img/favicon.ico?v=950e26e3d2a8">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/raspberrypi/img/apple-touch-icon.png?v=a442324d71c1">
+    <link rel="search" type="application/opensearchdescription+xml" title="Raspberry Pi Stack Exchange" href="http://raspberrypi.stackexchange.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@StackRaspi">
+    <meta name="twitter:domain" content="raspberrypi.stackexchange.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/raspberrypi/img/apple-touch-icon.png?v=a442324d71c1">
+    <meta name="og:title" content="Execute script on start-up">
+    <meta name="og:description" content="I am trying to execute a script when my Raspberry Pi boots up.  I would like the web browser to open up automatically.
+
+I have tried to find a simple solution, (like dropping my script in some &quot;sta...">
+    <meta name="og:url" content="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up">
+    <link rel="canonical" href="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/raspbian - Execute script on start-up - Raspberry Pi Stack Exchange.htm">
+
+    
+    
+    <script async="" src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/quant.js"></script><script async="" src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/beacon.js"></script><script async="" src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/analytics.js"></script><script src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/jquery.min.js"></script>
+    <script src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/stub.en.js"></script>
+    <link rel="stylesheet" type="text/css" href="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;Execute script on start-up&#39;" href="http://raspberrypi.stackexchange.com/feeds/question/8734">
+    <script>
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:2,shownCommentCount:2,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:8734});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('447', '8734');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToInboxNotifications();
+                    StackExchange.realtime.subscribeToReputationNotifications('447');
+                StackExchange.realtime.subscribeToTopBarNotifications('447');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1404993452,"networkMetaHostname":"meta.stackexchange.com","enableUserHovercards":true,"site":{"name":"Raspberry Pi Stack Exchange","description":"Q&A for users and developers of hardware and software for Raspberry Pi","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdsB7sSAAAAAAzjgEF_Hd8vXv-C42sa_KyofaGR","recaptchaAudioLang":"en","enableNewTagCreationWarning":false,"enableSocialMediaInSharePopup":true},"user":{"fkey":"4a2799efd5aeab2ad21a141409885be6","isAnonymous":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"d4f8a2085fce","js/moderator.en.js":"3604ea6c59fb","js/full-anon.en.js":"f5d8760c3cdc","js/full.en.js":"53766bd084aa","js/wmd.en.js":"9c2af376765f","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"e00611508760","js/help.en.js":"56d0a3a560ae","js/tageditor.en.js":"050cd2835a4f","js/tageditornew.en.js":"bbbeaf607a1d","js/inline-tag-editing.en.js":"21223186b436","js/revisions.en.js":"989c474e85a9","js/review.en.js":"f66f40e3c4c8","js/tagsuggestions.en.js":"cc108c1afbca","js/post-validation.en.js":"62fe2d3d1730","js/explore-qlist.en.js":"8b8b631bd679","js/events.en.js":"df89a83aed49"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script async="" src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/full-anon.en.js"></script><script async="" src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/post-validation.en.js"></script></head>
+<body class="question-page new-topbar">
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://raspberrypi.stackexchange.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+
+
+
+    <a href="http://raspberrypi.stackexchange.com/" class="current-site-link site-link js-gps-track" data-id="447" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-raspberrypi" title="Raspberry Pi"></div>
+        Raspberry Pi
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.raspberrypi.stackexchange.com/" class="site-link js-gps-track" data-id="449" data-gps-track="
+            site.switch({ target_site:449, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-raspberrypimeta" title="Raspberry Pi Meta"></div>
+        Raspberry Pi Meta
+    </a>
+
+                </li>
+                    </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+                        <a href="https://raspberrypi.stackexchange.com/users/signup?returnurl=http%3a%2f%2fraspberrypi.stackexchange.com%2fquestions%2f8734%2fexecute-script-on-start-up" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a>
+                    or
+                    <a href="https://raspberrypi.stackexchange.com/users/login?returnurl=http%3a%2f%2fraspberrypi.stackexchange.com%2fquestions%2f8734%2fexecute-script-on-start-up" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a>
+
+                    to customize your list.
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 128 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+        </div>
+
+        <div class="topbar-links">
+            
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                            <a href="https://raspberrypi.stackexchange.com/users/signup?returnurl=http%3a%2f%2fraspberrypi.stackexchange.com%2fquestions%2f8734%2fexecute-script-on-start-up" class="login-link">sign up</a>
+                            <a href="https://raspberrypi.stackexchange.com/users/login?returnurl=http%3a%2f%2fraspberrypi.stackexchange.com%2fquestions%2f8734%2fexecute-script-on-start-up" class="login-link">log in</a>
+                            <a href="http://raspberrypi.stackexchange.com/tour">tour</a>
+
+                            <a href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://raspberrypi.stackexchange.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://raspberrypi.stackexchange.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.raspberrypi.stackexchange.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="http://raspberrypi.stackexchange.com/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="search" value="" tabindex="1" autocomplete="off" maxlength="240">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () { StackExchange.topbar.init(); });
+</script>
+    <div class="container">
+        <div id="header" class="headeranon">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://raspberrypi.stackexchange.com/">
+                    Raspberry Pi
+                        <span class="beta-title">beta</span>
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://raspberrypi.stackexchange.com/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="http://raspberrypi.stackexchange.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://raspberrypi.stackexchange.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://raspberrypi.stackexchange.com/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="http://raspberrypi.stackexchange.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://raspberrypi.stackexchange.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="http://cdn.sstatic.net/raspberrypi/img/apple-touch-icon.png">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://raspberrypi.stackexchange.com/tour" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Raspberry Pi Stack Exchange is a question and answer site for users and developers of hardware and software for Raspberry Pi. It's 100% free, no registration required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/" });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/raspbian - Execute script on start-up - Raspberry Pi Stack Exchange.htm" class="question-hyperlink">Execute script on start-up</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="8734" id="question">
+
+        <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="8734">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">27</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>7</b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>I am trying to execute a script when my Raspberry Pi boots up.  I would like the web browser to open up automatically.</p>
+
+<p>I have tried to find a simple solution, (like dropping my script in some "startup" directory or something similar) but I am not seeing anything like that.</p>
+
+<p>I have looked into <a href="http://upstart.ubuntu.com/">Upstart</a>, but I'm struggling to grasp how that works. Any scripts I've tried have not worked when I test them out.</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://raspberrypi.stackexchange.com/questions/tagged/raspbian" class="post-tag js-gps-track" title="show questions tagged &#39;raspbian&#39;" rel="tag">raspbian</a> <a href="http://raspberrypi.stackexchange.com/questions/tagged/boot" class="post-tag js-gps-track" title="show questions tagged &#39;boot&#39;" rel="tag">boot</a> <a href="http://raspberrypi.stackexchange.com/questions/tagged/script" class="post-tag js-gps-track" title="show questions tagged &#39;script&#39;" rel="tag">script</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://raspberrypi.stackexchange.com/q/8734" title="short permalink to this question" class="short-link" id="link-post-8734">share</a><span class="lsep">|</span><a href="http://raspberrypi.stackexchange.com/posts/8734/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://raspberrypi.stackexchange.com/posts/8734/revisions" title="show all edits to this post">edited <span title="2013-11-26 04:46:02Z" class="relativetime">Nov 26 '13 at 4:46</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://raspberrypi.stackexchange.com/users/8631/syb0rg"><div class="gravatar-wrapper-32"><img src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/XpiU6.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://raspberrypi.stackexchange.com/users/8631/syb0rg">syb0rg</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">3,497</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="11 silver badges"><span class="badge2"></span><span class="badgecount">11</span></span><span title="38 bronze badges"><span class="badge3"></span><span class="badgecount">38</span></span>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2013-08-01 01:52:18Z" class="relativetime">Aug 1 '13 at 1:52</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://raspberrypi.stackexchange.com/users/8784/tyler-murry"><div class="gravatar-wrapper-32"><img src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/f93fd2bc4427027a92fe6eb1dae614b8" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://raspberrypi.stackexchange.com/users/8784/tyler-murry">Tyler Murry</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">238</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="5 bronze badges"><span class="badge3"></span><span class="badgecount">5</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-8734" class="comments " data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-15829" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">What operating system are you running?  In FreeBSD, which I'm using on my Pi, you can add startup scripts to /usr/local/etc/rc.d/, or just add things to /etc/rc.local.  Different Linux distros have different recommended methods.  If you're running X on it, then you should might look into adding things to your <code>.xinitrc</code> or <code>.xsession</code> file.</span>
+                –&nbsp;
+                    <a href="http://raspberrypi.stackexchange.com/users/9803/ghoti" title="101 reputation" class="comment-user">ghoti</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#comment15829_8734"><span title="2013-11-16 04:08:20Z" class="relativetime-clean">Nov 16 '13 at 4:08</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 2 times"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-15830" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">More information about the X startup process can be found <a href="http://unix.stackexchange.com/questions/47359/what-is-xsession-for">over here</a>.</span>
+                –&nbsp;
+                    <a href="http://raspberrypi.stackexchange.com/users/9803/ghoti" title="101 reputation" class="comment-user">ghoti</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#comment15830_8734"><span title="2013-11-16 04:27:46Z" class="relativetime-clean">Nov 16 '13 at 4:27</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-8734" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add comment</a>
+    </td>
+</tr>        </tbody></table>
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								2 Answers
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="8735"></a>
+<div id="answer-8735" class="answer accepted-answer" data-answerid="8735">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="8735">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">35</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>For running Midori on startup, take a look at <a href="http://www.niteoweb.com/blog/raspberry-pi-boot-to-browser">this tutorial</a>.  For DIY solutions, read on.</p>
+
+<hr>
+
+<p>You can add your script executable command to the bottom of <code>.bashrc</code> that will <strong>run your script every time you log in</strong>.</p>
+
+<ol>
+<li><p>Make sure you are in the <code>pi</code> folder: </p>
+
+<pre><code>$ cd ~
+</code></pre></li>
+<li><p>Create a file and write a script to run in the file: </p>
+
+<pre><code>$ sudo nano superscript
+</code></pre></li>
+<li><p>Save and exit: <kbd>Ctrl</kbd>+<kbd>X</kbd>, <kbd>Y</kbd>, <kbd>Enter</kbd></p></li>
+<li><p>Open up <code>.bashrc</code> for configuration: </p>
+
+<pre><code>$ sudo nano .bashrc
+</code></pre></li>
+<li><p>Scroll down to the bottom and add the line: <code>./superscript</code></p></li>
+<li><p>Save and exit: <kbd>Ctrl</kbd>+<kbd>X</kbd>, <kbd>Y</kbd>, <kbd>Enter</kbd></p></li>
+</ol>
+
+<hr>
+
+<p>If you are looking for a solution that <strong>works on bootup to the console</strong>, take a look at <a href="http://www.stuffaboutcode.com/2012/06/raspberry-pi-run-program-at-start-up.html">this link</a>. Basic rundown:</p>
+
+<ol>
+<li><p>Create a file for your startup script and write your script in the file: </p>
+
+<pre><code>$ sudo nano /etc/init.d/superscript
+</code></pre></li>
+<li><p>Save and exit: <kbd>Ctrl</kbd>+<kbd>X</kbd>, <kbd>Y</kbd>, <kbd>Enter</kbd></p></li>
+<li><p>Make the script executable: </p>
+
+<pre><code>$ sudo chmod 755 /etc/init.d/superscript
+</code></pre></li>
+<li><p>Register script to be run at startup: </p>
+
+<pre><code>$ sudo update-rc.d superscript defaults
+</code></pre></li>
+</ol>
+
+<hr>
+
+<p>If you want a script to <strong>run when you boot into the LXDE environment</strong>, you could take a look at <a href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=27&t=11256">this Raspberry Pi forum post</a>:</p>
+
+<ol>
+<li><p>Navigate to <code>etc/xdg/lxsession/LXDE</code></p></li>
+<li><p>Open the <code>autostart</code> file in that folder: </p>
+
+<pre><code>$ sudo nano autostart
+</code></pre></li>
+<li><p>Add <code>@midori</code> on a new line.  If you want to run something like a python script, put something like <code>@python mypython.py</code> on a new line. Running a script file would be <code>@./superscript</code>, but for some reason the script runs in an infinite loop (perhaps <a href="http://stackoverflow.com/a/1379904/1937270">this</a> will stop that).</p></li>
+<li><p>Save and exit: <kbd>Ctrl</kbd>+<kbd>X</kbd>, <kbd>Y</kbd>, <kbd>Enter</kbd></p></li>
+<li><p>Restart your Raspberry Pi into the LXDE environment.</p></li>
+</ol>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://raspberrypi.stackexchange.com/a/8735" title="short permalink to this answer" class="short-link" id="link-post-8735">share</a><span class="lsep">|</span><a href="http://raspberrypi.stackexchange.com/posts/8735/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://raspberrypi.stackexchange.com/posts/8735/revisions" title="show all edits to this post">edited <span title="2013-11-28 18:26:37Z" class="relativetime">Nov 28 '13 at 18:26</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-08-01 02:31:37Z" class="relativetime">Aug 1 '13 at 2:31</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://raspberrypi.stackexchange.com/users/8631/syb0rg"><div class="gravatar-wrapper-32"><img src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/XpiU6.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://raspberrypi.stackexchange.com/users/8631/syb0rg">syb0rg</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">3,497</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="11 silver badges"><span class="badge2"></span><span class="badgecount">11</span></span><span title="38 bronze badges"><span class="badge3"></span><span class="badgecount">38</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-8735" class="comments " data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="7" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-12695" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">The tutorial on setting up Midori on startup was just what I was looking for. Not sure why there are so many ways to do such a simple thing, but I'm glad it's working now.</span>
+                –&nbsp;
+                    <a href="http://raspberrypi.stackexchange.com/users/8784/tyler-murry" title="238 reputation" class="comment-user owner">Tyler Murry</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#comment12695_8735"><span title="2013-08-02 01:44:08Z" class="relativetime-clean">Aug 2 '13 at 1:44</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-13991" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@syb0rg The run at login part works like a charm (+1) if I log in via ssh, but not when the lxde desktop session starts. is there a way to do that ?</span>
+                –&nbsp;
+                    <a href="http://raspberrypi.stackexchange.com/users/2976/george-profenza" title="202 reputation" class="comment-user">George Profenza</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#comment13991_8735"><span title="2013-09-13 19:50:15Z" class="relativetime-clean">Sep 13 '13 at 19:50</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-13992" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@GeorgeProfenza When you do <code>$ sudo startx</code>?</span>
+                –&nbsp;
+                    <a href="http://raspberrypi.stackexchange.com/users/8631/syb0rg" title="3497 reputation" class="comment-user">syb0rg</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#comment13992_8735"><span title="2013-09-13 23:01:52Z" class="relativetime-clean">Sep 13 '13 at 23:01</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 2 times"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-13994" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@syb0rg Using <code>raspi-config</code> raspian is configured to boot with the graphical interface. I'm not sure how that's done behind the scenes(if sudo startx is executed or simply startx) because I see the graphical interface, but the script does not run. However, when I ssh into the RPi the script starts.</span>
+                –&nbsp;
+                    <a href="http://raspberrypi.stackexchange.com/users/2976/george-profenza" title="202 reputation" class="comment-user">George Profenza</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#comment13994_8735"><span title="2013-09-13 23:35:52Z" class="relativetime-clean">Sep 13 '13 at 23:35</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-14317" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Just wanted to point out that the pyhton script will run, but if there are any errors, it will just be somewhere in the background using the /etc/xdg/lxsession/LXDE/autostart method. using .barshrc will reveal errors as well, but it's really important to make sure the script is tight in the first place (found that out the hard way :) )</span>
+                –&nbsp;
+                    <a href="http://raspberrypi.stackexchange.com/users/2976/george-profenza" title="202 reputation" class="comment-user">George Profenza</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#comment14317_8735"><span title="2013-09-25 01:23:16Z" class="relativetime-clean">Sep 25 '13 at 1:23</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-8735" data-rep="50" data-anon="true" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">show <b>7</b> more comments</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="12484"></a>
+<div id="answer-12484" class="answer" data-answerid="12484">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="12484">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">1</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>The way that I've seen most people do it (have a look on the Raspberry Pi forums), and have done myself with success is using <strong>/etc/rc.local</strong>.</p>
+
+<p>All you need to do here is put <code>./myscript</code> in the rc.local text file. If it's in python, put <code>python myscript.py</code>.</p>
+
+<p>This literally is "a simple solution, (like dropping my script in some "startup" directory or something similar)"- maybe search on the forums when you're having questions as well, this solution came up on the first 4 results of a google search! :P</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://raspberrypi.stackexchange.com/a/12484" title="short permalink to this answer" class="short-link" id="link-post-12484">share</a><span class="lsep">|</span><a href="http://raspberrypi.stackexchange.com/posts/12484/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-12-26 12:06:18Z" class="relativetime">Dec 26 '13 at 12:06</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://raspberrypi.stackexchange.com/users/11165/theob610"><div class="gravatar-wrapper-32"><img src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/0xZKP.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://raspberrypi.stackexchange.com/users/11165/theob610">theoB610</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">46</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-12484" class="comments  dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-12484" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://raspberrypi.stackexchange.com/questions/8734/answer/submit" method="post" class="post-form">
+						    <input type="hidden" id="post-id" value="8734">
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+noCode: true,            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li id="wmd-bold-button" class="wmd-button" style="left: 0px;"><span style="background-position: 0px -20px;"></span></li><li id="wmd-italic-button" class="wmd-button" style="left: 25px;"><span style="background-position: -20px -20px;"></span></li><li id="wmd-spacer1" class="wmd-spacer" style="left: 50px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-link-button" class="wmd-button" style="left: 75px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-quote-button" class="wmd-button" style="left: 100px;"><span style="background-position: -60px -20px;"></span></li><li id="wmd-code-button" class="wmd-button" style="left: 125px;"><span style="background-position: -80px -20px;"></span></li><li id="wmd-image-button" class="wmd-button" style="left: 150px;"><span style="background-position: -100px -20px;"></span></li><li id="wmd-spacer2" class="wmd-spacer" style="left: 175px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-olist-button" class="wmd-button" style="left: 200px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-ulist-button" class="wmd-button" style="left: 225px;"><span style="background-position: -140px -20px;"></span></li><li id="wmd-heading-button" class="wmd-button" style="left: 250px;"><span style="background-position: -160px -20px;"></span></li><li id="wmd-hr-button" class="wmd-button" style="left: 275px;"><span style="background-position: -180px -20px;"></span></li><li id="wmd-spacer3" class="wmd-spacer" style="left: 300px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-undo-button" class="wmd-button" style="left: 325px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-redo-button" class="wmd-button" style="left: 350px;"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="4a2799efd5aeab2ad21a141409885be6">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://raspberrypi.stackexchange.com/users/login?returnurl=%2fquestions%2f8734%2fexecute-script-on-start-up%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="manual-openid" class="manual-openid">
+                    <input type="hidden" name="use-facebook" class="use-facebook" value="false">
+                    <input type="button" class="submit-openid" value="Submit" style="display:none">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f8734%2fexecute-script-on-start-up%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        &lt;h3&gt;Post as a guest&lt;/h3&gt;
+    &lt;div class="form-item"&gt;
+        &lt;table&gt;
+        &lt;tr&gt;
+                    &lt;script&gt;
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            &lt;/script&gt;
+            &lt;td class="vm"&gt;
+                &lt;div&gt;
+                    &lt;label for="display-name"&gt;Name&lt;/label&gt;
+                    &lt;input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105"&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                    &lt;label for="m-address"&gt;Email&lt;/label&gt;
+                    &lt;input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106"&gt;
+                    &lt;span class="edit-field-overlay"&gt;required, but not shown&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://raspberrypi.stackexchange.com/questions/tagged/raspbian" class="post-tag" title="show questions tagged &#39;raspbian&#39;" rel="tag">raspbian</a> <a href="http://raspberrypi.stackexchange.com/questions/tagged/boot" class="post-tag" title="show questions tagged &#39;boot&#39;" rel="tag">boot</a> <a href="http://raspberrypi.stackexchange.com/questions/tagged/script" class="post-tag" title="show questions tagged &#39;script&#39;" rel="tag">script</a>  or <a href="http://raspberrypi.stackexchange.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2013-08-01 01:52:18Z"><b>11 months ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>51503 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up?lastactivity" class="lastactivity-link" title="2013-12-26 12:06:18Z">6 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			<div style="margin-bottom: 10px;">
+        
+
+<style type="text/css">
+#newsletter-ad {
+    width: 190px;
+    height: 250px;
+    overflow: hidden;
+    background: url('//cdn.sstatic.net/beta/img/newsletter-ad.png');
+    padding: 0 15px 0 15px;
+}
+#newsletter-ad-header {
+    margin-top: 60px;
+}
+#newsletter-ad ul {
+    margin: 1em 0 1em 1.5em;
+}
+#newsletter-ad ul li {
+    margin-bottom: 5px;
+}
+#newsletter-signup-container {
+    text-align: center;
+}
+#newsletter-preview-container {
+    margin-top: 10px;
+    text-align: center;
+}
+#newsletter-email-input {
+    width: 200px;
+}
+</style>
+
+<script>
+    StackExchange.ready(function () {
+        StackExchange.newsletterAd.init();
+    });
+</script>
+
+<div id="newsletter-ad">
+    <p id="newsletter-ad-header">Get the <b>weekly newsletter!</b></p>
+    <ul>
+        <li>Top questions and answers</li>
+        <li>Important announcements</li>
+        <li>Unanswered questions</li>
+    </ul>
+    <div id="newsletter-signup-container"><input id="newsletter-signup" type="button" value="Sign up for the newsletter"></div>
+    <p id="newsletter-preview-container">see an <a href="http://stackexchange.com/newsletters/newsletter?site=raspberrypi.stackexchange.com" id="newsletter-preview">example newsletter</a></p>
+    <div class="dno">
+        
+<p class="privacy-policy-agreement">
+By subscribing, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1">
+    </div>
+</div>
+
+    </div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://raspberrypi.stackexchange.com/q/13743?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">-1</div>
+	</a>
+	<a href="http://raspberrypi.stackexchange.com/questions/13743/how-to-run-a-script-node-js-at-startup?lq=1" class="question-hyperlink">How to run a script (Node.js) at startup</a>
+</div><div class="spacer">
+	<a href="http://raspberrypi.stackexchange.com/q/10060?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">3</div>
+	</a>
+	<a href="http://raspberrypi.stackexchange.com/questions/10060/raspbian-keyboard-layout?lq=1" class="question-hyperlink">Raspbian keyboard layout</a>
+</div><div class="spacer">
+	<a href="http://raspberrypi.stackexchange.com/q/11717?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">1</div>
+	</a>
+	<a href="http://raspberrypi.stackexchange.com/questions/11717/start-terminal-on-start-up-to-lxde?lq=1" class="question-hyperlink">Start terminal on start-up to LXDE</a>
+</div><div class="spacer">
+	<a href="http://raspberrypi.stackexchange.com/q/9733?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">2</div>
+	</a>
+	<a href="http://raspberrypi.stackexchange.com/questions/9733/how-do-i-run-a-single-line-of-code-with-sudo-on-boot-up?lq=1" class="question-hyperlink">How do I run a single line of code (with sudo) on boot up?</a>
+</div><div class="spacer">
+	<a href="http://raspberrypi.stackexchange.com/q/10594?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">3</div>
+	</a>
+	<a href="http://raspberrypi.stackexchange.com/questions/10594/how-do-i-boot-directly-to-a-vnc-or-rdp-session-on-a-raspberry-pi?lq=1" class="question-hyperlink">How do I boot directly to a VNC or RDP session on a Raspberry Pi?</a>
+</div><div class="spacer">
+	<a href="http://raspberrypi.stackexchange.com/q/12478?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">-1</div>
+	</a>
+	<a href="http://raspberrypi.stackexchange.com/questions/12478/open-chromium-on-start?lq=1" class="question-hyperlink">Open Chromium on start?</a>
+</div><div class="spacer">
+	<a href="http://raspberrypi.stackexchange.com/q/12881?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">1</div>
+	</a>
+	<a href="http://raspberrypi.stackexchange.com/questions/12881/stuck-in-console-after-console-boot-due-to-script-how-to-force-startup-in-gui?lq=1" class="question-hyperlink">Stuck in console after console-boot due to script, how to force startup in GUI?</a>
+</div><div class="spacer">
+	<a href="http://raspberrypi.stackexchange.com/q/11940?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">0</div>
+	</a>
+	<a href="http://raspberrypi.stackexchange.com/questions/11940/black-screen-with-x-cursor-when-running-vnc-on-boot?lq=1" class="question-hyperlink">Black screen with X cursor when running VNC on boot</a>
+</div><div class="spacer">
+	<a href="http://raspberrypi.stackexchange.com/q/12970?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">1</div>
+	</a>
+	<a href="http://raspberrypi.stackexchange.com/questions/12970/run-sh-file-after-lxde-enviroment-is-completely-loaded?lq=1" class="question-hyperlink">Run .sh file after LXDE enviroment is completely loaded</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/9923?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/9923/perl-script-doesnt-update-file?rq=1" class="question-hyperlink">Perl Script doesn't update file</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/13034?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/13034/executing-a-jar-file-when-raspberry-boots-up?rq=1" class="question-hyperlink">Executing a jar file when Raspberry boots up</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/13201?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/13201/script-randomly-stops-working?rq=1" class="question-hyperlink">Script randomly stops working</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/13743?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">-1
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/13743/how-to-run-a-script-node-js-at-startup?rq=1" class="question-hyperlink">How to run a script (Node.js) at startup</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/13947?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/13947/cannot-delete-file-created-using-bash-script?rq=1" class="question-hyperlink">Cannot delete file created using bash script</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/14026?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/14026/pushover-script-for-system-events-not-auto-starting-during-boot?rq=1" class="question-hyperlink">Pushover script for system events not auto-starting during boot</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/14252?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/14252/launching-script-after-desktop-is-loaded?rq=1" class="question-hyperlink">Launching script after desktop is loaded</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/15571?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/15571/how-to-add-start-up-and-shutdown-script?rq=1" class="question-hyperlink">How to add start up and shutdown script?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/16994?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/16994/automatic-start-of-python-script-after-just-plugging-the-power-supply?rq=1" class="question-hyperlink">Automatic start of python script after just plugging the power supply</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://raspberrypi.stackexchange.com/q/17149?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://raspberrypi.stackexchange.com/questions/17149/set-location-of-java-user-dir-on-startup-in-init-d-to-path-where-jar-is-located?rq=1" class="question-hyperlink">Set location of Java user.dir on startup in init.d to path where .jar is located</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/33221/domino-function" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Domino function
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/24674511/why-can-string-that-is-a-reference-type-be-a-non-null-const-while-other-referenc" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why can string that is a reference type be a non-null const while other reference type consts must be null?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-sports" title="Sports Stack Exchange"></div><a href="http://sports.stackexchange.com/questions/5246/calculation-of-runs-after-the-umpire-decision-gets-reviewed" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:411 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Calculation of runs after the umpire decision gets reviewed
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-sharepoint" title="SharePoint Stack Exchange"></div><a href="http://sharepoint.stackexchange.com/questions/108256/app-in-app-catalog-only-available-in-specific-sitecollection" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:232 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    App in app catalog only available in specific sitecollection
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/862915/how-to-create-circles-and-or-sections-of-a-circle-when-the-centre-is-inaccessibl" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to create circles and or sections of a circle when the centre is inaccessible
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-space" title="Space Exploration Stack Exchange"></div><a href="http://space.stackexchange.com/questions/4949/is-the-international-space-station-hackable" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:508 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is the International Space Station "hackable"?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/24662454/how-does-a-garbage-collector-avoid-an-infinite-loop-here" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How does a garbage collector avoid an infinite loop here?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/777907/swap-partition-size-on-a-64-gb-ram-computer-for-memory-intensive-work" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Swap partition size on a 64 GB RAM computer for memory-intensive work
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-programmers" title="Programmers Stack Exchange"></div><a href="http://programmers.stackexchange.com/questions/247183/why-is-software-os-specific" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:131 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is software OS specific?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-movies" title="Movies &amp; TV Stack Exchange"></div><a href="http://movies.stackexchange.com/questions/21978/how-can-philip-j-fry-be-his-own-grandfather-if-he-is-sterile" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:367 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can Philip J. Fry be his own grandfather if he is sterile?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/42170/am-i-too-new-to-try-dming-once" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Am I too new to try DMing once?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/53415/how-to-get-the-new-font-in-mathematica-10" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to get the new font in Mathematica 10?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-boardgames" title="Board &amp; Card Games Stack Exchange"></div><a href="http://boardgames.stackexchange.com/questions/18161/is-there-a-limit-to-the-number-of-special-lands-i-can-put-in-my-deck-like-the-t" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:147 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a limit to the number of special lands I can put in my deck, like the Temples?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/861743/are-there-as-many-real-numbers-as-there-are-imaginary-numbers" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Are there as many real numbers as there are imaginary numbers?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/61010/hogwarts-so-why-arent-the-kids-doing-it" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Hogwarts: So why aren't the kids doing it?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/125921/how-can-blackbody-radition-be-explained-by-quantization" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can blackbody radition be explained by quantization
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-movies" title="Movies &amp; TV Stack Exchange"></div><a href="http://movies.stackexchange.com/questions/23022/why-doesnt-hollywood-make-movies-related-to-epic-stories-like-mahabharata-or-ra" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:367 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why doesn't Hollywood make movies related to epic stories like Mahabharata or Ramayana?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-dsp" title="Signal Processing Stack Exchange"></div><a href="http://dsp.stackexchange.com/questions/17269/what-approximation-techniques-exist-for-computing-the-square-root" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:295 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What approximation techniques exist for computing the square root?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/184252/little-and-small-in-british-vs-american-english" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    'Little' and 'small' in British vs American English
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-tridion" title="Tridion Stack Exchange"></div><a href="http://tridion.stackexchange.com/questions/7124/recommended-architecture-for-tridion-installation-on-cloud" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:485 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Recommended architecture for Tridion installation on cloud
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/56606/classes-for-sentence-like-readability" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Classes for sentence-like readability
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-serverfault" title="Server Fault"></div><a href="http://serverfault.com/questions/611289/what-is-a-reasonable-maintenance-schedule-for-windows-pcs" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:2 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is a reasonable maintenance schedule for Windows PCs?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/61027/why-doesnt-the-ministry-get-rid-of-borgin-burkes" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why doesn't the Ministry get rid of Borgin &amp; Burkes?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/24592/email-to-a-professor-after-long-time-for-recommendation" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Email to a professor after long time for recommendation
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://raspberrypi.stackexchange.com/feeds/question/8734" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/8734/ivc/1f70');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/8734/ivc/1f70" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://raspberrypi.stackexchange.com/tour">tour</a>
+                    <a href="http://raspberrypi.stackexchange.com/help">help</a>
+                        <a href="http://raspberrypi.stackexchange.com/help/badges">badges</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">mobile</a>
+                    <b><a href="http://raspberrypi.stackexchange.com/contact">contact us</a></b>
+                        <b><a href="http://meta.raspberrypi.stackexchange.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="professional graphic designers and non-designers trying to do their own graphic design">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2014.7.10.1696
+            </div>
+            
+        </div>
+    <iframe id="global-auth-frame" style="display:none" src="./raspbian - Execute script on start-up - Raspberry Pi Stack Exchange_files/read.htm"></iframe></div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Raspberry Pi Stack Exchange works best with JavaScript enabled&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-24', '.stackexchange.com');
+        
+        
+        ga('set', 'dimension2', '|raspbian|boot|script|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+    
+</body></html>

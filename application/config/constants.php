@@ -18,8 +18,11 @@ define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
 
+
+define('DISC_COPY', 'no');
+
 define('WEB_STORAGE_NAME', 'michou');
-define('DOMAINE_NAME','kwiki');
+define('DOMAINE_NAME','kwiizi');
 
 
 define('HOSTER', 'localhost');

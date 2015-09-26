@@ -928,3 +928,8 @@ padding: 0.1em;
   display: none;
 }
 
+.this_folder{
+  cursor: pointer;
+  margin: 10px;
+}
+

@@ -271,7 +271,6 @@
 
     <div class="upload_message" drag="<?php echo $this->lang->line('form_up_drag'); ?>" end_sending="<?php echo $this->lang->line('form_up_end_sending'); ?>" in_sending="<?php echo $this->lang->line('form_up_in_sending'); ?>" up_to="<?php echo $this->lang->line('form_up_to'); ?>" url_ajax_list="<?php echo site_url();?>/user/record_file/" up_error_unknow="<?php echo $this->lang->line('form_up_unknow'); ?>" up_error="<?php echo $this->lang->line('form_up_error'); ?>" up_not_supported="<?php echo $this->lang->line('form_up_not_supported'); ?>" up_too_big="<?php echo $this->lang->line('form_up_too_big'); ?>"  up_no_file="<?php echo $this->lang->line('form_up_no_file'); ?>"> </div>
     <div class="loader" style="display:none;"><div class="loaderbar">Loading...</div></span> <?php echo $this->lang->line('statu_wait'); ?>...</div>
-    <div class="message_ajax" url_for_file_upload_dir="<?php echo base_url();?>assets/uploader/uploads/"  url_for_file_upload="<?php echo base_url();?>assets/uploader/processupload.php" url_for_send="<?php echo site_url();?>/user/record_message" no_receiver="<?php echo $this->lang->line('form_no_receiver'); ?>"></div>
     
 
     <div class="search_on_zim" search_zim="<?php echo $this->lang->line('form_search_video'); ?>" ></div>
@@ -290,6 +289,18 @@
 		     <?php 
 		    }
 		?>
+
+     <!-- Modal Structure -->
+    <div id="display_video" class="modal">
+        <div class="modal-content">
+            <center class="player_video">
+            
+            </center>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat orange">X</a>
+        </div>
+    </div>
 	
     <div class="plus_menu" plus_menu="<?php echo $this->lang->line('form_plus'); ?>"></div>
 	<div class="plus_result" plus_result="<?php echo $this->lang->line('form_plus_result'); ?>"></div>
@@ -320,6 +331,10 @@
 	
 	<!-- url lpour le son du tchat -->
 	<div id="song" url_chat="<?php echo base_url().'assets/song/beep'; ?>" url_bell="<?php echo base_url().'assets/song/'; ?>" ></div>
+
+
+    <span class="upload_file" style="display:none"><input type="file" id="file_up" name="file_up"></span>
+    <div class="message_ajax" complete_record_of_file="<?php echo site_url().'/wikipedia/wiki/complete_record_file'; ?>" record_file="<?php echo site_url().'/wikipedia/wiki/record_file'; ?>" copy_to_disc="<?php echo DISC_COPY ;?>" url_for_file_upload_dir="<?php echo base_url();?>assets/uploader/uploads/"  url_for_file_upload="<?php echo base_url();?>assets/uploader/processupload.php" url_for_send="<?php echo site_url();?>/user/record_message" no_receiver="<?php echo $this->lang->line('form_no_receiver'); ?>"></div>
 	
 	
 	
@@ -399,6 +414,7 @@
 		<div id="url_image" url="<?php echo base_url().'assets/image_notif/' ; ?>"></div>
 		<div id="url_image_logo" nothing="<?php echo $this->lang->line('bulle_begoo'); ?>" mode_out="<?php echo $this->lang->line('bulle_outline'); ?>" url="<?php echo base_url().'assets/img/' ; ?>"></div>
 		
+    <div id="base_url" base_url="<?php echo base_url(); ?>"> </div>
 		
 	<div id="url_node" url="<?php echo NODE; ?>"> </div>
 	<div id="url_peer" host="<?php echo PEER_HOST; ?>" port="<?php echo PEER_PORT; ?>"> </div>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<!-- saved from url=(0085)http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#"><!-- Beginning of <head> --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- heatmapthemead_pre_wp_head hook -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<title>How to enable mod_rewrite in Apache2 on Debian or Ubuntu</title>
+<link rel="profile" href="http://gmpg.org/xfn/11"><link rel="pingback" href="http://xmodulo.com/xmlrpc.php">
+<link href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/css" rel="stylesheet" type="text/css"><!-- end of heatmapthemead_pre_wp_head hook -->
+<!-- wp_head()-->
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.6 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/How to enable mod_rewrite in Apache2 on Debian or Ubuntu.htm">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to enable mod_rewrite in Apache2 on Debian or Ubuntu">
+<meta property="og:description" content="If you have installed Apache2 web server via apt-get or aptitude on Debian or Ubuntu systems, it has mod_rewrite module installed, but not enabled by default. After Apache2 installation, you need to enable mod_rewrite explicitly in order to enjoy its benefit. What is mod_rewrite? Apache2 web server boasts of extensible features which are realized by …Continue reading...">
+<meta property="og:url" content="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html">
+<meta property="og:site_name" content="Xmodulo">
+<meta property="article:author" content="https://www.facebook.com/xmodulo">
+<meta property="article:tag" content="apache2">
+<meta property="article:tag" content="web server">
+<meta property="article:section" content="Networking">
+<meta property="article:section" content="Web">
+<meta property="article:published_time" content="2013-01-15T08:00:15+00:00">
+<meta property="article:modified_time" content="2013-07-23T19:13:16+00:00">
+<meta property="og:updated_time" content="2013-07-23T19:13:16+00:00">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="Xmodulo » Feed" href="http://xmodulo.com/feed">
+<link rel="alternate" type="application/rss+xml" title="Xmodulo » Comments Feed" href="http://xmodulo.com/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="Xmodulo » How to enable mod_rewrite in Apache2 on Debian or Ubuntu Comments Feed" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html/feed">
+<link rel="stylesheet" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/output.css" type="text/css">
+<link rel="stylesheet" id="yarppWidgetCss-css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/widget.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_likes-css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-subscriptions-css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/subscriptions.css" type="text/css" media="all">
+<link rel="stylesheet" id="ts_fab_css-css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/ts-fab.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-widgets-css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/widgets.css" type="text/css" media="all">
+<link rel="stylesheet" id="style-css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="yarppRelatedCss-css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/related.css" type="text/css" media="all">
+<link rel="stylesheet" id="sharedaddy-css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/sharing.css" type="text/css" media="all">
+<link rel="stylesheet" id="genericons-css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/genericons.css" type="text/css" media="all">
+<script src="https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.fr.aNs2a8cWrPc.O/m=auth/exm=page,plus,plusone/rt=j/sv=1/d=1/ed=1/am=AQ/rs=AItRSTNv8QnmPQYmMSZDD3cruK6jL_99hA/cb=gapi.loaded_2" async=""></script><script src="https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.fr.aNs2a8cWrPc.O/m=page,plus/exm=plusone/rt=j/sv=1/d=1/ed=1/am=AQ/rs=AItRSTNv8QnmPQYmMSZDD3cruK6jL_99hA/cb=gapi.loaded_1" async=""></script><script type="text/javascript" async="" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/plusone.js" gapi_processed="true"></script><script type="text/javascript" async="" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/dc.js"></script><script type="text/javascript" async="" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/plusone.js" gapi_processed="true"></script><script async="" type="text/javascript" src="http://www.gstatic.com/pub-config/ca-pub-7245163904660683.js"></script><script src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/plusone.js" gapi_processed="true"></script>
+<script type="text/javascript" src="http://xmodulo.com/wp-includes/js/jquery/jquery.js?ver=1.11.1"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="http://xmodulo.com/wp-content/plugins/anti-spam/js/anti-spam.js?ver=2.2"></script>
+<script type="text/javascript" src="http://xmodulo.com/wp-content/plugins/jetpack/_inc/postmessage.js?ver=3.1.1"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/jquery.inview.js"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/jquery.jetpack-resize.js"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/ts-fab.js"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/small-menu.js"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/corescripts.js"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/scripts.js"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/plusone(1).js" gapi_processed="true"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://xmodulo.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://xmodulo.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.0">
+<link rel="shortlink" href="http://wp.me/p2ZLjm-d3">
+
+<!--Plugin WP Missed Schedule 2013.1231.2013 Active - Tag 6707293c0218e2d8b7aa38d418ffa608-->
+
+<!-- This site is patched which an important unfixed problem since WordPress 2.5+ to 3.9+ -->
+
+	<link rel="stylesheet" type="text/css" href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/wp_social_toolbar.css">
+	<style type="text/css">
+#wps-toolbar-show { background:#666666 !important; }
+#wp-social-toolbar-show-box { border-color:#666666 !important; }
+#wps-toolbar-content #wps-toolbar-top #wps-close-button,.wpcs-border { background:#666666 !important; }
+#wps-toolbar-content #wps-toolbar-top #wps-twitter-status { background-color:#999999 !important; font-family:Arial, Helvetica, sans-serif; color:#ffffff; font-size:12px; background-image:url('http://xmodulo.com/wp-content/plugins/wp-social-toolbar-pro//images/icons/normal/bird/white.png'); background-repeat:no-repeat; }
+#wpsc-social-accounts,#wps-toolbar-bottom { background:#000000 !important; }
+#wpsc-social-accounts img:hover,.wpst-credit-pro:hover { background:#ffffff; }
+#wp-social-toolbar-show-box,#wps-toolbar-content #wps-toolbar-bottom #wpsc-social-accounts img,#wps-toolbar-content #wps-toolbar-bottom,.wpcs-share-icons { border-color:#666666 !important; }
+#wps-toolbar-content #wps-toolbar-top #wps-twitter-status a { color:#ffffff; }
+#wps-toolbar-bottom{ height: 40px !important; overflow:hidden !important; }
+</style>
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="http://xmodulo.com/wp-content/plugins/wp-social-toolbar-pro/css/ie.css" />
+<![endif]-->
+		<style>
+			/* Link color */
+			a {
+				color: #1b8be0;
+			}
+		</style>
+			<style>
+			/* Max Width */
+			#heatmapthemead-leaderboard,
+			nav.main-navigation,
+			nav.secondary-navigation,
+			#heatmapthemead-branding-container,
+			.heatmapthemead-layout-both-sidebars #heatmapthemead-main,
+			.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-main,
+			.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-main,
+			.heatmapthemead-layout-content #heatmapthemead-main
+			{
+				max-width: 1320px;
+			}
+		</style>
+		
+				<style>
+				#heatmapthemead-header, #heatmapthemead-footer { 
+					max-width: 1320px; 
+				} 
+			</style>
+					
+					<style>
+					/* Font Style */
+					h1,h2,h3,h4,h5,h6,
+					#heatmapthemead-header-text p#site-title,
+					#heatmapthemead-header-text p#site-description { font-family: 'Open Sans', Arial, Helvetica, sans-serif; }
+					.heatmapthemead-menu { font-family: 'Open Sans', Arial, Helvetica, sans-serif; }
+					body { font-size: 1.7em; }
+					body, button, input, select, textarea { font-family:  Arial, Helvetica, sans-serif; }
+				</style> 
+				<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #000000 !important;
+		}
+		</style>
+	<style type="text/css" id="syntaxhighlighteranchor"></style>
+<!-- End of wp_head() -->
+<!-- heatmapthemead_post_wp_head hook -->
+<!-- end of heatmapthemead_post_wp_head hook -->
+<script src="https://platform.linkedin.com/js/secureAnonymousFramework?v=0.0.1195-RC8.38732-1420&"></script></head>
+<!-- End of <head> -->
+<body class="single single-post postid-809 single-format-standard heatmapthemead-layout-both-sidebars  heatmapthemead-max-width-1320" data-twttr-rendered="true">
+<!-- heatmapthemead_start_body hook -->
+<!-- end of heatmapthemead_start_body hook -->
+<!-- The Header Bars -->
+<div id="heatmapthemead-header-wipe">
+<div id="heatmapthemead-header">
+<div id="heatmapthemead-header-container">
+  
+		<div id="heatmapthemead-primary-menu" class="heatmapthemead-menu">
+			<nav role="navigation" class="site-navigation main-navigation">
+				<p class="primary-small-nav-text">	
+					Menu				</p>
+				<div class="menu-menu-container"><ul id="menu-menu" class="menu"><li id="menu-item-5809" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-5809"><a href="http://xmodulo.com/">Home</a></li>
+<li id="menu-item-5811" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5811"><a href="http://xmodulo.com/about">About</a></li>
+<li id="menu-item-5814" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5814"><a href="http://ask.xmodulo.com/">Linux Q &amp; A</a></li>
+<li id="menu-item-6965" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6965"><a href="http://list.xmodulo.com/">List</a></li>
+<li id="menu-item-5810" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5810"><a href="http://xmodulo.com/write-us">Write for Us</a></li>
+<li id="menu-item-5812" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5812"><a href="http://xmodulo.com/advertise">Advertise</a></li>
+<li id="menu-item-5813" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5813"><a href="http://xmodulo.com/contact">Contact</a></li>
+</ul></div>			</nav>
+		</div>
+			<div id="heatmapthemead-header-branding">
+		<div id="heatmapthemead-branding-container">
+							<header id="branding" role="banner">
+							<div id="heatmapthemead-header-text">
+			<aside>
+				<p id="site-title"><a href="http://xmodulo.com/" title="Xmodulo" rel="home">Xmodulo</a></p>
+				<p id="site-description">Linux FAQs, tips and tutorials</p>
+			</aside>
+		</div>
+					</header><!-- #branding -->
+			<div id="heatmapthemead-widget-position-header" class="heatmapthemead-widget-position heatmapthemead-homeheader widget-area heatmapthemead-static-header-widget" role="complementary"><aside class="widget"><div class="heatmapthemead-social-icons"><a id="heatmapthemead-fb-social-icon" class="heatmapthemead-social-icon" href="https://www.facebook.com/xmodulo" target="_blank"><img src="http://xmodulo.com/wp-content/themes/heatmap-adaptive/images/facebook.png" alt=""></a><a id="heatmapthemead-twitter-social-icon" class="heatmapthemead-social-icon" href="https://twitter.com/xmodulo" target="_blank"><img src="http://xmodulo.com/wp-content/themes/heatmap-adaptive/images/twitter.png" alt=""></a><a id="heatmapthemead-googleplus-social-icon" class="heatmapthemead-social-icon" href="https://plus.google.com/113402205121279785792" target="_blank"><img src="http://xmodulo.com/wp-content/themes/heatmap-adaptive/images/googleplus.png" alt=""></a><a id="heatmapthemead-linkedin-social-icon" class="heatmapthemead-social-icon" href="http://www.linkedin.com/in/xmodulo" target="_blank"><img src="http://xmodulo.com/wp-content/themes/heatmap-adaptive/images/linkedin.png" alt=""></a><a id="heatmapthemead-rss-social-icon" class="heatmapthemead-social-icon" href="http://xmodulo.com/feed" target="_blank"><img src="http://xmodulo.com/wp-content/themes/heatmap-adaptive/images/rss-feed.png" alt=""></a></div> <!--.heatmapthemead-social-icons --></aside></div> <!-- id="heatmapthemead-widget-position-header" -->
+		</div><!-- #heatmapthemead-branding-container -->
+	</div><!-- #heatmapthemead-header-branding -->		
+</div> <!-- id="heatmapthemead-header-container" -->
+</div> <!-- id="heatmapthemead-header" -->
+</div> <!-- id="heatmapthemead-header-wipe" -->
+<!-- The main part of the page (with content and sidebars) -->
+<div id="heatmapthemead-main-wipe">
+<div id="heatmapthemead-main">
+<div id="heatmapthemead-widget-position-leaderboard" class="heatmapthemead-widget-position heatmapthemead-leaderboard widget-area" role="complementary"><aside id="heatmapthemead_ad-3" class="widget heatmapthemead_ad_widget">				<div class="heatmapthemead_ad_widget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-7245163904660683";
+/* xmodulo-navlinks */
+google_ad_slot = "3936448789";
+google_ad_width = 728;
+google_ad_height = 15;
+//-->
+</script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/show_ads.js">
+</script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:15px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:15px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="15" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" __idm_frm__="8"></iframe></ins></ins></div>
+			</aside></div> <!-- id="heatmapthemead-widget-position-leaderboard" -->
+<div id="heatmapthemead-content">
+<div id="heatmapthemead-the-content" class="site-content">
+<div id="heatmapthemead-the-content-container" role="main">
+	
+	
+		<article id="post-809" class="post-809 post type-post status-publish format-standard hentry category-networking category-web tag-apache2 tag-web-server">
+		
+					<header class="entry-header">
+			<h1 class="entry-title"><a href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/How to enable mod_rewrite in Apache2 on Debian or Ubuntu.htm" title="Permalink to How to enable mod_rewrite in Apache2 on Debian or Ubuntu" rel="bookmark">How to enable mod_rewrite in Apache2 on Debian or Ubuntu</a></h1>
+		</header> <!-- heatmapthemead-entry-header -->
+	<div class="heatmapthemead-header-entry-meta entry-meta"><span class="heatmapthemead-post-details">Posted on <a href="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/How to enable mod_rewrite in Apache2 on Debian or Ubuntu.htm" title="8:00 am" rel="bookmark"><time class="entry-date" datetime="2013-01-15T08:00:15+00:00">January 15, 2013</time></a><span class="byline"> by <span class="author vcard"><a class="url fn n" href="http://xmodulo.com/author/nanni" title="View all posts by Dan Nanni" rel="author">Dan Nanni</a></span></span></span>					<span class="comments-link"><a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comments" title="Comment on How to enable mod_rewrite in Apache2 on Debian or Ubuntu">14 Comments</a></span>
+								</div><!-- .heatmapthemead-entry-meta -->
+			<div class="entry-content">
+<!--Ad Injection mfunc mode ad include code--><!--mfunc include_once('/home/kimchido/public_html/wp-content/plugins/ad-injection/adshow.php') --><!--/mfunc-->
+<p>If you have installed Apache2 web server via <tt>apt-get</tt> or <tt>aptitude</tt> on Debian or <a href="http://xmodulo.com/go/ubuntubook" style="" target="_blank" rel="nofollow">Ubuntu</a> systems, it has mod_rewrite module installed, but not enabled by default.  After Apache2 installation, you need to enable mod_rewrite explicitly in order to enjoy its benefit.</p>
+<h3>What is mod_rewrite?</h3>
+<p>Apache2 web server boasts of extensible features which are realized by the notion of pluggable modules.  When building Apache2, you compile a set of modules you think are necessary, into it.  One such module is called mod_rewrite which is responsible for rewriting website URLs at the server side.  For example, when user asks for "http://myserver.com/my_category/my_post.html", the requested URL is translated by mod_rewrite to "http://myserver.com/post.php?category=100&amp;post=200", which is then handled by the web server.</p>
+<h3>Why use mod_rewrite?</h3>
+<p>Webmasters generally use mod_rewrite to improve user-friendliness and search engine friendliness of web sites by exposing more memorable and crawlable URLs to the world with mod_rewrite.  Also, it can help hide any sensitive information such as query strings from URL requests, and hence can enhance website safety.</p>
+<h3>How to enable mod_write on Apache2</h3>
+<p>The default installation of Apache2 comes with mod_rewrite installed.  To check whether this is the case, verify the existence of /etc/apache2/mods-available/rewrite.load.</p>
+<!--Ad Injection mfunc mode ad code--><!--mfunc adshow_display_ad_file_v2(array('ad_random_1.txt'), array(100), array('align' => '', 'clear' => '', 'margin_top' => '10', 'margin_bottom' => '10', 'padding_top' => '', 'padding_bottom' => ''), array(), array()) -->
+
+<div style="margin-top:10px;margin-bottom:10px;"><script type="text/javascript">
+google_ad_client = "ca-pub-7245163904660683";
+if (!document.body.clientWidth || document.body.clientWidth >= 360) {
+google_ad_slot = "5804090714";
+google_ad_width = 336;
+google_ad_height = 280;
+} else {
+google_ad_slot = "3390650388";
+google_ad_width = 300;
+google_ad_height = 250;
+}
+</script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/show_ads.js">
+</script><ins id="aswift_1_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><iframe width="336" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" __idm_frm__="8"></iframe></ins></ins></div><!--/mfunc-->
+
+<div class="console">
+$ cat /etc/apache2/mods-available/rewrite.load
+</div>
+<pre>LoadModule rewrite_module /usr/lib/apache2/modules/mod_rewrite.so
+</pre>
+<p>To enable and load mod_rewrite, do the rest of steps.</p>
+<div class="console">
+$ sudo a2enmod rewrite
+</div>
+<p>The above command will create a symbolic link in /etc/apache2/mods-enabled.</p>
+<div class="console">
+$ ls -al /etc/apache2/mods-enabled/rewrite.load
+</div>
+<pre>lrwxrwxrwx 1 root root 30 Dec  9 23:10   /etc/apache2/mods-enabled/rewrite.load -&gt; ../mods-available/rewrite.load
+</pre>
+<p>Then open up the following file, and replace every occurrence of "AllowOverride None" with "AllowOverride all".</p>
+<div class="console">
+$ sudo vi /etc/apache2/sites-available/default
+</div>
+<p></p>
+<p>Finally, restart Apache2.</p>
+<div class="console">
+$ sudo service apache2 restart
+</div>
+<div style="padding: 10px 10px 10px 0px;"><div style="float: left; width: 336px;margin-right:10px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-7245163904660683";
+google_ad_slot = "5804090714";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/show_ads.js">
+</script><ins id="aswift_2_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><iframe width="336" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
+</div><h3><img class="lazy lazy-hidden" style="vertical-align:middle;height:20px;" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="/images/rss_small.png"><noscript>&lt;img style="vertical-align:middle;height:20px;" src="/images/rss_small.png"&gt;</noscript> Subscribe to Xmodulo</h3>
+<p>Do you want to receive <strong>Linux FAQs, detailed tutorials and tips</strong> published at Xmodulo?   Enter your email address below, and we will deliver our Linux posts straight to your email box, for free.  Delivery powered by Google Feedburner.</p>
+<form id="feedburner_email_widget_sbef" action="http://feedburner.google.com/fb/a/mailverify" method="post" onsubmit="window.open(\" http:="" feedburner.google.com="" fb="" a="" mailverify?uri="linuxfaq\&quot;," \"popupwindow\",="" \"scrollbars="yes,width=550,height=520\&quot;);return" true;"="" target="popupwindow"><input id="feedburner_email_widget_bottom_email" name="email" type="text" value="Your email address" onclick="javascript:if(this.value==\" your="" email="" address\"){this.value="\&quot;\&quot;;}&quot;"><input type="hidden" value="linuxfaq" name="uri"><input type="hidden" value="en_US" name="loc"><input id="feedburner_submit" type="submit" value="Subscribe"></form></div><div id="ts-fab-below" class="ts-fab-wrapper"><span class="screen-reader-text">The following two tabs change content below.</span><ul class="ts-fab-list"><li class="ts-fab-bio-link"><a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#ts-fab-bio-below">Bio</a></li><li class="ts-fab-latest-posts-link"><a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#ts-fab-latest-posts-below">Latest Posts</a></li></ul><div class="ts-fab-tabs">
+	<div class="ts-fab-tab" id="ts-fab-bio-below">
+		<div class="ts-fab-avatar"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="/images/author/1.jpg" height="80" width="80"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="/images/author/1.jpg" height=80 width=80&gt;&lt;noscript&gt;&lt;img src="/images/author/1.jpg" height=80 width=80&gt;</noscript><div class="ts-fab-social-links"><a href="http://twitter.com/xmodulo" title="Twitter" rel="nofollow"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/twitter.png" width="24" height="24" alt="My Twitter profile"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/twitter.png" width="24" height="24" alt="My Twitter profile" /&gt;&lt;noscript&gt;&lt;img src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/twitter.png" width="24" height="24" alt="My Twitter profile" /&gt;</noscript></a><a href="http://facebook.com/xmodulo" title="Facebook" rel="nofollow"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/facebook.png" width="24" height="24" alt="My Facebook profile"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/facebook.png" width="24" height="24" alt="My Facebook profile" /&gt;&lt;noscript&gt;&lt;img src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/facebook.png" width="24" height="24" alt="My Facebook profile" /&gt;</noscript></a><a href="http://plus.google.com/+DanNanni?rel=author" title="Google+"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/googleplus.png" width="24" height="24" alt="My Google+ profile"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/googleplus.png" width="24" height="24" alt="My Google+ profile" /&gt;&lt;noscript&gt;&lt;img src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/googleplus.png" width="24" height="24" alt="My Google+ profile" /&gt;</noscript></a><a href="https://www.linkedin.com/in/xmodulo" title="LinkedIn" rel="nofollow"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/linkedin.png" width="24" height="24" alt="My LinkedIn profile"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/linkedin.png" width="24" height="24" alt="My LinkedIn profile" /&gt;&lt;noscript&gt;&lt;img src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/linkedin.png" width="24" height="24" alt="My LinkedIn profile" /&gt;</noscript></a></div>
+		</div>
+		
+		<div class="ts-fab-text">
+			<div class="ts-fab-header"><h4><a href="http://xmodulo.com/" rel="nofollow">Dan Nanni</a></h4></div><!-- /.ts-fab-header -->
+			<div class="ts-fab-content">Dan Nanni is the founder and also a regular contributor of Xmodulo.com. He is a Linux/FOSS enthusiast who loves to get his hands dirty with his Linux box.  He likes to procrastinate when he is supposed to be busy and productive.   When he is otherwise free, he likes to watch movies and shop for the coolest gadgets.</div>
+		</div>
+	</div>
+	<div class="ts-fab-tab" id="ts-fab-latest-posts-below">
+		<div class="ts-fab-avatar"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="/images/author/1.jpg" height="80" width="80"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="/images/author/1.jpg" height=80 width=80&gt;&lt;noscript&gt;&lt;img src="/images/author/1.jpg" height=80 width=80&gt;</noscript><div class="ts-fab-social-links"><a href="http://twitter.com/xmodulo" title="Twitter" rel="nofollow"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/twitter.png" width="24" height="24" alt="My Twitter profile"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/twitter.png" width="24" height="24" alt="My Twitter profile" /&gt;&lt;noscript&gt;&lt;img src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/twitter.png" width="24" height="24" alt="My Twitter profile" /&gt;</noscript></a><a href="http://facebook.com/xmodulo" title="Facebook" rel="nofollow"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/facebook.png" width="24" height="24" alt="My Facebook profile"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/facebook.png" width="24" height="24" alt="My Facebook profile" /&gt;&lt;noscript&gt;&lt;img src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/facebook.png" width="24" height="24" alt="My Facebook profile" /&gt;</noscript></a><a href="http://plus.google.com/+DanNanni?rel=author" title="Google+" rel="nofollow"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/googleplus.png" width="24" height="24" alt="My Google+ profile"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/googleplus.png" width="24" height="24" alt="My Google+ profile" /&gt;&lt;noscript&gt;&lt;img src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/googleplus.png" width="24" height="24" alt="My Google+ profile" /&gt;</noscript></a><a href="https://www.linkedin.com/in/xmodulo" title="LinkedIn" rel="nofollow"><img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/linkedin.png" width="24" height="24" alt="My LinkedIn profile"><noscript>&lt;img class="lazy lazy-hidden" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/linkedin.png" width="24" height="24" alt="My LinkedIn profile" /&gt;&lt;noscript&gt;&lt;img src="http://xmodulo.com/wp-content/plugins/fancier-author-box/images/linkedin.png" width="24" height="24" alt="My LinkedIn profile" /&gt;</noscript></a></div>
+		</div>
+		<div class="ts-fab-text">
+			<div class="ts-fab-header">
+				<h4>Latest posts by Dan Nanni <span class="latest-see-all">(<a href="http://xmodulo.com/author/nanni" rel="nofollow">see all</a>)</span></h4>
+			</div>
+			<div class="ts-fab-latest">
+				<li>
+					<a href="http://xmodulo.com/2014/09/create-cloud-based-encrypted-file-system-linux.html">How to create a cloud-based encrypted file system on Linux</a><span> - September 9, 2014</span> 
+				</li>
+				<li>
+					<a href="http://xmodulo.com/2014/09/linux-tcpip-networking-net-tools-iproute2.html">Linux TCP/IP networking: net-tools vs. iproute2</a><span> - September 4, 2014</span> 
+				</li>
+				<li>
+					<a href="http://xmodulo.com/2014/09/manage-lvm-volumes-centos-rhel-7-system-storage-manager.html">How to manage LVM volumes on CentOS / RHEL 7 with System Storage Manager</a><span> - September 2, 2014</span> 
+				</li>
+		</div></div>
+	</div>
+		</div>
+	</div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this FAQ:</h3><div class="sd-content"><ul><li class="share-google-plus-1"><div class="googleplus1_button"><div id="___plus_0" style="position: absolute; width: 450px; left: -10000px;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I0_1410638532982" name="I0_1410638532982" src="about:blank"></iframe></div><div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html" data-gapiscan="true" data-onload="true" data-gapistub="true"></div></div></li><li class="share-facebook"><div class="like_button"><img src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" class="lazy lazy-hidden" data-lazy-type="iframe" data-lazy-src="PGlmcmFtZSBzcmM9Imh0dHA6Ly93d3cuZmFjZWJvb2suY29tL3BsdWdpbnMvbGlrZS5waHA/aHJlZj1odHRwJTNBJTJGJTJGeG1vZHVsby5jb20lMkYyMDEzJTJGMDElMkZob3ctdG8tZW5hYmxlLW1vZF9yZXdyaXRlLWluLWFwYWNoZTItb24tZGViaWFuLXVidW50dS5odG1sJmFtcDtsYXlvdXQ9YnV0dG9uX2NvdW50JmFtcDtzaG93X2ZhY2VzPWZhbHNlJmFtcDthY3Rpb249bGlrZSZhbXA7Y29sb3JzY2hlbWU9bGlnaHQmYW1wO2hlaWdodD0yMSZhbXA7bG9jYWxlPWVuX1VTJmFtcDt3aWR0aD05MCIgc2Nyb2xsaW5nPSJubyIgZnJhbWVib3JkZXI9IjAiIHN0eWxlPSJib3JkZXI6bm9uZTsgb3ZlcmZsb3c6aGlkZGVuOyB3aWR0aDo5NnB4OyBoZWlnaHQ6MjFweDsiIGFsbG93VHJhbnNwYXJlbmN5PSJ0cnVlIj4=" alt=""><noscript>&lt;iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fxmodulo.com%2F2013%2F01%2Fhow-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html&amp;amp;layout=button_count&amp;amp;show_faces=false&amp;amp;action=like&amp;amp;colorscheme=light&amp;amp;height=21&amp;amp;locale=en_US&amp;amp;width=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:96px; height:21px;" allowTransparency="true"&gt;</noscript></div></li><li class="share-twitter"><div class="twitter_button"><img src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" class="lazy lazy-hidden" data-lazy-type="iframe" data-lazy-src="PGlmcmFtZSBhbGxvd3RyYW5zcGFyZW5jeT0idHJ1ZSIgZnJhbWVib3JkZXI9IjAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cDovL3BsYXRmb3JtLnR3aXR0ZXIuY29tL3dpZGdldHMvdHdlZXRfYnV0dG9uLmh0bWw/dXJsPWh0dHAlM0ElMkYlMkZ4bW9kdWxvLmNvbSUyRjIwMTMlMkYwMSUyRmhvdy10by1lbmFibGUtbW9kX3Jld3JpdGUtaW4tYXBhY2hlMi1vbi1kZWJpYW4tdWJ1bnR1Lmh0bWwmIzAzODtjb3VudHVybD1odHRwJTNBJTJGJTJGeG1vZHVsby5jb20lMkYyMDEzJTJGMDElMkZob3ctdG8tZW5hYmxlLW1vZF9yZXdyaXRlLWluLWFwYWNoZTItb24tZGViaWFuLXVidW50dS5odG1sJiMwMzg7Y291bnQ9aG9yaXpvbnRhbCYjMDM4O3RleHQ9SG93JTIwdG8lMjBlbmFibGUlMjBtb2RfcmV3cml0ZSUyMGluJTIwQXBhY2hlMiUyMG9uJTIwRGViaWFuJTIwb3IlMjBVYnVudHUlM0EiIHN0eWxlPSJ3aWR0aDoxMDFweDsgaGVpZ2h0OjIwcHg7Ij4=" alt=""><noscript>&lt;iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fxmodulo.com%2F2013%2F01%2Fhow-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html&amp;#038;counturl=http%3A%2F%2Fxmodulo.com%2F2013%2F01%2Fhow-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html&amp;#038;count=horizontal&amp;#038;text=How%20to%20enable%20mod_rewrite%20in%20Apache2%20on%20Debian%20or%20Ubuntu%3A" style="width:101px; height:20px;"&gt;</noscript></div></li><li class="share-linkedin"><div class="linkedin_button"><script type="in/share" data-url="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html" data-counter="right"></script></div></li><li class="share-end"></li></ul></div></div></div><div class="yarpp-related">
+<br><h3>Related FAQs:</h3><ul>
+<li><a href="http://xmodulo.com/2013/11/install-configure-cacti-linux.html" rel="bookmark" title="How to install and configure Cacti on Linux">How to install and configure Cacti on Linux </a></li>
+<li><a href="http://xmodulo.com/2014/04/https-apache-web-server-centos.html" rel="bookmark" title="How to set up HTTPS in Apache web Server on CentOS">How to set up HTTPS in Apache web Server on CentOS </a></li>
+<li><a href="http://xmodulo.com/2013/09/access-vnc-remote-desktop-web-browser.html" rel="bookmark" title="How to access VNC remote desktop in web browser">How to access VNC remote desktop in web browser </a></li>
+<li><a href="http://xmodulo.com/2013/11/secure-apache-webserver-ubuntu.html" rel="bookmark" title="How to set up a secure Apache webserver on Ubuntu">How to set up a secure Apache webserver on Ubuntu </a></li>
+<li><a href="http://xmodulo.com/2014/06/configure-tomcat-cluster-ubuntu.html" rel="bookmark" title="How to configure a Tomcat cluster on Ubuntu">How to configure a Tomcat cluster on Ubuntu </a></li>
+</ul>
+</div>
+</div> <!-- .entry-content -->    
+    				<div class="heatmapthemead-footer-entry-meta">
+				<footer class="entry-meta">
+				
+										
+														<p class="heatmapthemead-cat-links">
+									Categories: <a href="http://xmodulo.com/category/networking" rel="tag">Networking</a>, <a href="http://xmodulo.com/category/web" rel="tag">Web</a>								</p>
+													
+													<p class="heatmapthemead-tag-links">
+								Tags: <a href="http://xmodulo.com/tag/apache2" rel="tag">apache2</a>, <a href="http://xmodulo.com/tag/web-server" rel="tag">web server</a>							</p>
+								
+								
+				</footer><!-- #heatmapthemead-article-meta -->    
+			</div><!-- #footer-entry-meta --> 
+    	<div id="comments" class="comments-area">
+	
+	
+			<h2 id="comments-title">
+			14 thoughts on “<span>How to enable mod_rewrite in Apache2 on Debian or Ubuntu</span>”		</h2>
+
+		
+		<ol class="commentlist">
+					<li class="comment even thread-even depth-1" id="li-comment-1179">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-1179" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=1179#respond" onclick="return addComment.moveForm(&quot;comment-1179&quot;, &quot;1179&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/7f834c8e0f0bfaaad1bf9e0d820c7021?s=68&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;r=G" class="lazy lazy-hidden avatar avatar-68 photo" height="68" width="68"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/7f834c8e0f0bfaaad1bf9e0d820c7021?s=68&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;amp;r=G' class='avatar avatar-68 photo' height='68' width='68' /&gt;</noscript><span class="fn">gh</span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-1179"><time datetime="2013-02-19T12:30:16+00:00">February 19, 2013 at 12:30 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Perfect! Thanks!</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		<ul class="children">
+		<li class="comment odd alt depth-2" id="li-comment-4760">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4760" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=4760#respond" onclick="return addComment.moveForm(&quot;comment-4760&quot;, &quot;4760&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://0.gravatar.com/avatar/c334e8438c8345ead7ecedce00382b55?s=39&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;r=G" class="lazy lazy-hidden avatar avatar-39 photo" height="39" width="39"><noscript>&lt;img alt='' src='http://0.gravatar.com/avatar/c334e8438c8345ead7ecedce00382b55?s=39&amp;amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;amp;r=G' class='avatar avatar-39 photo' height='39' width='39' /&gt;</noscript><span class="fn">cjf</span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-4760"><time datetime="2013-10-20T15:37:30+00:00">October 20, 2013 at 3:37 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>It works for me  one detail: I replaced AllowOverride all with AllowOverride All.</p>
+<p>Thanks</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="li-comment-1813">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-1813" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=1813#respond" onclick="return addComment.moveForm(&quot;comment-1813&quot;, &quot;1813&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/5a4eb0c567dd49a54fb6eddc0011c74c?s=68&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;r=G" class="lazy lazy-hidden avatar avatar-68 photo" height="68" width="68"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/5a4eb0c567dd49a54fb6eddc0011c74c?s=68&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;amp;r=G' class='avatar avatar-68 photo' height='68' width='68' /&gt;</noscript><span class="fn"><a href="http://fb.me/madhu131313" rel="external nofollow" class="url">Thota Madhu Sudhan</a></span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-1813"><time datetime="2013-04-11T17:10:10+00:00">April 11, 2013 at 5:10 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>This is not working for me. I am using apache2 in <a href="http://xmodulo.com/go/ubuntubook" style="" target="_blank" rel="nofollow">ubuntu</a> 12.04 (EC2)</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		<ul class="children">
+		<li class="comment byuser comment-author-nanni bypostauthor odd alt depth-2" id="li-comment-1814">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-1814" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=1814#respond" onclick="return addComment.moveForm(&quot;comment-1814&quot;, &quot;1814&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/3a851be8f0817a4981056998f9f52562?s=39&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;r=G" class="lazy lazy-hidden avatar avatar-39 photo" height="39" width="39"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/3a851be8f0817a4981056998f9f52562?s=39&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;amp;r=G' class='avatar avatar-39 photo' height='39' width='39' /&gt;</noscript><span class="fn"><a href="http://xmodulo.com/" rel="external nofollow" class="url">Dan Nanni</a></span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-1814"><time datetime="2013-04-11T17:21:08+00:00">April 11, 2013 at 5:21 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Can you elaborate on your issue?  What application are you running on Apache?</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-2141">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-2141" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=2141#respond" onclick="return addComment.moveForm(&quot;comment-2141&quot;, &quot;2141&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/9a2413e5bdb076dcf1380d5ecc5c5241?s=68&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;r=G" class="lazy lazy-hidden avatar avatar-68 photo" height="68" width="68"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/9a2413e5bdb076dcf1380d5ecc5c5241?s=68&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;amp;r=G' class='avatar avatar-68 photo' height='68' width='68' /&gt;</noscript><span class="fn">aej</span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-2141"><time datetime="2013-06-07T00:15:43+00:00">June 7, 2013 at 12:15 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>I am getting an error on <a href="http://xmodulo.com/go/ubuntubook" style="" target="_blank" rel="nofollow">Ubuntu</a> 12.04 (EC2)</p>
+<p> * Restarting web server apache2                                                                                                                             /usr/sbin/apache2ctl: 87: ulimit: error setting limit (Operation not permitted)<br>
+/usr/sbin/apache2ctl: 87: ulimit: error setting limit (Operation not permitted)<br>
+(13)Permission denied: make_sock: could not bind to address 0.0.0.0:80<br>
+no listening sockets available, shutting down<br>
+Unable to open logs<br>
+Action 'start' failed.<br>
+The Apache error log may have more information.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		<ul class="children">
+		<li class="comment byuser comment-author-nanni bypostauthor odd alt depth-2" id="li-comment-2142">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-2142" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=2142#respond" onclick="return addComment.moveForm(&quot;comment-2142&quot;, &quot;2142&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/3a851be8f0817a4981056998f9f52562?s=39&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;r=G" class="lazy lazy-hidden avatar avatar-39 photo" height="39" width="39"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/3a851be8f0817a4981056998f9f52562?s=39&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;amp;r=G' class='avatar avatar-39 photo' height='39' width='39' /&gt;</noscript><span class="fn"><a href="http://xmodulo.com/" rel="external nofollow" class="url">Dan Nanni</a></span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-2142"><time datetime="2013-06-07T05:18:29+00:00">June 7, 2013 at 5:18 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Are you restarting apache2 as root?</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="li-comment-2236">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-2236" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=2236#respond" onclick="return addComment.moveForm(&quot;comment-2236&quot;, &quot;2236&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://0.gravatar.com/avatar/27e4bcebdc5391bb2f39b8f60d078fd6?s=68&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;r=G" class="lazy lazy-hidden avatar avatar-68 photo" height="68" width="68"><noscript>&lt;img alt='' src='http://0.gravatar.com/avatar/27e4bcebdc5391bb2f39b8f60d078fd6?s=68&amp;amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;amp;r=G' class='avatar avatar-68 photo' height='68' width='68' /&gt;</noscript><span class="fn"><a href="http://roshanpal.com/" rel="external nofollow" class="url">Roshan Pal</a></span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-2236"><time datetime="2013-07-21T09:04:37+00:00">July 21, 2013 at 9:04 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Thanks. It worked like a charm. :)</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="li-comment-4922">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4922" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=4922#respond" onclick="return addComment.moveForm(&quot;comment-4922&quot;, &quot;4922&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/99199804de0f35f1c34ef6d0e7957372?s=68&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;r=G" class="lazy lazy-hidden avatar avatar-68 photo" height="68" width="68"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/99199804de0f35f1c34ef6d0e7957372?s=68&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;amp;r=G' class='avatar avatar-68 photo' height='68' width='68' /&gt;</noscript><span class="fn">Allysson</span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-4922"><time datetime="2013-11-03T17:52:31+00:00">November 3, 2013 at 5:52 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Thanks man for this help! All occurrences of AllowOverride were changed, and it works!</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="li-comment-5019">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-5019" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=5019#respond" onclick="return addComment.moveForm(&quot;comment-5019&quot;, &quot;5019&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://0.gravatar.com/avatar/ca46583893958aa4c34b51b8bb298ee1?s=68&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;r=G" class="lazy lazy-hidden avatar avatar-68 photo" height="68" width="68"><noscript>&lt;img alt='' src='http://0.gravatar.com/avatar/ca46583893958aa4c34b51b8bb298ee1?s=68&amp;amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;amp;r=G' class='avatar avatar-68 photo' height='68' width='68' /&gt;</noscript><span class="fn"><a href="http://www.carvingit.com/" rel="external nofollow" class="url">Shraddha Kulkarni</a></span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-5019"><time datetime="2013-11-14T08:28:44+00:00">November 14, 2013 at 8:28 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Excellent! Released and launched my new Drupal upgrade!</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="li-comment-5510">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-5510" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=5510#respond" onclick="return addComment.moveForm(&quot;comment-5510&quot;, &quot;5510&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/dc744744f2ae369d62df17ae19cbd701?s=68&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;r=G" class="lazy lazy-hidden avatar avatar-68 photo" height="68" width="68"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/dc744744f2ae369d62df17ae19cbd701?s=68&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;amp;r=G' class='avatar avatar-68 photo' height='68' width='68' /&gt;</noscript><span class="fn"><a href="http://travisgeis.com/" rel="external nofollow" class="url">Travis</a></span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-5510"><time datetime="2013-12-15T18:10:10+00:00">December 15, 2013 at 6:10 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Thanks! That worked beautifully. You should add Flattr so I can send you a tip!</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		<ul class="children">
+		<li class="comment byuser comment-author-nanni bypostauthor even depth-2" id="li-comment-5511">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-5511" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=5511#respond" onclick="return addComment.moveForm(&quot;comment-5511&quot;, &quot;5511&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/3a851be8f0817a4981056998f9f52562?s=39&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;r=G" class="lazy lazy-hidden avatar avatar-39 photo" height="39" width="39"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/3a851be8f0817a4981056998f9f52562?s=39&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;amp;r=G' class='avatar avatar-39 photo' height='39' width='39' /&gt;</noscript><span class="fn"><a href="http://xmodulo.com/" rel="external nofollow" class="url">Dan Nanni</a></span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-5511"><time datetime="2013-12-16T03:43:28+00:00">December 16, 2013 at 3:43 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Appreciate your comment.  :-)</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5863">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-5863" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=5863#respond" onclick="return addComment.moveForm(&quot;comment-5863&quot;, &quot;5863&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/13a357fe4d7fec8385078912c3e73871?s=68&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;r=G" class="lazy lazy-hidden avatar avatar-68 photo" height="68" width="68"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/13a357fe4d7fec8385078912c3e73871?s=68&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;amp;r=G' class='avatar avatar-68 photo' height='68' width='68' /&gt;</noscript><span class="fn"><a href="http://wp-learner.com/" rel="external nofollow" class="url">bhatmahesht</a></span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-5863"><time datetime="2014-01-12T08:43:46+00:00">January 12, 2014 at 8:43 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>I'm running <a href="http://xmodulo.com/go/ubuntubook" style="" target="_blank" rel="nofollow">ubuntu</a> 13.10 here. I tried to look for the file /etc/apache2/sites-available/defulat<br>
+There is no such file here. Insetead the folder contains two file called 000-default.conf and default-ssl.conf</p>
+<p>If I change 000-default.conf it when I restart apache it shows error that AllowOverride is not allowed in 000-default.conf file.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		<ul class="children">
+		<li class="comment even depth-2" id="li-comment-6174">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-6174" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=6174#respond" onclick="return addComment.moveForm(&quot;comment-6174&quot;, &quot;6174&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://1.gravatar.com/avatar/d4d5b5a68d249299927450c1743e0d6b?s=39&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;r=G" class="lazy lazy-hidden avatar avatar-39 photo" height="39" width="39"><noscript>&lt;img alt='' src='http://1.gravatar.com/avatar/d4d5b5a68d249299927450c1743e0d6b?s=39&amp;amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D39&amp;amp;r=G' class='avatar avatar-39 photo' height='39' width='39' /&gt;</noscript><span class="fn">Dnetclient</span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-6174"><time datetime="2014-02-08T21:34:12+00:00">February 8, 2014 at 9:34 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>On some installations you will find that the file default does not exist in sites-available.</p>
+<p>The solution is to edit the file /etc/apache2/apache2.conf instead in the way that Dan Nanni mentions.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="li-comment-6040">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-6040" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html?replytocom=6040#respond" onclick="return addComment.moveForm(&quot;comment-6040&quot;, &quot;6040&quot;, &quot;respond&quot;, &quot;809&quot;)">Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=" data-lazy-type="image" data-lazy-src="http://0.gravatar.com/avatar/c5e70d175b0ba869223266892dac76dc?s=68&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;r=G" class="lazy lazy-hidden avatar avatar-68 photo" height="68" width="68"><noscript>&lt;img alt='' src='http://0.gravatar.com/avatar/c5e70d175b0ba869223266892dac76dc?s=68&amp;amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D68&amp;amp;r=G' class='avatar avatar-68 photo' height='68' width='68' /&gt;</noscript><span class="fn">iolar777</span> on <a href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#comment-6040"><time datetime="2014-01-28T21:11:26+00:00">January 28, 2014 at 9:11 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Thank you very much. That worked for me and fixed my WordPress Permalink page not found issue.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+		</ol>
+
+		
+	
+	
+									<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://xmodulo.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required="true"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" aria-required="true"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>												<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="809" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="89b6734c4a"></p>
+	<p class="comment-form-ant-spm" style="clear:both;">
+		<strong>Current ye@r</strong> <span class="required">*</span>
+		<input type="hidden" name="ant-spm-a" id="ant-spm-a" value="2014">
+		<input type="text" name="ant-spm-q" id="ant-spm-q" size="30" value="2.2">
+	</p>
+	
+	<p class="comment-form-ant-spm-2" style="display:none;">
+		<strong>Leave this field empty</strong>
+		<input type="text" name="ant-spm-e-email-url" id="ant-spm-e-email-url" size="30" value="">
+	</p>
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1410638532931"></form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments .comments-area -->		</article><!-- #post-809 -->        
+			<div id="heatmapthemead-post-navigation">
+            <nav role="navigation" id="nav-below" class="site-navigation post-navigation">
+        
+                    
+                <div class="nav-previous"><a href="http://xmodulo.com/2013/01/how-to-copy-and-paste-between-vmware-player-vm-and-host-desktop.html" rel="prev"><span class="meta-nav">«</span> How to copy and paste between VMware Player VM and host desktop</a></div>                <div class="nav-next"><a href="http://xmodulo.com/2013/01/how-to-check-kernel-module-dependencies-on-linux.html" rel="next">How to check kernel module dependencies on Linux <span class="meta-nav">»</span></a></div>        
+                    
+            </nav><!-- .site-navigation post-navigation -->
+        </div><!-- #heatmapthemead-post-navigation -->
+		</div> <!-- id="heatmapthemead-the-content-container" --> 
+</div> <!-- id="heatmapthemead-the-content" --> 
+</div> <!-- id="heatmapthemead-content" --> 
+<!-- primary sidebar -->
+<div id="heatmapthemead-primary-sidebar">
+<div id="heatmapthemead-primary-sidebar-container" role="complementary">
+<div id="heatmapthemead-widget-position-primary" class="heatmapthemead-widget-position heatmapthemead-primary" role="complementary"><aside id="heatmapthemead_ad-6" class="widget heatmapthemead_ad_widget">				<div class="heatmapthemead_ad_widget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-7245163904660683";
+/* xmodulo-leftskyscraper */
+google_ad_slot = "9982982382";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/show_ads.js">
+</script><ins id="aswift_3_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_3_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe width="160" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;"></iframe></ins></ins></div>
+			</aside><aside id="categories-4" class="widget widget_categories"><h4 class="widget-title">Linux FAQ categories</h4>		<ul>
+	<li class="cat-item cat-item-158"><a href="http://xmodulo.com/category/amazon-aws">Amazon AWS</a> (4)
+</li>
+	<li class="cat-item cat-item-171"><a href="http://xmodulo.com/category/android">Android</a> (14)
+</li>
+	<li class="cat-item cat-item-169"><a href="http://xmodulo.com/category/audio">Audio</a> (10)
+</li>
+	<li class="cat-item cat-item-31"><a href="http://xmodulo.com/category/centos">CentOS</a> (38)
+</li>
+	<li class="cat-item cat-item-310"><a href="http://xmodulo.com/category/chromium-os">Chromium OS</a> (1)
+</li>
+	<li class="cat-item cat-item-316"><a href="http://xmodulo.com/category/cisco">Cisco</a> (1)
+</li>
+	<li class="cat-item cat-item-194"><a href="http://xmodulo.com/category/cloud-services">Cloud Services</a> (11)
+</li>
+	<li class="cat-item cat-item-24"><a href="http://xmodulo.com/category/cloudstack">CloudStack</a> (2)
+</li>
+	<li class="cat-item cat-item-15"><a href="http://xmodulo.com/category/databases">Databases</a> (16)
+</li>
+	<li class="cat-item cat-item-17"><a href="http://xmodulo.com/category/debian">Debian</a> (21)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://xmodulo.com/category/desktop">Desktop</a> (26)
+</li>
+	<li class="cat-item cat-item-12"><a href="http://xmodulo.com/category/development">Development</a> (25)
+</li>
+	<li class="cat-item cat-item-14"><a href="http://xmodulo.com/category/editors">Editors</a> (11)
+</li>
+	<li class="cat-item cat-item-222"><a href="http://xmodulo.com/category/fedora">Fedora</a> (11)
+</li>
+	<li class="cat-item cat-item-18"><a href="http://xmodulo.com/category/filesystem">Filesystem</a> (29)
+</li>
+	<li class="cat-item cat-item-183"><a href="http://xmodulo.com/category/games">Games</a> (6)
+</li>
+	<li class="cat-item cat-item-189"><a href="http://xmodulo.com/category/google">Google</a> (9)
+</li>
+	<li class="cat-item cat-item-16"><a href="http://xmodulo.com/category/graphics">Graphics</a> (22)
+</li>
+	<li class="cat-item cat-item-27"><a href="http://xmodulo.com/category/hadoop">Hadoop</a> (2)
+</li>
+	<li class="cat-item cat-item-143"><a href="http://xmodulo.com/category/hardware">Hardware</a> (14)
+</li>
+	<li class="cat-item cat-item-29"><a href="http://xmodulo.com/category/java">Java</a> (13)
+</li>
+	<li class="cat-item cat-item-26"><a href="http://xmodulo.com/category/kernel">Kernel</a> (11)
+</li>
+	<li class="cat-item cat-item-272"><a href="http://xmodulo.com/category/kvm">KVM</a> (3)
+</li>
+	<li class="cat-item cat-item-231"><a href="http://xmodulo.com/category/lightweight-linux">Lightweight Linux</a> (1)
+</li>
+	<li class="cat-item cat-item-178"><a href="http://xmodulo.com/category/math">Math</a> (2)
+</li>
+	<li class="cat-item cat-item-10"><a href="http://xmodulo.com/category/networking">Networking</a> (118)
+</li>
+	<li class="cat-item cat-item-21"><a href="http://xmodulo.com/category/openvswitch">Open vSwitch</a> (2)
+</li>
+	<li class="cat-item cat-item-9"><a href="http://xmodulo.com/category/openstack">OpenStack</a> (4)
+</li>
+	<li class="cat-item cat-item-25"><a href="http://xmodulo.com/category/openwrt">OpenWRT</a> (1)
+</li>
+	<li class="cat-item cat-item-30"><a href="http://xmodulo.com/category/perl">Perl</a> (6)
+</li>
+	<li class="cat-item cat-item-337"><a href="http://xmodulo.com/category/productivity">Productivity</a> (7)
+</li>
+	<li class="cat-item cat-item-286"><a href="http://xmodulo.com/category/publishing">Publishing</a> (3)
+</li>
+	<li class="cat-item cat-item-212"><a href="http://xmodulo.com/category/python">Python</a> (2)
+</li>
+	<li class="cat-item cat-item-280"><a href="http://xmodulo.com/category/raspberry-pi">Raspberry Pi</a> (11)
+</li>
+	<li class="cat-item cat-item-13"><a href="http://xmodulo.com/category/security">Security</a> (53)
+</li>
+	<li class="cat-item cat-item-23"><a href="http://xmodulo.com/category/shells">Shells</a> (15)
+</li>
+	<li class="cat-item cat-item-11"><a href="http://xmodulo.com/category/system">System</a> (30)
+</li>
+	<li class="cat-item cat-item-369"><a href="http://xmodulo.com/category/sysadmin">System Administration</a> (40)
+</li>
+	<li class="cat-item cat-item-8"><a href="http://xmodulo.com/category/ubuntu">Ubuntu</a> (40)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://xmodulo.com/category/uncategorized">Uncategorized</a> (1)
+</li>
+	<li class="cat-item cat-item-4"><a href="http://xmodulo.com/category/utilities">Utilities</a> (29)
+</li>
+	<li class="cat-item cat-item-22"><a href="http://xmodulo.com/category/video">Video</a> (17)
+</li>
+	<li class="cat-item cat-item-201"><a href="http://xmodulo.com/category/virtualbox">VirtualBox</a> (11)
+</li>
+	<li class="cat-item cat-item-20"><a href="http://xmodulo.com/category/virtualization">Virtualization</a> (8)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://xmodulo.com/category/vmware">VMware</a> (21)
+</li>
+	<li class="cat-item cat-item-19"><a href="http://xmodulo.com/category/vyatta">Vyatta</a> (6)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://xmodulo.com/category/web">Web</a> (27)
+</li>
+	<li class="cat-item cat-item-155"><a href="http://xmodulo.com/category/windows-azure">Windows Azure</a> (1)
+</li>
+	<li class="cat-item cat-item-28"><a href="http://xmodulo.com/category/xen">Xen</a> (2)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://xmodulo.com/category/xenserver">XenServer</a> (10)
+</li>
+		</ul>
+</aside></div> <!-- id="heatmapthemead-widget-position-primary" -->
+</div> <!-- id="heatmapthemead-primary-sidebar-container" -->
+</div> <!-- id="heatmapthemead-primary-sidebar" -->
+<!-- secondary sidebar -->
+<div id="heatmapthemead-secondary-sidebar">
+<div id="heatmapthemead-secondary-sidebar-container" role="complementary">
+<div id="heatmapthemead-widget-position-secondary" class="heatmapthemead-widget-position heatmapthemead-secondary widget-area" role="complementary"><aside id="feedburneremailwidget-2" class="widget FeedburnerEmailWidget"><h4 class="widget-title">Enter your email address to subscribe</h4><form id="feedburner_email_widget_sbef" action="http://feedburner.google.com/fb/a/mailverify" method="post" onsubmit="window.open(&#39;http://feedburner.google.com/fb/a/mailverify?uri=linuxfaq&#39;, &#39;popupwindow&#39;, &#39;scrollbars=yes,width=550,height=520&#39;);return true;" target="popupwindow"><input id="feedburner_email_widget_sbef_email" name="email" type="text" value="Your email address" onclick="javascript:if(this.value==&#39;Your email address&#39;){this.value= &#39;&#39;;}"><input type="hidden" value="linuxfaq" name="uri"><input type="hidden" value="en_US" name="loc"><input id="feedburner_email_widget_sbef_submit" type="submit" value="Subscribe"></form></aside><aside id="text-11" class="widget widget_text">			<div class="textwidget"><!-- Place this tag where you want the widget to render. -->
+<div id="___page_0" style="position: absolute; width: 450px; left: -10000px;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I1_1410638532991" name="I1_1410638532991" src="about:blank"></iframe></div><div class="g-page" data-width="280" data-href="//plus.google.com/113402205121279785792" data-layout="landscape" data-rel="publisher" data-gapiscan="true" data-onload="true" data-gapistub="true"></div>
+
+<!-- Place this tag after the last widget tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script></div>
+		</aside><aside id="search-4" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="http://xmodulo.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s">
+					<input type="submit" id="searchsubmit" value="Search">
+				</div>
+			</form></aside><aside id="oio-widget-3" class="widget asdf">
+<ul class="asdf-banner-zone" id="asdf-banner-1" style="width:275px; height:275px; float:left;">
+<li style="width:125px; height:125px; margin:0 25px 25px 0;"><a rel="nofollow" target="_blank" href="http://xmodulo.com/go/stablehost" title="Use &quot;xmodulo40&quot; coupon for 40% one-time discount"><img src="http://xmodulo.com/wp-content/plugins/asdf/uploads/NVGUdQ_stablehost.gif" alt="Use &quot;xmodulo40&quot; coupon for 40% one-time discount" style="width:125px; height:125px; border:0px;"></a></li>
+<li style="width:125px; height:125px; margin:0 0 25px 0;"><a rel="nofollow" target="_blank" href="http://xmodulo.com/wp-content/plugins/asdf/modules/tracker/go.php?id=6" title="Xen VPS servers"><img src="http://xmodulo.com/wp-content/plugins/asdf/uploads/x4GagM_125banner.png" alt="Xen VPS servers" style="width:125px; height:125px; border:0px;"></a></li>
+<li style="width:125px; height:125px; margin:0 25px 0 0;"><a rel="nofollow" target="_blank" href="http://xmodulo.com/advertise#banner" title="Advertise Here"><img src="http://xmodulo.com/images/asdf.png" alt="Advertise Here" style="width:125px; height:125px; border:0px;"></a></li>
+</ul>
+<hr class="asdf-clear-left">
+</aside><aside id="heatmapthemead_ad-4" class="widget heatmapthemead_ad_widget">				<div class="heatmapthemead_ad_widget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-7245163904660683";
+/* xmodulo-side-links */
+google_ad_slot = "2515372787";
+google_ad_width = 200;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/show_ads.js">
+</script><ins id="aswift_4_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent"><ins id="aswift_4_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent"><iframe width="200" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;"></iframe></ins></ins></div>
+			</aside><aside id="relatedpoststhumbnailswidget-2" class="widget widget_relatedpoststhumbnailswidget"><h4 class="widget-title">Related Linux FAQs</h4><div style="clear: both"></div><div style="border: 0pt none ; margin: 0pt; padding: 0pt;"><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); border-bottom-width: medium; border-bottom-style: none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer; background-color: rgb(255, 255, 255);" href="http://xmodulo.com/2012/12/how-to-manage-wired-network-on-ubuntu-desktop.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm6.staticflickr.com/5513/9480929289_fbe7607da1_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to manage a wired network on Ubuntu Desktop</div></div></a><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); border-bottom-width: medium; border-bottom-style: none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer; background-color: rgb(255, 255, 255);" href="http://xmodulo.com/2012/09/how-to-reload-configboot-in-vyatta.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm8.staticflickr.com/7418/11124556356_efe68ca128_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to reload config.boot in Vyatta</div></div></a><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); border-bottom-width: medium; border-bottom-style: none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer; background-color: rgb(255, 255, 255);" href="http://xmodulo.com/2013/02/how-to-assign-multiple-ip-addresses-to-one-network-interface-on-centos.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm4.staticflickr.com/3686/11124646596_aaca490856_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to assign multiple IP addresses to one network interface on CentOS</div></div></a><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); border-bottom-width: medium; border-bottom-style: none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer; background-color: rgb(255, 255, 255);" href="http://xmodulo.com/2013/02/how-to-reload-etc-network-interfaces-in-ubuntu-debian.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm6.staticflickr.com/5531/11124908093_ef90fab230_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to reload /etc/network/interfaces in Ubuntu or Debian</div></div></a><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); border-bottom-width: medium; border-bottom-style: none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer; background-color: rgb(255, 255, 255);" href="http://xmodulo.com/2013/04/how-to-find-default-gateway-on-linux.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm3.staticflickr.com/2865/9417897971_6b2cb41a83_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to find the default gateway on Linux</div></div></a><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); border-bottom-width: medium; border-bottom-style: none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer; background-color: rgb(255, 255, 255);" href="http://xmodulo.com/2013/09/synchronize-files-between-two-servers.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm8.staticflickr.com/7398/9866879673_c401b1d254_o.png) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to synchronize files between two servers</div></div></a><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); border-bottom-width: medium; border-bottom-style: none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer; background-color: rgb(255, 255, 255);" href="http://xmodulo.com/2014/05/alternatives-google-chrome-firefox-linux.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(https://farm3.staticflickr.com/2912/13954954459_11a9c146c6_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">What are the alternatives to Google Chrome and Firefox on Linux?</div></div></a><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="background-color: #FFFFFF; border-right: 1px solid #DDDDDD; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://xmodulo.com/2014/06/secure-ftp-service-vsftpd-linux.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(https://farm4.staticflickr.com/3863/14454678224_da2eaf3961_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to set up a secure FTP service with vsftpd on Linux</div></div></a><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="background-color: #FFFFFF; border-right: 1px solid #DDDDDD; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://xmodulo.com/2014/07/alternatives-skype-linux.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(https://farm4.staticflickr.com/3843/14382320869_f7c5100d8f_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">What are the alternatives to Skype on Linux</div></div></a><a onmouseout="this.style.backgroundColor=&#39;#FFFFFF&#39;" onmouseover="this.style.backgroundColor=&#39;#EEEEEF&#39;" style="background-color: #FFFFFF; border-right: 1px solid #DDDDDD; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://xmodulo.com/2014/08/samba-file-server-windows-clients.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(https://farm6.staticflickr.com/5571/14837993154_981b73ea92_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to set up a Samba file server to use with Windows clients</div></div></a></div><div style="clear: both"></div></aside><aside id="rss-2" class="widget widget_rss"><h4 class="widget-title"><a class="rsswidget" href="http://ask.xmodulo.com/feed"><img style="border:0" width="14" height="14" src="http://xmodulo.com/wp-includes/images/rss.png" alt="RSS"></a> <a class="rsswidget" href="http://ask.xmodulo.com/">Ask Xmodulo</a></h4><ul><li><a class="rsswidget" href="http://ask.xmodulo.com/create-amazon-aws-access-key.html">How to create a new Amazon AWS access key</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/find-remove-obsolete-ppa-repositories-ubuntu.html">How to find and remove obsolete PPA repositories on Ubuntu</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/change-hostname-centos-rhel-7.html">How to change hostname on CentOS or RHEL 7</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/expand-xfs-file-system.html">How to expand an XFS file system</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/install-shutter-centos.html">How to install Shutter on CentOS</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/enable-nux-dextop-repository-centos-rhel.html">How to enable Nux Dextop repository on CentOS or RHEL</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/show-mac-learning-table-linux-bridge.html">How to show a MAC learning table of Linux bridge</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/fix-failed-to-run-aclocal.html">How to fix “failed to run aclocal: No such file or directory”</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/static-mac-address-vmware-esxi-virtual-machine.html">How to set a static MAC address on VMware ESXi virtual machine</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/fix-broken-x11-forwarding-ssh.html">How to fix “X11 forwarding request failed on channel 0″</a></li></ul></aside><aside id="rss-3" class="widget widget_rss"><h4 class="widget-title"><a class="rsswidget" href="http://list.xmodulo.com/feed"><img style="border:0" width="14" height="14" src="http://xmodulo.com/wp-includes/images/rss.png" alt="RSS"></a> <a class="rsswidget" href="http://list.xmodulo.com/">Xmodulo List</a></h4><ul><li><a class="rsswidget" href="http://list.xmodulo.com/seahorse/">Seahorse</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/bleachbit/">BleachBit</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/unison/">Unison</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/nginx/">Nginx</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/novnc/">noVNC</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/shellinabox/">shellinabox</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/wxhexeditor/">wxHexEditor</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/kdenlive/">Kdenlive</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/meld/">Meld</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/photorec/">PhotoRec</a></li></ul></aside><aside id="heatmapthemead_ad-7" class="widget heatmapthemead_ad_widget">				<div class="heatmapthemead_ad_widget"><a rel="nofollow" href="http://xmodulo.com/go/digitalocean" target="_blank">
+<img src="http://xmodulo.com/images/digitalocean.png" width="280" height="280" alt="SSD virtual servers starting from $5/mon" border="0"></a>
+</div>
+			</aside></div> <!-- id="heatmapthemead-widget-position-secondary" -->
+</div> <!-- id="heatmapthemead-secondary-sidebar-container" -->
+</div> <!-- id="heatmapthemead-secondary-sidebar" -->
+</div> <!-- id="heatmapthemead-main" -->
+</div> <!-- id="heatmapthemead-main-wipe" -->
+<!-- Footer -->
+<div id="heatmapthemead-footer-wipe">
+<div id="heatmapthemead-footer">
+<div id="heatmapthemead-footer-container" role="complementary">
+				<div id="heatmapthemead-footer-menu" class="heatmapthemead-menu">
+					<nav role="navigation" class="site-navigation footer-navigation">
+						<div class="menu"><ul><li class="page_item page-item-5032"><a href="http://xmodulo.com/about">About</a></li><li class="page_item page-item-3805"><a href="http://xmodulo.com/advertise">Advertise</a></li><li class="page_item page-item-5367"><a href="http://xmodulo.com/write-us">Write for Us</a></li><li class="page_item page-item-574"><a href="http://xmodulo.com/contact">Contact</a></li></ul></div>
+					</nav>
+				</div>
+	</div> <!-- id="heatmapthemead-footer-container" -->
+</div> <!-- id="heatmapthemead-footer" -->
+</div> <!-- id="heatmapthemead-footer-wipe" -->
+<!-- wp_footer() -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31255384-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!--Plugin WP Missed Schedule 2013.1231.2013 Active - Tag 6707293c0218e2d8b7aa38d418ffa608-->
+
+<!-- This site is patched which an important unfixed problem since WordPress 2.5+ to 3.9+ -->
+
+	<div id="wp-social-toolbar" class="wp-social-toolbar-	 wpst_bar_normal_bottom">
+									<!-- wp social toolbar show box start -->
+			<div id="wp-social-toolbar-show-box">
+				<div id="wps-toolbar-show">
+				<img src="http://xmodulo.com/wp-content/plugins/wp-social-toolbar-pro/images/icons/normal/show/white.png" class="wpsc_show_button">
+				</div>    
+			</div>
+			<!-- wp social toolbar show box end -->
+			<!-- wp social toolbar border visible on hide starts -->
+			<div class="wpcs-border">&nbsp;</div>
+			<!-- wp social toolbar border visible on hide ends -->
+			
+    <div id="wps-toolbar-content">
+				<!-- Top Starts -->
+    	<div id="wps-toolbar-top">
+        	<div id="wps-close-button">
+            	<img src="http://xmodulo.com/wp-content/plugins/wp-social-toolbar-pro/images/icons/normal/close/white.png" class="wpsc_close_button">
+            </div>
+			<div id="wps-twitter-status-no"></div>        </div>
+		<!-- Top ends -->
+		        <div id="wps-toolbar-bottom">
+		
+        	<div id="wpsc-social-accounts">
+			<!-- START LOOP -->
+						<!-- END LOOP -->
+				
+			
+            	
+				
+            </div>
+			<!-- <div id="wpsc-social-counts">  -->
+	
+												
+					
+												<div class="wpcs-share-icons">
+												<script src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/in.js" type="text/javascript"></script>
+						<script type="IN/Share" data-counter="right"></script>						
+												</div>
+																								<div class="wpcs-share-icons"><div id="___plusone_0" style="position: absolute; width: 450px; left: -10000px;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I2_1410638532998" name="I2_1410638532998" src="about:blank" data-gapiattached="true"></iframe></div><g:plusone size="medium" data-gapiscan="true" data-onload="true" data-gapistub="true"></g:plusone></div>
+																											<div class="wpcs-share-icons">
+																		<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/tweet_button.1410542722.htm" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 109px; height: 20px;"></iframe>
+																		<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/widgets.js"></script>
+									</div>	
+																		<div class="wpcs-share-icons"><iframe src="about:blank" scrolling="no" frameborder="0" style="border:none;margin-left:auto;margin-right:auto; overflow:hidden; width:90px; height:25px;" allowtransparency="true"></iframe></div>		
+									
+						
+						<!--</div>  wpsc social counts close -->
+										
+						
+				
+			</div> <!-- wpsc social bottom close -->
+				</div><!-- wpsc social content close -->
+						</div><!-- wpsc social bottom close -->
+	<div style="display:none">
+	<div class="grofile-hash-map-7f834c8e0f0bfaaad1bf9e0d820c7021">
+	</div>
+	<div class="grofile-hash-map-c334e8438c8345ead7ecedce00382b55">
+	</div>
+	<div class="grofile-hash-map-5a4eb0c567dd49a54fb6eddc0011c74c">
+	</div>
+	<div class="grofile-hash-map-3a851be8f0817a4981056998f9f52562">
+	</div>
+	<div class="grofile-hash-map-9a2413e5bdb076dcf1380d5ecc5c5241">
+	</div>
+	<div class="grofile-hash-map-27e4bcebdc5391bb2f39b8f60d078fd6">
+	</div>
+	<div class="grofile-hash-map-99199804de0f35f1c34ef6d0e7957372">
+	</div>
+	<div class="grofile-hash-map-ca46583893958aa4c34b51b8bb298ee1">
+	</div>
+	<div class="grofile-hash-map-dc744744f2ae369d62df17ae19cbd701">
+	</div>
+	<div class="grofile-hash-map-13a357fe4d7fec8385078912c3e73871">
+	</div>
+	<div class="grofile-hash-map-d4d5b5a68d249299927450c1743e0d6b">
+	</div>
+	<div class="grofile-hash-map-c5e70d175b0ba869223266892dac76dc">
+	</div>
+	</div>
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/xmodulo.com\/2013\/01\/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html":809}	</script>
+			<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+					<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+		<script type="text/javascript">
+			jQuery( document ).ready( function() {
+			    jQuery.getScript( '//platform.linkedin.com/in.js?async=true', function success() {
+			        IN.init();
+			    });
+			});
+			jQuery( document.body ).on( 'post-load', function() {
+				if ( typeof IN != 'undefined' )
+					IN.parse();
+			});
+			</script><script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/form.js"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="http://xmodulo.com/wp-content/plugins/bj-lazy-load/js/combined.min.js?ver=0.7.3"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="http://xmodulo.com/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=20121205"></script>
+
+	<script src="./How to enable mod_rewrite in Apache2 on Debian or Ubuntu_files/e-201437.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.1.1',blog:'44272548',post:'809',tz:'0'});
+	var load_cmc = function(){linktracker_init(44272548,809,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><img id="wpstats" src="http://pixel.wp.com/g.gif?host=xmodulo.com&rand=0.8012039228342474&v=ext&j=1%3A3.1.1&blog=44272548&post=809&tz=0&ref=https%3A//www.google.cm/" alt=""><!-- End of wp_footer() -->
+<!-- Number of Queries:102   Seconds: 0.935-->
+<!-- heatmapthemead_end_body hook -->
+<!-- END BODY Scripts -->
+
+
+<!-- end of heatmapthemead_end_body hook -->
+
+
+<!-- End of render.php -->
+<!-- Quick Cache file path: /cache/quick-cache/cache/http/xmodulo-com/2013/01/how-to-enable-mod-rewrite-in-apache2-on-debian-ubuntu-html.html -->
+<!-- Quick Cache file built for (http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html) in 0.93248 seconds, on: Sep 13th, 2014 @ 3:30 am UTC. -->
+<!-- This Quick Cache file will auto-expire (and be rebuilt) on: Sep 20th, 2014 @ 3:30 am UTC (based on your configured expiration time). -->
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- Quick Cache fully functional :-) Cache file served for (http://xmodulo.com/2013/01/how-to-enable-mod_rewrite-in-apache2-on-debian-ubuntu.html) in 0.00146 seconds, on: Sep 13th, 2014 @ 8:01 pm UTC. --></body></html>

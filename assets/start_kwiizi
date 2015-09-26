@@ -1,0 +1,4 @@
+cd /mnt/usb
+./kiwix-serve --library /mnt/usb/library.xml --port=8100 --daemon
+
+

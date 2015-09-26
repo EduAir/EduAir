@@ -1,0 +1,44 @@
+#wp-social-toolbar { bottom: 0px; display: block; left: 0px; margin: 0px; overflow: hidden; position: fixed; text-align: left; width: 100%; z-index: 9999; }
+#wp-social-toolbar, #wp-social-toolbar-show-box { display: none; }
+
+#wps-toolbar-content { display: block; margin: 0px!important; overflow: hidden; padding: 0px!important; width: 100%; }
+#wps-toolbar-content #wps-toolbar-top { display: block; min-height: 28px; overflow: hidden; position: relative; width: 100%; }
+#wps-toolbar-content #wps-toolbar-top #wps-close-button, #wps-toolbar-show { background: #999999; border-radius: 0px 7px 0px 0px; -moz-border-radius: 0px 7px 0px 0px; -webkit-border-radius: 0px 7px 0px 0px; height: 23px; overflow: hidden; padding: 0px; text-align: center; width: 25px; }
+#wps-toolbar-content #wps-toolbar-top #wps-close-button { bottom: 0; left: 0; position: absolute; }
+
+.wpsc_show_button, .wpsc_close_button { background: none!important; border: 0px!important; cursor: pointer; float: left; margin: 0px; padding: 8px 4px 0px 4px; }
+
+.wpst_bar_small_bottom #wps-close-button, .wpst_bar_small_bottom #wps-toolbar-show { height: 19px!important; width: 22px!important; }
+.wpst_bar_small_bottom #wps-close-button .wpsc_close_button, .wpst_bar_small_bottom #wps-toolbar-show .wpsc_show_button { cursor: pointer; float: left; margin: 0px; padding: 6px 2px 2px 4px; }
+
+#wp-social-toolbar-show-box { border-bottom: 5px solid #999999; overflow: hidden; width: 100%; }
+
+.wpcs-border { background: #999999; display: none; height: 5px; width: 100%; }
+
+#wps-toolbar-content #wps-toolbar-top #wps-twitter-status { background: #999999 url(../images/tweet_bird.png) no-repeat 5px 0px; border-radius: 10px 0px 0px 0px; -moz-border-radius: 10px 0px 0px 0px; -webkit-border-radius: 10px 0px 0px 0px; color: #ffffff; float: right; font-size: 13px; line-height: 16px; max-width: 80%; padding: 10px 20px 10px 45px; position: relative; text-shadow: 0px!important; }
+#wps-toolbar-content #wps-toolbar-top #wps-twitter-status-no { float: right; height: 10px; padding: 10px 20px 10px 45px; position: relative; }
+#wps-toolbar-content #wps-toolbar-bottom { background: #000000; border-top: 5px solid #999999; display: block; margin: 0px; overflow: hidden; padding: 0px; width: 100%; }
+#wps-toolbar-content #wps-toolbar-bottom #wpsc-social-accounts { float: left; }
+#wps-toolbar-content #wps-toolbar-bottom #wpsc-social-accounts img { border-bottom: 0px!important; border-left: 0px!important; border-right: 1px solid #999999; border-top: 0px!important; float: left; margin: 0px!important; overflow: hidden; padding: 0px!important; }
+#wps-toolbar-content #wps-toolbar-bottom #wpsc-social-counts { float: right; }
+
+.wpcs-share-icons { border-left: 1px solid #999999; float: right; padding: 0px 5px 0px 5px; text-align: center; }
+
+#twitter_update_list { list-style: none; margin: 0px; padding: 0px; }
+
+.wps-tweetstamp { font-size: 11px; padding: 0px 0px 0px 15px; }
+
+.wpst_bar_small_bottom .wpcs-share-icons { height: 25px; padding-top: 5px; }
+.wpst_bar_small_bottom .wpst-credit-pro { height: 30px; overflow: hidden; padding: 0px; width: 30px; }
+.wpst_bar_small_bottom .wpst-credit-pro img { background: none!important; height: 30px!important; margin: 0px!important; overflow: hidden!important; padding: 0px!important; width: 30px!important; }
+
+.wpst_bar_normal_bottom .wpcs-share-icons { height: 30px; padding-top: 10px; }
+.wpst_bar_normal_bottom .wpst-credit-pro { height: 40px; overflow: hidden; padding: 0px; width: 40px; }
+
+.wpcs-share-icons iframe, .wpcs-share-icons a { margin: 0px auto!important; }
+
+.pinterest-btn { display: inline; float: right; height: 30px; margin: 0; overflow: hidden; padding: 0; }
+
+.pin-it-btn { background: url(http://assets.pinterest.com/images/pinit6.png) no-repeat 0 -7px; color: #CD1F1F; display: inline; float: left; font-family: Arial, sans-serif; font-size: 11px; height: 20px; text-indent: -9999em; width: 43px; }
+.pin-it-btn:hover { background-position: 0 -28px; }
+.pin-it-btn:active { background-position: 0 -49px; }

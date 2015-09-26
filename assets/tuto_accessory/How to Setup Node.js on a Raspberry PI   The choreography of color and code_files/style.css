@@ -1,0 +1,385 @@
+/*  
+Theme Name: Quietless
+Theme URI: http://www.quietless.com
+Description: Quietless
+Version: 2.0
+Author: Stephen Braitsch
+Author URI: http://www.quietless.com/
+
+*/
+@import url('reset.css');
+
+body{font:12px arial,helvetica,verdana,sans-serif;color:#555;background-color:#eee;padding:0;line-height:130%;}
+h1	{font-size:23px;}
+h2	{font-size:18px;}
+h3	{font-size:16px; margin:14px 0 14px 0;}
+h4	{font-size:14px;}
+a	{color:#555;text-decoration:none;}
+a:hover{color:#27a3fa;}
+
+/*color palatte
+a #696969 (light-grey)
+a:hover & h2 #481005 (dk-red)
+nav-border #A9A9A9 (light-grey) 
+*/
+
+/*header, masthead nav, and wrapper*/
+
+#bkgd-pattern{
+	width:100%; 
+	height:151px; 
+	background-image:url('images/header-slice.png'); 
+	background-repeat:repeat;
+}
+#wrapper{
+	width:965px; 
+	position:relative;
+	margin:-160px auto;  
+	text-align:left;	
+}
+#logo{ 
+	top:-16px;
+	left:-30px;	
+	position:absolute;
+}	 
+
+/*header contains the swf and the nav*/
+
+#header{
+	float:left;
+	width:965px;
+	margin-top:65px;
+	padding-bottom:20px;
+}	
+
+/*start new-nav*/
+
+#new-nav{
+	height:25px;
+	margin-bottom:5px;
+	width:100%;
+}
+#new-nav li{
+	width:25px;
+	height:25px;
+	float:right;	
+	margin-left:7px;
+}
+
+/*end new-nav*/
+
+#rss{
+	height:24px; width:25px;
+	float:right;
+	margin-left:1px;
+	border: 1px solid #A9A9A9;	
+	background-image:url('images/nav-button-bkgd.png');		
+}
+#rss img{padding:1px;}
+
+#nav {height:25px; width:100%;}
+#nav li{
+	float:right; 
+	width:115px; 
+	height:18px;
+	margin-left:1px; 
+	padding-top:6px; 	 
+	text-align:center;
+	border: 1px solid #A9A9A9;
+	background-image:url('images/nav-button-bkgd.png');	
+}
+#nav li a:hover{color:#696969;}
+
+#swf-border{
+	height:121px;
+	padding:4px 4px 0 4px;
+	background-image:url('images/canvas-frame.png');
+}
+#swf{	
+	height:117px; 
+	background-color:#A9A9A9;
+}	
+
+/*main posts area*/
+
+#posts{
+	float:left; 
+	width:575px;
+}
+
+#posts p{
+	margin:20px 0 15px 12px;
+}
+#posts #gmaps{
+	width:575px;
+	height:450px;
+	padding:5px;
+	border: 1px solid #BBBBBB;		
+}
+#posts img{
+	margin-left:-12px;
+	padding:5px;
+	border: 1px solid #BBBBBB;		
+}
+.post_border{
+	width:100%;
+	padding:5px;
+	margin-bottom:10px;	
+	background-color:white;	
+	border: 1px solid #BBBBBB;			
+}
+.post_header{
+	padding:10px 5px 8px 10px;
+	background-image:url('images/pattern-2.png');
+}
+.post_title{
+	font-family: "Droid Serif", Georgia, Times, serif;
+	font-size:20px;
+	font-style: italic;
+	line-height:120%;
+	-moz-text-shadow: -1px 1px 0 #ffffff;
+	-webkit-text-shadow: -1px 1px 0 #ffffff;
+	text-shadow: -1px 1px 0 #ffffff;		
+}
+.post_meta{
+	margin-top:3px;
+	font-family: "Droid Serif", Georgia, Times, serif;
+	font-style: italic;		
+}
+.post_content ol{
+	list-style-type: decimal;
+}
+.post_content ul{
+	list-style-type: disc;	
+}	
+.post_content ul, ol{
+	margin-left:35px;
+}
+.post_content li{
+	margin:5px 0 5px 0;
+}
+.post_content img{
+	width:575px;
+}
+.post_content h4{
+	margin-bottom:8px;
+}
+#posts a:hover img{
+	border: 1px solid #481005;		
+}
+.post_content a{color:#27a3fa;}
+
+.read-more{
+	padding:10px;
+	width:120px;
+	border:1px solid #BBBBBB;
+}
+	
+/*right sidebar*/	
+	
+#sidebar{
+	float:right;
+	width:350px;
+	border: 1px solid #BBBBBB;
+	border-bottom:none;
+	background-color:#FFF;
+	margin-bottom:100px;
+}
+
+#sidebar .section{
+	margin:0px;
+	border-bottom: 1px solid #BBBBBB;
+	padding:18px 15px 18px 15px;
+}
+
+#sidebar h2{
+	font-size:14px;
+	font-family: "Droid Serif", Georgia, Times, serif;
+	font-style: italic;	
+	font-weight: bold;		
+	padding-left:4px;
+	padding-bottom:8px;
+}
+
+#sidebar .container-outer{
+	margin:0px;	
+	clear:both;
+	border: 1px solid #BBBBBB;
+}
+
+/*search box*/
+
+#search input{vertical-align:middle;}
+#search #s{
+	height:13px;
+	width:265px;
+	padding:7px;
+	border: 1px solid #BBBBBB;
+}
+#search #searchsubmit{
+	padding:3px;
+	float:right;
+	border: 1px solid #BBBBBB;	
+}
+
+#categories #buttons{
+	padding:3px 3px 0 3px;	
+	overflow:hidden;
+	text-align: center;
+	font-family: "Droid Serif", Georgia, Times, serif;
+	font-style: italic;	
+	padding-bottom:2px;
+}
+#categories #buttons li{
+	float:left;
+	margin:2px;
+	height:10px;
+	width:150px;
+	padding:5px 0 7px 0;
+	border: 1px solid #BBBBBB;	
+	background-image:url('images/pattern-2.png');
+	-moz-text-shadow: -1px 1px 0 #ffffff;
+	-webkit-text-shadow: -1px 1px 0 #ffffff;
+	text-shadow: -1px 1px 0 #ffffff;			
+}
+
+#twitter li{
+	width:296px;	
+	padding:5px;
+	margin-bottom:3px;
+	font-size:11px;	
+	list-style: none;	
+	border: 1px solid #BBBBBB;	
+	background-image:url('images/pattern-2.png');
+}
+#twitter li .date{
+	margin-left:3px;		
+}
+#twitter li .tweet{
+	margin:2px 0 0 3px;		
+}
+
+#twitter-heading{
+	float:left;
+	padding-top:2px;
+}
+
+#follow-button{
+	float:left;
+	margin-left:10px;
+	width:195px;
+}
+
+.container-inner{
+	clear:both;
+	padding:5px 5px 2px 5px;
+}
+
+.container-inner li {	
+	padding:5px 8px 5px 8px;
+	font-size:11px;		
+	margin-bottom:3px;	
+	list-style: none;
+	border: 1px solid #BBBBBB;		
+	background-image:url('images/pattern-2.png');
+}
+
+/*flickr feed*/
+#flickr{
+	padding:2px 0 0 3px;
+	width:312px;
+	height:158px;
+}
+
+.flickr-image{
+	width:75px;
+	height:75px;
+	margin: 1px 2px 2px 1px;
+	float:left;
+	background-repeat:no-repeat;
+}
+
+/*comments*/
+
+#comments h4{
+	color:#481005;
+	font-weight:normal;	
+}
+#comments li{
+	width:100%;
+	margin:5px 0 5px 0;
+	padding:5px 5px 0 5px;
+		background-color:white;		
+	border: 1px solid #BBBBBB;	
+}
+#comments li img{
+	float:left;
+	margin:0 8px 0 0;
+	padding:2px;
+	border: 1px solid #BBBBBB;		
+}
+#comments li .author-name{
+	margin-top:5px;
+	font-size:12px;		
+}
+#comments li .author-date{
+	font-size:11px;
+}
+#comments li .author-comment{
+	clear:both;
+	margin:18px 0 10px 0;
+	padding:8px 15px 8px 15px;
+	background-color:#f7f7f7;	
+}
+
+/*footer*/
+
+#respond{
+	width:100%;	
+	margin-top:5px;
+	padding:5px 5px 0 5px;	
+	border: 1px solid #BBBBBB;
+	margin-bottom:100px;	
+}
+#commentform input{
+	height:13px;
+	width:265px;
+	padding:7px;
+	margin:8px 0 0 8px;
+	border: 1px solid #BBBBBB;
+}
+#commentform label{
+	margin-left:5px;
+}
+#commentform textarea{
+	margin:8px 0 0 8px;
+	width:555px;
+	height:160px;
+	border: 1px solid #BBBBBB;	
+}
+#commentform #submit{
+	padding:0;	
+	margin:8px; 
+	color:white;
+	height:26px;
+	width:150px;
+	border:none;
+	background-image:url('images/submit-btn.jpg');
+}
+
+#footer{
+	clear:both;
+	width:100%;
+	height:160px; 
+	background-image:url('images/header-slice-reverse.png');
+}
+
+#footer p {
+	top:120px;	
+	position:relative;
+	text-align: center;
+	font-family: "Droid Serif", Georgia, Times, serif;
+	font-style: italic;
+}
+
+

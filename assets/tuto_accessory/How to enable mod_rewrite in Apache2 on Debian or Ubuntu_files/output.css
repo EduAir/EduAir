@@ -1,0 +1,224 @@
+/* BANNER AD STYLING (zone) */
+
+.asdf-banner-zone {
+	margin: 0px;
+	padding: 0px !important;
+	background: none !important;
+	list-style: none !important;
+	list-style-type: none !important;
+	list-style-banner: none !important;
+}
+
+.asdf-banner-zone li:before, .asdf-banner-zone li:after {
+	content: " " !important;
+	margin: 0px !important;
+	padding: 0px !important;
+	display: none !important;
+}
+
+.asdf-banner-zone li {
+	float: left;
+	overflow: hidden;
+	display: inline !important;
+	padding: 0px !important;
+	background: none !important;
+	clear: none !important;
+	border: none !important;
+}
+
+.asdf-banner-zone li:hover {
+	padding: 0px !important;
+}
+
+.asdf-banner-zone li a {
+	background: none !important;
+}
+
+.asdf-banner-zone a, .asdf-banner-zone img {
+	border: none;
+	display: block;
+	margin: 0px !important;
+	padding: 0px !important;
+	visibility: visible !important;
+}
+
+.asdf-banner-zone .border, .asdf-banner-zone .border:hover {
+	border: 2px solid #999 !important;
+}
+
+/* TEXT AD STYLING (zone) */
+
+.asdf-link-zone {
+	margin: 0px;
+	padding: 0px !important;
+	background: none !important;
+	list-style: none !important;
+	list-style-type: none !important;
+	list-style-banner: none !important;
+	border: 1px solid #999;
+}
+
+.asdf-link-zone li:before, .asdf-link-zone li:after {
+	content: " " !important;
+	margin: 0px !important;
+	padding: 0px !important;
+	display: none !important;
+}
+
+.asdf-link-zone li {
+	float: left;
+	overflow: hidden;
+	display: inline !important;
+	margin: 0px !important;
+	padding: 2px !important;
+	background: none !important;
+	clear: none !important;
+	border: none !important;
+}
+
+.asdf-link-zone li:hover {
+	padding: 2px !important;
+}
+
+.asdf-link-zone li a {
+	background: none !important;
+}
+
+.asdf-link-zone a {
+	border: none;
+	display: block;
+	margin: 0px !important;
+	padding: 0px !important;
+	visibility: visible !important;
+}
+
+.asdf-link-zone .cell {
+	display: block;
+	padding: 5px;
+	margin: 0 auto !important;
+}
+
+.asdf-link-zone .desc {
+
+}
+
+.asdf-link-zone .empty {
+
+}
+
+/* TEXT AD STYLING (list) */
+
+.asdf-link-list {
+
+}
+
+.asdf-link-list li {
+
+}
+
+.asdf-link-list a {
+
+}
+
+.asdf-link-list .desc {
+
+}
+
+.asdf-link-list .empty {
+
+}
+
+/* INLINE AD STYLING */
+
+.asdf-inline-left {
+	float: left;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+.asdf-inline-right {
+	float: right;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.asdf-inline-border, .asdf-inline-border:hover {
+	border: 2px solid #999;
+}
+
+.asdf-inline-left a, .asdf-inline-left img,
+.asdf-inline-right a, .asdf-inline-right img {
+	border: none;
+	display: block;
+	margin: 0px !important;
+	padding: 0px !important;
+	visibility: visible !important;
+}
+
+/* RSS FEED AD STYLING */
+
+#myrss_feed {
+	padding: 10px;
+	border: 1px dashed black;
+}
+
+.rsscontainer {
+	margin-bottom: 1em;
+	text-align: left;
+}
+
+/* AD BADGE STYLING */
+
+.asdf-badge {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+/* AVAILABLE ADS STYLING */
+
+.asdf-openslots {
+
+}
+
+/* POSTLINKS STYLING */
+
+.asdf-postlinks {
+	margin-top: 15px;
+}
+
+/* MISC STYLING */
+
+.asdf-body {
+	margin: 0px !important;
+	padding: 0px !important;
+}
+
+.asdf-center {
+	text-align: center;
+}
+
+.asdf-clear-left {
+	clear: left;
+}
+
+.asdf-clear-right {
+	clear: right;
+}
+
+.asdf-clear {
+	clear: both;
+}
+
+.asdf-clear-left, .asdf-clear-right, .asdf-clear {
+	content: " ";
+	height: 0.1px;
+	font-size: 0.1px;
+	line-height: 0.1px;
+	visibility: hidden;
+	overflow: hidden;
+}
+
+#asdf-pixel {
+	display: none;
+}

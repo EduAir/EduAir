@@ -11,8 +11,9 @@
                         <label for="searcher"><i class="mdi-action-search"></i></label>
                     </div>
                 </li>
-                 
+
                 <li><a class="hello follow_me" reason="follow_me" href="follow_me"><?php echo $this->lang->line('form_follow_me');?></a></li>
+                <li><a class="myschool"  href="Myschool">My school</a></li>
                 <!--<li><a href="components.html">Notification </a></li>
                 <li><a href="javascript.html">Profil</i></a></li>-->
             </ul>  
@@ -26,7 +27,7 @@
                 <li class="menu_back" style="display:none;"><a class="btn-floating btn-large waves-effect waves-light blue"><i class="mdi-hardware-keyboard-arrow-left"></i></a></li>
                 <li>
                     <div class="input-field">
-                        <input id="searcher" type="text" class="input_search" />
+                        <input id="searcher" type="text" class="input_search_mobil" />
                         <label for="searcher"><i class="mdi-action-search"></i></label>
                     </div>
                 </li>

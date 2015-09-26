@@ -1,0 +1,2834 @@
+@charset "utf-8";
+/* 
+Theme Name: HeatMap AdAptive
+Theme URI: http://heatmaptheme.com/heatmap-adaptive/
+Description: I am a responsive theme for WordPress inspired by Google Adsense placement recommendations (you can use other types of ads with me too). There's a widget position map in my options page so you can see where everything goes. Upgrade to HeatMap AdAptive Pro Membership for priority support from the Developer, extra features and the awesome Click Missile ads plugin.
+Author: HeatMap Theme
+Author URI: http://heatmaptheme.com
+Version: 1.4.8
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: black, white, gray, silver, dark, light, blue, one-column, two-columns, three-columns, flexible-width, custom-header, custom-background, custom-menu, featured-images, flexible-header, threaded-comments, translation-ready, sticky-post, theme-options
+*/
+
+/* 
+This file is part of HeatMap Theme AdAptive
+See license.txt (distributed with this file) for details of
+license, contributors, copyright notices, credits and trademarks.
+*/
+
+/* RESET
+--------------------------------------------------------------------------------------------- */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	border: 0;
+	font-family: inherit;
+	font-size: 100%;
+	font-style: inherit;
+	font-weight: inherit;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+html {
+	font-size: 62.5%; /* Corrects text resizing oddly in IE6/7 when body font-size is set using em units http://clagnut.com/blog/348/#c790 */
+	/* overflow-y: scroll; */ /* Keeps page centred in all browsers regardless of content height */
+	-webkit-text-size-adjust: 100%; /* Prevents iOS text size adjust after orientation change, without disabling user zoom */
+	-ms-text-size-adjust: 100%; /* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+	display: block;
+}
+ol, ul {
+	list-style: none;
+}
+table { /* tables still need 'cellspacing="0"' in the markup */
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	font-weight: normal;
+	text-align: left;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+
+q { font-style: italic; }
+	
+a:focus {
+	outline: thin dotted;
+}
+a:hover,
+a:active { /* Improves readability when focused and also mouse hovered in all browsers people.opera.com/patrickl/experiments/keyboard/test */
+	outline: 0;
+}
+a img {
+	border: 0;
+}
+
+/* GLOBAL
+--------------------------------------------------------------------------------------------- */
+
+body {
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+	font-size: 16px;
+	font-size: 1.6em;
+	line-height: 1.5;
+	font-family:  Arial, Helvetica, sans-serif;
+}
+
+
+/* GLOBAL HEADINGS
+-------------------------- */
+
+h1,h2,h3,h4,h5,h6 {
+	clear: both;
+	font-weight: bold;
+	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+hr {
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+}
+
+
+/* GLOBAL TEXT ELEMENTS
+-------------------------- */
+
+.console {
+        color: #FFFFFF;
+        font-family: monospace;
+        font-size: 13px;
+        background: #0099CC;
+        border: 0px none;
+        padding: 5px;
+        margin: 0px 0px 15px;
+        overflow: auto;
+        white-space: nowrap;
+}
+
+pre {
+        border: 1px dashed #CCCCCC;
+        background: #EEEEEE;
+        padding: 10px;
+        margin: 0px 0px 15px;
+        overflow: auto;
+}
+
+p {
+	margin-bottom: .9em;
+}
+ul, ol {
+	margin: 0 0 1.5em 3em;
+}
+ul {
+	list-style: disc;
+}
+ol {
+	list-style: decimal;
+}
+ul ul, ol ol, ul ol, ol ul {
+	margin-bottom: 0;
+	margin-left: 1.5em;
+}
+dt {
+	font-weight: bold;
+}
+dd {
+	margin: 0 1.5em 1.5em;
+}
+b, strong {
+	font-weight: bold;
+}
+dfn, cite, em, i {
+	font-style: italic;
+}
+blockquote {
+	margin: 0 1.5em;
+}
+address {
+	margin: 0 0 1.5em;
+}
+code, kbd, tt, var {
+	font: 15px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+}
+abbr, acronym {
+	cursor: help;
+}
+mark, ins {
+	text-decoration: none;
+}
+sup,
+sub {
+	font-size: 75%;
+	height: 0;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+sup {
+	bottom: 1ex;
+}
+sub {
+	top: .5ex;
+}
+small {
+	font-size: 75%;
+}
+big {
+	font-size: 125%;
+}
+figure {
+	margin: 0;
+}
+table {
+	margin: 0 0 1.5em;
+	width: 100%;
+}
+th {
+	font-weight: bold;
+}
+button,
+input,
+select,
+textarea {
+	font-size: 100%; /* Corrects font size not being inherited in all browsers */
+	margin: 0; /* Addresses margins set differently in IE6-7, F3-4, S5, Chrome */
+	vertical-align: baseline; /* Improves appearance and consistency in all browsers */
+}
+button,
+input {
+	line-height: normal; /* Addresses FF3-4 setting line-height  */
+}
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	border-radius: 3px;
+	cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */
+	-webkit-appearance: button; /* Corrects inability to style clickable 'input' types in iOS */
+	font-size: 12px;
+	font-size: 1.4rem;
+	line-height: 2;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	box-sizing: border-box; /* Addresses box sizing set to content-box in IE8-9 */
+	padding: 0; /* Addresses excess padding in IE8-9 */
+}
+input[type="search"] {
+	-webkit-appearance: textfield; /* Addresses appearance set to searchfield in S5, Chrome */
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box; /* Addresses box sizing set to border-box in S5, Chrome (include -moz to future-proof) */
+	box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration { /* Corrects inner padding displayed oddly in S5, Chrome on OSX */
+	-webkit-appearance: none;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner { /* Corrects inner padding and border displayed oddly in FF3/4 www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+	border: 0;
+	padding: 0;
+}
+input[type=text],
+textarea {
+	border-radius: 3px;
+}
+
+input[type=text] {
+	padding: 3px;
+}
+textarea {
+	overflow: auto; /* Removes default vertical scrollbar in IE6/7/8/9 */
+	padding-left: 3px;
+	vertical-align: top; /* Improves readability and alignment in all browsers */
+	width: 98%;
+}
+
+
+/* GLOBAL ALIGNMENT
+-------------------------- */
+
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: 1.5em;
+	margin-top: 1.8em;
+	margin-bottom: 0.5em;
+}
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: 1.5em;
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin: 0 auto;
+}
+
+
+/* GLOBAL SCREEN READERS
+-------------------------- */
+
+/* Text meant only for screen readers */
+.assistive-text {
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
+
+/* GLOBAL CONTENT
+-------------------------- */
+
+.hentry {
+	margin: 0;
+}
+.entry-meta {
+	clear: both;
+}
+.entry-header { 
+}
+.byline,
+.single .byline,
+.group-blog .byline {
+	display: inline;
+}
+.entry-content,
+.entry-summary {
+	margin: 0;
+}
+
+.entry-content ul,
+.entry-content ol  {
+	clear:left;
+	margin-bottom:15px;
+}
+
+.page-links {
+	clear: both;
+	display: block;
+	margin: 0 0 1.625em;
+}
+.page-links a {
+	border-radius: 3px;
+	margin: 0;
+	padding: 2px 3px;
+	text-decoration: none;
+}
+
+.page-links span {
+	margin-right: 6px;
+}
+
+
+/* GLOBAL ASIDES
+-------------------------- */
+
+.blog .format-aside .entry-title,
+.archive .format-aside .entry-title {
+	display: none;
+}
+
+
+/* CLEARING DIVS
+-------------------------- */
+
+.heatmapthemead-featured-page-clear,
+.heatmapthemead-archive-description-clear,
+.heatmapthemead-content-clear {
+	clear:both;
+	line-height:0;
+	height: 0;
+}
+
+/* MEDIA
+-------------------------- */
+
+.site-header img,
+.attachment img,
+#heatmapthemead-header-image img, 
+#heatmapthemead-featured-page img,
+.heatmapthemead-featured-image img,
+.entry-content img,
+.comment-content img,
+.widget img {
+	max-width: 100%; /* Fluid images for posts, comments, and widgets */
+}
+.site-header img,
+.attachment img,
+#heatmapthemead-header-image img,
+#heatmapthemead-featured-page img,
+.heatmapthemead-featured-image img,
+.entry-content img,
+.widget img,
+img[class*="align"],
+img[class*="wp-image-"] {
+	height: auto; /* Make sure images with WordPress-added height and width attributes are scaled correctly */
+}
+
+.heatmapthemead-featured-image img {
+	width:100%
+}
+
+.site-header img,
+.attachment img,
+#heatmapthemead-header-image img,
+#heatmapthemead-featured-page img,
+.heatmapthemead-featured-image img,
+.entry-content img,
+img.size-full, 
+img.size-large, 
+img.size-medium, 
+img.size-thumbnail  {
+	max-width: 100%;
+}
+
+.entry-content img.wp-smiley,
+.comment-content img.wp-smiley {
+	border: none;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0;
+}
+.wp-caption {
+	max-width: 100%;
+}
+.wp-caption.aligncenter,
+.wp-caption.alignleft,
+.wp-caption.alignright {
+	margin-bottom: 1.5em;
+}
+.wp-caption img {
+	display: block;
+	margin: 0;
+	max-width: 100%;
+}
+.wp-caption-text {
+	text-align: center;
+}
+.wp-caption .wp-caption-text {
+	margin: 0.5em 0;
+	font-size: .8em;
+}
+.gallery {
+	margin-bottom: 1.5em;
+}
+.gallery-caption {
+}
+.gallery a img {
+	height: auto;
+	max-width: 90%;
+}
+.gallery dd {
+	margin: 0;
+}
+.gallery-columns-4 .gallery-item {
+}
+.gallery-columns-4 .gallery-item img {
+}
+
+/* gallery styling from twenty 10 */
+
+.gallery { margin: 0 auto 18px; }
+
+.gallery .gallery-item {
+	float: left;
+	margin-top: 0;
+	margin-bottom: 0px;
+	text-align: center;
+	width: 33%;
+}
+.gallery-columns-2 .gallery-item { width: 50%; }
+.gallery-columns-4 .gallery-item { width: 25%; }
+.gallery img {
+	border-radius: 3px;
+	padding: 5px;
+}
+
+.gallery-columns-2 .attachment-medium {
+	max-width: 92%;
+	height: auto;
+}
+.gallery-columns-4 .attachment-thumbnail {
+	max-width: 84%;
+	height: auto;
+}
+.gallery .gallery-caption {
+	font-size: 12px;
+	margin: 0 0 12px;
+}
+.gallery dl, .gallery dt { margin: 0; }
+.gallery br+br { display: none; }
+
+
+
+/* Make sure embeds and iframes fit their containers */
+embed,
+iframe,
+object {
+	max-width: 100%;
+}
+
+
+/* GLOBAL COMMENTS
+-------------------------- */
+
+.bypostauthor {
+}
+
+
+/* MENU
+--------------------------------------------------------------------------------------------- */
+
+.heatmapthemead-menu { font-family: 'Open Sans', Arial, Helvetica, sans-serif; }
+
+/* PRIMARY MENU
+--------------------------------------------------------------------------------------------- */
+
+#heatmapthemead-primary-menu   {
+	clear: both;
+	display: block;
+	margin: 0px auto 0px; 
+	width: 100%;
+}
+
+#heatmapthemead-primary-menu:after {  /*force bar to show full height */
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+nav.main-navigation { margin: 0px auto 0px; }
+
+#heatmapthemead-primary-menu .main-navigation ul {
+	font-size: 15px;
+	list-style: none;
+	margin: 0 0 0 -15px; 
+	padding-left: 15px;
+}
+#heatmapthemead-primary-menu .main-navigation li {
+	float: left;
+	position: relative;
+	z-index: 9999;
+}
+#heatmapthemead-primary-menu .main-navigation a {
+	display: block;
+	line-height: 2.5em;
+	padding: 0 1.2125em;
+	text-decoration: none;
+}
+#heatmapthemead-primary-menu .main-navigation ul ul {
+	display: none;
+	float: left;
+	margin: 0;
+	position: absolute;
+	top: 2.5em;
+	left: 0;
+	width: 220px;
+	z-index: 9999;
+	padding-left: 0px;
+}
+#heatmapthemead-primary-menu .main-navigation ul ul ul {
+	left: 100%;
+	top: 0;
+}
+#heatmapthemead-primary-menu .main-navigation ul ul a {
+	font-size: 15px;
+	font-weight: normal;
+	height: auto;
+	line-height: 1.2em;
+	padding: 10px 10px;
+	width: 220px;
+}
+
+#heatmapthemead-primary-menu .main-navigation ul li:hover > ul {
+	display: block;
+}
+#heatmapthemead-primary-menu .main-navigation .current-menu-item > a,
+#heatmapthemead-primary-menu .main-navigation .current-menu-ancestor > a,
+#heatmapthemead-primary-menu .main-navigation .current_page_item > a,
+#heatmapthemead-primary-menu #access .current_page_ancestor > a {
+	font-weight: bold; 
+}
+
+
+/* SMALL PRIMARY MENU
+-------------------------- */
+
+/* Text meant only for screen readers */
+.primary-small-nav-text {
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
+
+#heatmapthemead-primary-menu .menu-toggle {
+	cursor: pointer;
+}
+
+#heatmapthemead-primary-menu .main-small-navigation .menu {
+	display: none;
+}
+
+#heatmapthemead-primary-menu .main-small-navigation {
+	clear: both;
+	display: block;
+	float: left;
+	width: 100%;
+}
+
+#heatmapthemead-primary-menu .main-small-navigation p {
+	font-size: 15px;
+	list-style: none;
+	margin: 0 0 0 -0.8125em;
+	padding-left: 15px;
+	
+	display: block;
+	line-height: 3em;
+	padding: 0 1.2125em;
+	text-decoration: none;
+	text-align: center;
+	font-weight:bold;
+	
+	margin: 0px auto 0px; 
+	cursor: pointer;
+}
+
+#heatmapthemead-primary-menu .main-small-navigation p img { 
+	display: inline;
+	float: left;
+	margin-top: 7px;
+	margin-right: 2px;
+}
+
+#heatmapthemead-primary-menu .main-small-navigation ul {
+	font-size: 15px;
+	list-style: none;
+	margin: 0;
+	padding-left: 0px;
+}
+
+#heatmapthemead-primary-menu .main-small-navigation a {
+	display: block;
+	line-height: 2.5em;
+	padding: 0;
+	text-decoration: none;
+	padding-left: 10px;		
+}
+
+#heatmapthemead-primary-menu .main-small-navigation ul ul a {
+	padding-left: 30px;	
+}
+
+#heatmapthemead-primary-menu .main-small-navigation ul li:hover > ul {
+	display: block;
+}
+
+#heatmapthemead-primary-menu .main-small-navigation .current_page_item > a {
+	font-weight: bold;
+}
+
+
+/* SECONDARY MENU
+--------------------------------------------------------------------------------------------- */
+
+#heatmapthemead-secondary-menu {
+	clear: both;
+	display: block;
+	margin: 0px auto 0px;
+	width: 100%;
+
+}
+
+#heatmapthemead-secondary-menu:after {  /*force bar to show full height */
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+nav.secondary-navigation { margin: 0px auto 0px; }
+
+#heatmapthemead-secondary-menu .secondary-navigation ul {
+	font-size: 13px;
+	list-style: none;
+	margin: 0 0 0 -15px; 
+	padding-left: 15px;
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation li {
+	float: left;
+	position: relative;
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation a {
+	display: block;
+	line-height: 2.5em;
+	padding: 0 1.2125em;
+	text-decoration: none;
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation ul ul {
+	display: none;
+	float: left;
+	margin: 0;
+	position: absolute;
+	top: 2.5em;
+	left: 0;
+	width: 200px;
+	z-index: 9998;
+	padding-left: 0px;
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation ul ul ul {
+	left: 100%;
+	top: 0;
+}
+#heatmapthemead-secondary-menu .secondary-navigation ul ul a {
+	font-size: 13px;
+	font-weight: normal;
+	height: auto;
+	line-height: 1.2em;
+	padding: 10px 10px;
+	width: 200px;
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation ul li:hover > ul {
+	display: block;
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation .current-menu-item > a,
+#heatmapthemead-secondary-menu .secondary-navigation .current-menu-ancestor > a,
+#heatmapthemead-secondary-menu .secondary-navigation .current_page_item > a,
+#heatmapthemead-secondary-menu #access .current_page_ancestor > a {
+	font-weight: bold;
+}
+
+/*style the categories menu when it falls back and the current item needs to be bold */
+#heatmapthemead-secondary-menu .secondary-navigation li.current-cat {
+	font-weight: bold;
+}
+
+/* SMALL SECONDARY MENU
+-------------------------- */
+
+/* Text meant only for screen readers */
+.secondary-small-nav-text {
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
+
+#heatmapthemead-secondary-menu .menu-toggle {
+	cursor: pointer;
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation .menu {
+	display: none;
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation {
+	clear: both;
+	display: block;
+	float: left;
+	width: 100%;
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation p {
+	font-size: 15px;
+	list-style: none;
+	margin: 0 0 0 -0.8125em;
+	padding-left: 15px;
+	display: block;
+	line-height: 3em;
+	padding: 0 1.2125em;
+	text-decoration: none;
+	text-align: center;
+	font-weight:bold;
+	margin: 0px auto 0px; 
+	cursor: pointer;
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation p img { 
+	display: inline;
+	float: left;
+	margin-top: 7px;
+	margin-right: 2px;
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation ul {
+	font-size: 15px;
+	list-style: none;
+	margin: 0;
+	padding-left: 0px;
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation a {
+	display: block;
+	line-height: 2.5em;
+	padding: 0;
+	text-decoration: none;
+	padding-left: 10px;		
+}
+
+
+#heatmapthemead-secondary-menu .secondary-small-navigation ul ul a {
+	padding-left: 20px;	
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation ul li:hover > ul {
+	display: block;
+}
+#heatmapthemead-secondary-menu .secondary-small-navigation .current_page_item > a {
+	font-weight: bold;
+}
+
+/*style the categories menu when it falls back and the current item needs to be bold */
+#heatmapthemead-secondary-menu .secondary-small-navigation li.current-cat {
+	font-weight: bold;
+}
+
+
+/* FOOTER MENU
+--------------------------------------------------------------------------------------------- */
+
+#heatmapthemead-footer-menu .footer-navigation {
+	clear: both;
+	display: block;
+	margin: 0px auto 0px; 
+	width: 100%;
+}
+
+#heatmapthemead-footer-menu:after {  /*force bar to show full height */
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+nav.footer-navigation { margin: 0px auto 0px; }
+
+#heatmapthemead-footer-menu .footer-navigation ul {
+	font-size: 13px;
+	list-style: none;
+	margin: 0;
+	text-align: center;
+}
+
+#heatmapthemead-footer-menu .footer-navigation ul li {
+	display:inline;
+}
+#heatmapthemead-footer-menu .footer-navigation a {
+	line-height: 2.5em;
+	padding: 0 .6em 0 .6em;
+	text-decoration: none;
+}
+
+
+/* CREDITS
+--------------------------------------------------------------------------------------------- */
+
+#heatmapthemead-credits {
+	width: 100%;
+	text-align: center;
+	font-size: 11px;
+}
+
+#heatmapthemead-credits:after {  /*force bar to show full height */
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+#heatmapthemead-credits p {
+	line-height: 2.5em;
+	margin: 0px;
+	padding: 0px;
+}
+
+#heatmapthemead-credits p a {
+	text-decoration: none;
+}
+
+#heatmapthemead-credits p a:hover {
+	text-decoration: underline;
+}
+
+
+/* WIDGETS
+--------------------------------------------------------------------------------------------- */
+
+h4.widget-title {
+	padding-bottom: 3px;
+	margin-bottom: 5px;
+}
+
+#heatmapthemeap-widget-position-sitetop .widget,
+#heatmapthemeap-widget-position-sitebottom .widget {
+	text-align:center;
+	line-height: 0;
+}
+
+#heatmapthemead-widget-position-leaderboard {
+	text-align: center;
+	overflow: hidden;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-bottom: 0px;
+	line-height: 1em;
+}
+
+#heatmapthemead-widget-position-leaderboard .widget {
+	margin-top: 10px;
+}
+
+#heatmapthemead-widget-position-postabove .widget {
+	margin-top: .3em;
+}
+
+#heatmapthemead-widget-position-postinline .widget {
+	float: left;
+	margin-right: 15px;
+	margin-bottom: 15px;
+	margin-top: 5px;
+}
+
+
+#heatmapthemead-widget-position-postincontent .widget {
+	float: left;
+	margin-right: 15px;
+	margin-bottom: 15px;
+	/* margin-top: .7em; */
+}
+
+#heatmapthemead-widget-position-postbelow .widget {
+	clear: both;
+}
+
+#heatmapthemead-primary-sidebar .widget {
+	margin-bottom: 15px;
+}
+
+#heatmapthemead-secondary-sidebar .widget {
+	margin-bottom: 15px;
+}
+
+#searchsubmit {
+	/* display: none; */
+}
+
+.heatmapthemead-widget-position ul {
+	list-style: none;
+}
+
+.heatmapthemead-widget-position ul, .heatmapthemead-widget-position ol {
+	margin: 0 0 0 0;
+}
+
+.heatmapthemead-widget-position ul ul, 
+.heatmapthemead-widget-position ol ol, 
+.heatmapthemead-widget-position ul ol, 
+.heatmapthemead-widget-position ol ul {
+	margin-left: 1em;
+}
+
+/* Widget Position Header */
+
+#heatmapthemead-widget-position-header {
+	float:right;
+	margin-right: 15px;
+}
+
+#heatmapthemead-widget-position-header .widget {
+	margin-bottom: .5em;
+	margin-top: .5em;
+	text-align:right;
+	line-height: 1em;
+}
+
+#heatmapthemead-widget-position-header.heatmapthemead-static-header-widget {
+	margin-top: .4em;
+}
+
+#heatmapthemead-widget-position-header .widget.heatmapthemead_leaderboard_ad_widget_class {
+	margin-bottom: 0;
+	margin-top: 0;
+	line-height: 0em;
+	margin-right: -15px;
+}
+
+/* CONTENT NAVIGATION
+--------------------------------------------------------------------------------------------- */
+
+#heatmapthemead-the-content-container .site-navigation {
+	overflow: hidden;
+	line-height: 2em;
+}
+#heatmapthemead-the-content-container .nav-previous {
+	float: left;
+}
+#heatmapthemead-the-content-container .nav-next {
+	float: right;
+	text-align: right;
+}
+
+.nav-previous, .nav-next {
+	margin-bottom: 1em;
+}
+
+.nav-previous a,
+.nav-next a { 
+	font-size: 1em;
+	line-height: 1em;
+	padding: 8px;
+	border-radius: 3px;
+	display: inline-block;
+}
+
+
+/* THEME STRUCTURE
+--------------------------------------------------------------------------------------------- */
+
+.clearFloat {
+	clear: both;
+	font-size: 0;
+	height: 0;
+	line-height: 0px;
+}
+
+/* HEADER
+-------------------------- */
+
+#heatmapthemead-header-wipe {
+	width: 100%; 
+	z-index: 1;
+	clear:both;
+}
+#heatmapthemead-header {
+	margin: 0px auto 0px;
+	padding: 0px;
+	line-height: 1em;
+}
+
+#heatmapthemead-header:after {  /*force header to show full width */
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+#heatmapthemead-header-branding {
+	width: 100%;
+	clear: both;
+	float: left;
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+	overflow: hidden;
+}
+
+#heatmapthemead-branding-container {
+	margin: 0px auto 0px;
+	max-width: 1258px;
+	overflow: hidden;
+}
+
+.screen-reader-text {display: none; } 
+
+#heatmapthemead-header-image { 
+	margin-left: 15px;
+	margin-right: 15px;
+	float: left;
+	overflow: hidden;
+}
+
+#heatmapthemead-header-image img {
+	width: auto;
+	overflow: hidden;
+}
+
+#heatmapthemead-header-text {
+	float:left;
+	margin-left: 15px;
+}
+#heatmapthemead-header-text h1 {
+	clear:none;
+	font-size: 1.7em;
+	line-height: 1em;
+	margin-top: 10px;
+}
+
+#heatmapthemead-header-text h1 a {
+	text-decoration: none;
+}
+
+#heatmapthemead-header-text p#site-title a {
+	text-decoration: none;
+}
+
+#heatmapthemead-header-text p#site-title {
+	clear:none;
+	font-size: 1.7em;
+	line-height: 1em;
+	margin-top: 10px;
+	margin-bottom: 0;
+	font-weight: bold;
+}
+
+#heatmapthemead-header-text h2 {
+	clear:none;
+	font-size: .9em;
+	line-height: 1em;
+	margin-top: 10px;
+	margin-bottom: 15px;
+    text-decoration: none;
+}
+
+#heatmapthemead-header-text p#site-description {
+	clear:none;
+	font-size: .9em;
+	line-height: 1em;
+	margin-top: 10px;
+	margin-bottom: 15px;
+    text-decoration: none;
+	font-weight: bold;
+}
+
+/* LEADERBOARD
+-------------------------- */
+
+#heatmapthemead-leaderboard {
+	max-width: 1258px;
+	margin: 0px auto 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#heatmapthemead-leaderboard-ad {
+	width: 728px;
+	margin: 0px auto 0px;
+}
+
+/* MAIN
+-------------------------- */
+
+#heatmapthemead-main {
+	font-size: .9em;
+	padding: 0px; 	
+	overflow:hidden;
+	margin: 0px auto; 
+}
+
+
+/* STICKY
+-------------------------- */
+
+.sticky {
+	padding: 15px;
+	padding-bottom: 10px;
+}
+
+
+/* FEATURED PAGE
+-------------------------- */
+
+h1.featured-entry-title {
+	clear:none;
+}
+
+
+.heatmapthemead-posted-by-off h1.featured-entry-title {
+	margin-bottom: 10px;
+}
+
+#heatmapthemead-featured-page {
+	padding: 15px;
+	padding-bottom:0px;
+	border-radius: 10px;
+}
+
+
+/* FEATURED IMAGE
+-------------------------- */
+
+.heatmapthemead-featured-image { 
+	margin-bottom: 15px;
+}
+
+.heatmapthemead-featured-image-floatleft .heatmapthemead-featured-image { 
+	float:left;
+	margin-right: 15px;
+}
+
+
+/* PAGE HEADER
+-------------------------- */
+
+.page-header { 
+	padding: 15px;
+	padding-bottom: 5px; 
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+
+
+/* THE CONTENT
+-------------------------- */
+
+#heatmapthemead-the-content {
+	overflow: hidden;
+}
+
+#heatmapthemead-the-content-container {
+	margin: 10px;
+	margin-top: 15px; /*make this 10px if you want it to align with the top of the sidebar ads */	
+	overflow: hidden; /* stops ads running over into gutters - does not work for floats */
+}
+
+#heatmapthemead-the-content-container a {
+	text-decoration: none;
+}
+
+#heatmapthemead-the-content-container .entry-content a {
+	text-decoration: underline;
+}
+
+h1.entry-title {
+	clear: none;
+}
+
+.heatmapthemead-posted-by-off h1.entry-title {
+	margin-bottom: 10px;
+}
+
+#heatmapthemead-the-content-container h1 {
+	font-size: 1.7em;
+	line-height: 1.2em;
+	margin-bottom: 10px;
+}
+
+#heatmapthemead-the-content-container h1 a {
+	text-decoration: none;
+}
+
+h2.entry-title {
+}
+
+#heatmapthemead-the-content-container h2.h2-simulate-h1 {
+	font-size: 1.7em;
+	line-height: 1.2em;
+	/* clear:both; */
+}
+
+.heatmapthemead-posted-by-off h2.h2-simulate-h1{
+	margin-bottom: 10px;
+}
+
+#heatmapthemead-the-content-container h2.h2-simulate-h1 a {
+	text-decoration: none;
+}
+
+#heatmapthemead-the-content-container h2 {
+	font-size: 1.5em;
+	line-height: 1.2em;
+	margin-bottom: 10px;
+	clear:none;
+}
+
+#heatmapthemead-the-content-container h2 a {
+	text-decoration: none;
+}
+
+#heatmapthemead-the-content-container h3 {
+	font-size: 1.2em;
+	line-height: 1.2em;
+	margin-bottom: 10px;
+	clear:none;
+}
+
+#heatmapthemead-the-content-container h3 a {
+	text-decoration: none;
+}
+
+#heatmapthemead-the-content-container h4 {
+	font-size: 1.1em;
+	line-height: 1.2em;
+	margin-bottom: 10px;
+	clear:none;
+}
+
+#heatmapthemead-the-content-container h4 a {
+	text-decoration: none;
+}
+
+#heatmapthemead-the-content-container h5 {
+	font-size: 1em;
+	line-height: 1.2em;
+	margin-bottom: 10px;
+	clear:none;
+}
+
+#heatmapthemead-the-content-container h5 a {
+	text-decoration: none;
+}
+
+#heatmapthemead-the-content-container h6 {
+	font-size: 1em;
+	line-height: 1.2em;
+	margin-bottom: 10px;
+	clear:none;
+}
+
+#heatmapthemead-the-content-container h6 a {
+	text-decoration: none;
+}
+
+#heatmapthemead-the-content-container .heatmapthemead-header-entry-meta {
+	font-size: .9em;
+	margin-bottom: 10px;
+	clear:none;
+}
+
+#heatmapthemead-the-content-container .heatmapthemead-header-entry-meta span.comments-link {
+	display: inline-block;
+}
+
+#heatmapthemead-the-content-container .heatmapthemead-header-entry-meta .heatmapthemead-post-details {
+	margin-right: 10px; /* make a space next to the byline so the comments field sits neatly a little space from it */
+}
+
+#heatmapthemead-the-content-container .heatmapthemead-cat-links {
+	margin-bottom: .3em; 
+	font-size: .8em;
+}
+
+#heatmapthemead-the-content-container .heatmapthemead-tag-links {
+	margin-bottom: .3em; 
+	font-size: .8em;
+}
+
+
+.heatmapthemead-article { 
+	margin-bottom: 1em;
+}
+
+#heatmapthemead-featured-page.heatmapthemead-article { 
+	/* margin-top: -5px; */
+}
+
+#heatmapthemead-post-navigation {
+	clear: both;
+}
+
+
+a.more-link,
+.heatmapthemead-edit-link a {
+	font-size: 1em;
+	line-height: 1em;
+	padding: 6px;
+	border-radius: 3px;
+	margin-top: 5px;
+	display: inline-block;
+}
+
+.heatmapthemead-edit-link a {
+	margin-top: 0px;
+}
+
+/* PRIMARY SIDEBAR
+-------------------------- */
+
+#heatmapthemead-primary-sidebar {
+	overflow: hidden;
+}
+
+#heatmapthemead-primary-sidebar-container {
+	margin: 10px;
+	margin-top: 20px;	
+	margin-left: 15px;
+}
+
+#heatmapthemead-primary-sidebar-container a {
+	text-decoration: none;
+}
+	
+/* SECONDARY SIDEBAR
+-------------------------- */	
+	
+#heatmapthemead-secondary-sidebar {
+	overflow: hidden;
+}
+
+#heatmapthemead-secondary-sidebar-container {
+	margin: 10px;
+	margin-top: 20px;	
+	margin-right: 15px;
+}
+
+#heatmapthemead-secondary-sidebar-container a {
+	text-decoration: none;
+}
+
+
+/* FOOTER
+-------------------------- */
+
+#heatmapthemead-footer-wipe {
+	width: 100%;
+	bottom:0px;
+	clear:both;
+}
+
+#heatmapthemead-footer {
+	margin: 0;
+	padding: 0;	
+	overflow:hidden;
+	margin: 0 auto 0px; 
+	clear:both;	
+}
+
+#heatmapthemead-footer:after {  /*force footer to show full width */
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.heatmapthemead-footer-entry-meta	{ 
+	margin-bottom: 10px;
+}
+
+/* RESPONSIVE LAYOUT - BOTH SIDEBARS
+--------------------------------------------------------------------------------------------- */
+
+.heatmapthemead-layout-both-sidebars #heatmapthemead-main {
+	max-width: 1258px;
+}
+
+.heatmapthemead-layout-both-sidebars #heatmapthemead-content {
+	float: left;
+	width: 100%;
+}
+
+.heatmapthemead-layout-both-sidebars #heatmapthemead-the-content {
+	margin: 0 325px 0 185px; /*Margins for content column. Should be "0 RightColumnWidth 0 LeftColumnWidth*/
+}
+.heatmapthemead-layout-both-sidebars #heatmapthemead-primary-sidebar {
+	float: left;
+	width: 185px; /*Width of left column*/
+	margin-left: -100%;
+}
+.heatmapthemead-layout-both-sidebars #heatmapthemead-secondary-sidebar {
+	float: left;
+	width: 325px; /*Width of right column*/
+	margin-left: -325px; /*Set left marginto -(RightColumnWidth)*/
+}
+
+/* RESPONSIVE LAYOUT - PRIMARY SIDEBAR + CONTENT
+--------------------------------------------------------------------------------------------- */
+
+.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-main {
+	max-width: 1258px;
+}
+
+.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-content {
+	float: left;
+	width: 100%;
+}
+
+.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-the-content {
+	margin: 0 0 0 185px; /*Margins for content column. Should be "0 RightColumnWidth 0 LeftColumnWidth*/
+}
+.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-primary-sidebar {
+	float: left;
+	width: 185px; /*Width of left column*/
+	margin-left: -100%;
+}
+
+.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-the-content-container {
+	margin-right: 15px;
+}
+
+/* RESPONSIVE LAYOUT - CONTENT + SECONDARY SIDEBAR 
+--------------------------------------------------------------------------------------------- */
+
+.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-main {
+	max-width: 1258px;
+}
+
+.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-content {
+	float: left;
+	width: 100%;
+}
+
+.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-the-content {
+	margin: 0 325px 0 0px; /*Margins for content column. Should be "0 RightColumnWidth 0 LeftColumnWidth*/
+}
+
+.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-secondary-sidebar {
+	float: left;
+	width: 325px; /*Width of right column*/
+	margin-left: -325px; /*Set left marginto -(RightColumnWidth)*/
+}
+
+.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-the-content-container {
+	margin-right: 10px;
+	margin-left: 15px;
+}
+
+
+/* RESPONSIVE LAYOUT - CONTENT ONLY
+--------------------------------------------------------------------------------------------- */
+
+.heatmapthemead-layout-content #heatmapthemead-main {
+	max-width: 1258px;
+}
+
+.heatmapthemead-layout-content #heatmapthemead-content {
+	float: left;
+	width: 100%;
+}
+
+.heatmapthemead-layout-content #heatmapthemead-the-content-container {
+	margin-right: 15px;
+	margin-left: 15px;
+}
+
+
+
+/* SOCIAL ICONS WIDGET
+--------------------------------------------------------------------------------------------- */
+
+.heatmapthemead-social-icons {
+	margin-top: 0px;
+	margin-left: -3px;
+	margin-right: -3px;
+}
+
+.heatmapthemead-social-icon {
+	margin-left: 4px;
+	margin-right: 4px;
+}
+
+.heatmapthemead-social-icons img {
+	width: 32px;
+	height: 32px;
+	margin-bottom: 5px;
+}
+
+#heatmapthemead-widget-position-header .heatmapthemead-social-icons {
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+
+/* SOCIAL LIKE BUTTONS
+--------------------------------------------------------------------------------------------- */
+
+.heatmapthemead-like-button-text {
+	font-weight: bold;
+	margin: 0px;
+	padding: 0px;
+	margin-bottom: 10px;
+	clear: both;
+}
+
+.heatmapthemead-like-buttons { 
+	margin: 0px;
+	padding: 0px;
+	margin-bottom: .5em;
+	clear:both;
+}
+
+.heatmapthemead-like-buttons ul {
+	padding: 0px;
+	margin-left: 0px;
+	height:15px;
+}
+
+.heatmapthemead-like-buttons li { 
+	float: left;
+	list-style:none;
+	margin: 0px;
+	padding: 0px;
+	width: 120px;
+}
+
+.heatmapthemead-like-buttons iframe {
+	max-width:none;
+}
+
+.heatmapthemead-like-buttons-clear {
+	clear: both;
+	height: 0;
+}
+
+
+/* SEARCH WIDGET
+--------------------------------------------------------------------------------------------- */
+
+.only-search {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+	float:right;
+	margin-right: 15px;
+}
+
+input#s {
+	margin-right: 5px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	font-size: 14px;
+	height: 22px;
+	line-height: 1em;
+	padding: 4px 10px 4px 28px;
+}
+
+#heatmapthemead-primary-sidebar input#s {
+	width: 110px;
+}
+
+#heatmapthemead-secondary-sidebar input#s {
+	width: 180px;
+}
+
+input#searchsubmit {
+	font-size: 14px;
+	line-height: 1em;
+	height: 32px;
+	padding: 4px 4px 4px 4px;
+}
+
+#heatmapthemead-primary-sidebar input#searchsubmit {
+	clear:both;
+	margin-top: 5px;
+}
+
+
+/* COMMENTS
+----------------------------------------------- */
+
+h2#comments-title {
+	font-size: 1.2em;
+	margin-bottom: .8em;
+	padding-top: 1em;
+}
+
+h3#reply-title {
+	font-size: 1.2em;
+	margin-bottom: .8em;
+}
+
+.comment-author {
+	margin-bottom: .5em;
+}
+
+.heatmapthemead-comment-article .fn {
+	font-weight: bold;
+}
+
+.heatmapthemead-comment-article {
+	min-height: 8em;
+}
+
+ul.children .heatmapthemead-comment-article {
+	min-height: 70px;
+}
+
+.heatmapthemead-comment-article, .heatmapthemead-comment-pingback {
+	margin-bottom: 1em;
+}
+
+.heatmapthemead-comment-article img { 
+	float: left;
+	margin-right: 15px;
+	padding: 6px; 
+	margin-bottom: .5em;
+}
+
+.commentlist {
+	list-style: none outside none;
+	margin-left: 0px;
+}
+
+.commentlist ul li {
+	list-style: none outside none;
+}
+
+a.comment-reply-link, a#cancel-comment-reply-link  {
+	padding: 3px;
+	border-radius: 3px;
+	cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */
+	font-size: .8em;
+	margin-bottom: 1em;
+}
+
+a.comment-reply-link {
+	float: right;
+	margin-left: 15px;
+}
+
+a#cancel-comment-reply-link { 
+	margin-left: 15px;
+}
+
+.heatmapthemead-comment-article .reply { margin-bottom: 1em; }
+
+/* Comment Form */
+
+#respond p { margin: 0;}
+#respond .comment-notes { margin-bottom: 1em; }
+.form-allowed-tags { line-height: 1em; }
+.children #respond {margin: 0 48px 0 0;}
+#comments-list #respond { margin: 0 0 18px 0; }
+#comments-list ul #respond { margin: 0; }
+#cancel-comment-reply-link {
+	font-size: 1em;
+	font-weight: normal;
+	line-height: 18px;
+}
+#respond .required {
+	font-weight: bold;
+}
+#respond label {
+	font-weight: bold;
+	font-size: .9em;
+}
+#respond input {
+	margin: 0 0 9px;
+	width: 96%;
+}
+#respond textarea {
+	width: 96%;
+}
+#respond .form-allowed-tags {
+	font-size: .8em;
+	line-height: 18px;
+}
+#respond .form-allowed-tags code { font-size: .8em; }
+#respond .form-submit { margin: 12px 0; }
+#respond .form-submit input { width: auto; }
+
+
+/* ERROR 404 PAGE
+--------------------------------------------------------------------------------------------- */
+
+.error404 #heatmapthemead-the-content #searchform {
+	margin-bottom: 1.5em;
+}
+
+.error404 #heatmapthemead-the-content .widget_archive {
+	margin-bottom: 1.5em;
+}
+
+.error404 #heatmapthemead-the-content .widget_tag_cloud {
+	margin-bottom: 1.5em;
+}
+
+
+/* EDIT LINK
+-------------------------- */
+
+.heatmapthemead-edit-link { clear: both; }
+
+
+/* COLOURS
+--------------------------------------------------------------------------------------------- */
+
+/* BACKGROUND
+-------------------------- */
+body {
+	background: #848484;					/* Page Background */		
+}
+
+
+/* MAIN TEXT COLOUR
+-------------------------- */
+
+body,
+button,
+input,
+select,
+textarea {
+	color: #445263;							/* Default text for whole theme */
+}
+
+
+/* GLOBAL LINKS
+-------------------------- */
+
+a {
+	color: #333366;							/* Default link */
+}
+
+a:visited {
+	color: #242448;							/* Visited links */
+}
+
+a:hover,
+a:focus,
+a:active {
+	color: #0066FF;							/* Hover, focus and active */
+}
+
+h1.entry-title,
+h1.entry-title a,
+h1.entry-title a:link,
+h1.entry-title a:visited,
+h2.entry-title a,
+h2.entry-title a:link,
+h2.entry-title a:visited,
+.heatmapthemead-post-details a:link,
+.heatmapthemead-post-details a:visited {
+	color: #000000;							/* Link and Visited */
+}
+
+h1.entry-title a:hover,
+h1.entry-title a:focus,
+h1.entry-title a:active,
+h2.entry-title a:hover,
+h2.entry-title a:focus,
+h2.entry-title a:active,
+.heatmapthemead-post-details a:hover,
+.heatmapthemead-post-details a:focus,
+.heatmapthemead-post-details a:active {
+	color: #0066FF;							/* Hover, focus and active */
+}
+
+/* HEADER
+-------------------------- */
+
+#heatmapthemead-header-branding {
+	background: #DDDDDD; 					/* Header background */						
+	border-bottom: 1px solid #EBEBEB;		/* Header bottom border */
+}
+
+#heatmapthemead-header-text h1 a,
+#heatmapthemead-header-text p#site-title a {
+	color: #000000;							/* Site title text */
+	text-shadow: 0 1px 1px #FFFFFF;			/* Light shadow */
+}
+
+#heatmapthemead-header-text h2,
+#heatmapthemead-header-text p#site-description {
+	color: #000000;							/* Site description text */
+	text-shadow: 0 1px 1px #FFFFFF;			/* Light shadow */
+}
+
+
+
+/* LEADERBOARD
+-------------------------- */
+
+#heatmapthemead-leaderboard {
+	background-color:#FFFFFF;				/* Leaderboard content background */
+}
+
+
+/* PRIMARY MENU
+-------------------------- */
+
+#heatmapthemead-primary-menu   {
+	background: #445263;					/* Primary menu top level background */ 																					
+	border-bottom: solid 1px #CCCCCC;		/* Primary menu top level border */
+}
+
+#heatmapthemead-primary-menu .main-navigation a {
+	color: #FFFFFF;							/* Primary menu top level text */
+}
+
+#heatmapthemead-primary-menu .main-navigation ul ul {
+	-moz-box-shadow: 0 3px 3px rgba(0,0,0,0.2);			/* shadow below nav */
+	-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+	box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+}
+
+#heatmapthemead-primary-menu .main-navigation ul ul a {
+	background: #F9F9F9;					/* Primary drop down menu background */
+	border-bottom: 1px solid #DDDDDD;		/* Primary drop down menu border */
+	color: #444444;							/* Primary drop down menu text */
+}
+
+#heatmapthemead-primary-menu .main-navigation li:hover > a,		
+#heatmapthemead-primary-menu .main-navigation ul ul :hover > a,
+#heatmapthemead-primary-menu .main-navigation a:focus {
+	background: #EFEFEF;					/* Primary drop down hover background */
+	color: #444444;							/* Primary drop down hover text */
+}
+
+/* SMALL PRIMARY MENU
+-------------------------- */
+
+#heatmapthemead-primary-menu .main-small-navigation p {
+	color: #EEEEEE;							/* Primary small top level text */
+	background: url(images/menu-icon.png) no-repeat 15px 11px;	
+}
+
+#heatmapthemead-primary-menu .main-small-navigation ul a {
+	background: #F9F9F9;					/* Primary small dropdown background */
+	border-bottom: 1px solid #DDDDDD;		/* Primary small dropdown border */
+	color: #444444;							/* Primary small dropdown text */
+}
+
+#heatmapthemead-primary-menu .main-small-navigation ul a:hover {
+	background: #DDDDDD; 					/* Primary small drop down hover background */
+}
+
+
+/* SECONDARY MENU 
+-------------------------- */
+
+#heatmapthemead-secondary-menu {
+	background: #FFFFFF; 					/* Secondary top level background */										
+	border-bottom: solid 1px #CCCCCC;		/* Secondary top level border */
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation a {
+	color: #445263;							/* Secondary top level text */
+	text-shadow: 0 1px 1px #FFFFFF;			/* Secondary top level light text shadow */					
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation ul ul {
+	-moz-box-shadow: 0 3px 3px rgba(0,0,0,0.2);		/* shadow below nav */
+	-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+	box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation ul ul a {
+	background: #F9F9F9;					/* Secondary dropdown background */
+	border-bottom: 1px solid #DDDDDD;		/* Secondary dropdown border */
+	color: #444444;							/* Secondary dropdown text */
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation li:hover > a,
+#heatmapthemead-secondary-menu .secondary-navigation ul ul :hover > a,
+#heatmapthemead-secondary-menu .secondary-navigation a:focus {
+	background: #EFEFEF;					/* Secondary dropdown hover background */
+	color: #373737; 						/* Secondary dropdown hover text */
+}
+
+/* SMALL SECONDARY MENU 
+-------------------------- */
+
+#heatmapthemead-secondary-menu .secondary-small-navigation p {
+	color: #666666;							/* Secondary small top level text */
+	background: url(images/menu-icon.png) no-repeat 15px 11px; 
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation ul a {
+	background: #F9F9F9;					/* Secondary small dropdown background */
+	border-bottom: 1px solid #DDDDDD;		/* Secondary small dropdown border */
+	color: #444444;							/* Secondary small dropdown text */
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation ul a:hover {
+	background: #DDDDDD; 					/* Secondary small dropdown hover background */
+}
+
+
+/* FOOTER MENU 
+-------------------------- */
+
+#heatmapthemead-footer-menu .footer-navigation {
+	color: #FFFFFF;							/* Footer text */
+	background: #445263; 					/* Footer background */
+	border-top: solid 1px #CCCCCC;			/* Footer border */	
+}
+
+#heatmapthemead-footer-menu .footer-navigation a {
+	color: #FFFFFF;							/* Footer link text */
+}
+
+#heatmapthemead-footer-menu .footer-navigation li:hover > a {
+	color: #DDDDDD;							/* Footer hover text */
+}
+
+
+/* CREDITS
+-------------------------- */
+
+#heatmapthemead-credits {
+	background: #FFFFFF; 					/* Credits background */
+	color: #445263;							/* Credits text */
+	text-shadow: 0 1px 1px #FFFFFF;			/* Light shadow */
+}
+
+#heatmapthemead-credits p a {
+	color: #445263;							/* Credits text link */
+}
+
+
+/* MAIN
+-------------------------- */
+
+#heatmapthemead-main {						
+	background-color:#FFFFFF;				/* Main content background */
+}
+
+
+/* FEATURED PAGE
+-------------------------- */
+
+#heatmapthemead-featured-page {
+	background-color: #DDDDDD;
+}
+
+#heatmapthemead-featured-page h1 {
+	color: #000000;
+}
+
+/* STICKY
+-------------------------- */
+
+.sticky {
+	background-color: #DDDDDD;
+}
+
+/* PAGE HEADER
+-------------------------- */
+
+.page-header { 
+	background-color: #DDDDDD;
+}
+
+/* PAGE / POST
+-------------------------- */
+
+.heatmapthemead-article { 
+	border-bottom: 1px solid #DDDDDD;		/* Page post border */
+}
+
+/* MORE LINKS
+-------------------------- */
+
+a.more-link,
+.heatmapthemead-edit-link a {				
+	color: #FFFFFF; 						/* Read more text link */
+	background: #445263;					/* Read more text link background */
+}
+
+a.more-link:hover,
+.heatmapthemead-edit-link a:hover {
+	background: #006600;					/* Read more link hover background */
+}
+
+a.more-link:active,
+.heatmapthemead-edit-link a:active {
+	background: #003300;					/* Read more link active background */
+}
+
+#heatmapthemead-the-content-container .entry-content a.more-link {
+	text-decoration:none;
+}
+
+
+/* INTRA POST NAV 
+-------------------------- */
+
+.page-links a {
+	color: #FFFFFF;							/* Page link text */
+	background: #445263;					/* Page links background */
+
+}
+
+.page-links a:hover {					
+	color: #FFFFFF;							/* Page links hover text */
+	background: #006600;					/* Page links hover background */
+}
+
+.page-links a:active {						
+	background: #003300;					/* Page links active background */
+}
+
+
+/* BLOG POSTS NAVIGATION
+-------------------------- */
+
+.nav-previous a,							
+.nav-next a {
+	color: #FFFFFF; 						/* Next previous text */
+	background: #445263;					/* Next previous background */
+}
+
+
+.nav-next a:hover,
+.nav-previous a:hover {
+	background: #006600;					/* Next previous text hover background */
+}
+
+.nav-next a:active,
+.nav-previous a:active {
+	background: #003300;					/* Next previous text active background */
+}
+
+
+/* SEARCH
+-------------------------- */
+
+input#s {
+	background: url(images/search.png) no-repeat 5px 6px #FFFFFF;	/* Search icon */
+}
+
+.search #heatmapthemead-the-content-container form,
+.search #heatmapthemead-the-content-container select {
+	margin-bottom: 15px;
+}
+
+
+/* GALLERY 
+-------------------------- */
+
+.gallery img {
+	box-shadow: 1px 1px 2px #DDDDDD;		/* Gallery dark shadow */
+	border: 1px solid #DDDDDD;				/* Gallery border */
+	background: #FFFFFF;					/* Gallery background */
+}
+
+.gallery .gallery-caption {
+	color: #888888;							/* Gallery caption */
+}
+
+/* COMMENTS
+-------------------------- */
+
+h2#comments-title {
+	border-top: 1px solid #DDDDDD;			/* Comments title border */
+}
+
+.heatmapthemead-comment-article, .heatmapthemead-comment-pingback {
+	border-bottom: solid 1px #DDDDDD;		/* Comment border */
+}
+
+.heatmapthemead-comment-article img { 		/* Comment image border */
+	border: 1px solid #DDDDDD;
+}
+
+a.comment-reply-link, a#cancel-comment-reply-link  {
+	border: 1px solid #CCCCCC;				/* Reply link border */
+	background: #FAFAFA;					/* Reply background */
+}
+
+a.comment-reply-link:hover, a#cancel-comment-reply-link:hover,
+a.comment-reply-link:active, a#cancel-comment-reply-link:active {
+	background: #F5F5F5;					/* Reply hover active background */
+	border-color: #BBBBBB; 					/* Reply hover active border*/
+}
+
+a.comment-reply-link:focus,  a#cancel-comment-reply-link:active:focus {
+	border-color: #AAAAAA;					/* Reply link focus */
+}
+
+a.comment-reply-link {
+	color: #444444;							/* Reply text link */
+}
+
+a#cancel-comment-reply-link { 
+	color: #444444;							/* Cancel comment reply link */		
+}
+
+#respond .form-allowed-tags {
+	color: #888888;							/* Reply allowed tags */	
+}
+
+
+/* BUTTONS
+-------------------------- */
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	border: 1px solid #CCCCCC;				/* Button border */
+	background: #FAFAFA; 					/* Button background */
+}
+
+button:hover,
+html input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+	background: #F5F5F5;					/* Button hover background */
+	border-color: #BBBBBB;					/* Button border hover */
+}
+
+button:focus,
+html input[type="button"]:focus,
+input[type="reset"]:focus,
+input[type="submit"]:focus,
+button:active,
+html input[type="button"]:active,
+input[type="reset"]:active,
+input[type="submit"]:active {
+	border-color: #AAAAAA;					/* Button active border */
+}
+
+
+/* TEXT AREAS
+-------------------------- */
+
+input[type=text],
+textarea {
+	color: #666666;							/* Text area text */
+	border: 1px solid #CCCCCC;				/* Text area border */
+}
+
+input[type=text]:focus,
+textarea:focus {
+	color: #111111;							/* Text area focus */									
+}
+
+
+/* MISC
+-------------------------- */
+
+hr {
+	background-color: #CCCCCC;				/* HR colour */
+}
+
+abbr, acronym {
+	border-bottom: 1px solid #DDDDDD;		/* Abbreviation and acronym underlinine */
+}
+
+mark, ins {
+	background:#F96;						/* Inserted text background */
+}
+
+.cmamad ins, 
+.cmam_responsive_ad_widget_class ins, 
+.heatmapthemead_ad_widget ins { 
+	background-color: transparent;
+}
+
+
+/* RESPONSIVE STRUCTURE
+-------------------------- */
+
+/* 1280px
+============================================================ */
+
+/* WIDGETS 1280px
+========================================== */
+
+/* COMMENT OUT BELOW IF YOU WANT REGULAR WIDGETS TO THE RIGHT OF THE HEADER */
+ 
+@media screen and (max-width: 1140px) {
+
+	.heatmapthemeadheader-active #heatmapthemead-widget-position-header {
+		float:none;
+		margin-right: 0px;
+	}
+	
+	.heatmapthemeadheader-active #heatmapthemead-widget-position-header .widget {
+		text-align:center;
+	}
+	
+	.heatmapthemeadheader-active #heatmapthemead-header-text {
+		text-align: center;
+		width: 100%;
+		margin-left: 0px;
+	}	
+	
+	.heatmapthemeadheader-active #heatmapthemead-header-image { 
+		float: none;
+		text-align: center;
+	}
+	
+	.heatmapthemeadheader-active #heatmapthemead-widget-position-header .widget.heatmapthemead_leaderboard_ad_widget_class { 
+		margin-right: 0px;
+	}
+}
+
+/* COMMENT OUT ABOVE IF YOU WANT REGULAR WIDGETS TO THE RIGHT OF THE HEADER */
+
+/* 900px
+============================================================ */
+@media screen and (max-width: 900px) {
+			
+/* BOTH SIDEBARS 900px
+========================================== */
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-main {
+		max-width: 100%;	
+	}
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-the-content {  
+		margin: 0 0 0 185px;
+	}
+	
+	/* this section works with primary sidebar and the content */
+	/* if the content is longer than the primary sidebar then */
+	/* a little jquery magic switches in the class .heatmapthemead-long-content */
+	/* this formats the secondary sidebar so if folds beneath content neatly */
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-secondary-sidebar  { 
+		padding-left:330px;
+		clear:both; 
+		width: 100%;
+	} 
+	
+	.heatmapthemead-layout-both-sidebars.heatmapthemead-long-content  #heatmapthemead-secondary-sidebar  {
+		padding-left:510px; 
+		width: 100%;
+		clear:both;
+	}
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-the-content-container {
+		margin-right: 15px;
+	}	
+	
+	/* Arrange the sidebar widgets beneath the content */
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-secondary-sidebar .widget {
+		float: left;
+		width: 300px;
+		margin-right: 20px;
+	}
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-secondary-sidebar-container {
+		margin-top: 0px;
+	}
+}
+
+/* 815px
+============================================================ */
+@media screen and (max-width: 815px) {
+
+/* WIDGETS 800px
+========================================== */
+
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-secondary-sidebar .widget {
+		float: none;
+	}
+}
+
+/* 800px
+============================================================ */
+@media screen and (max-width: 800px) {
+
+/* WIDGETS 800px
+========================================== */
+
+	#heatmapthemead-widget-position-header {
+		float:none;
+		margin-right: 0px;
+	}
+	
+	#heatmapthemead-widget-position-header .widget {
+		text-align:center;
+	}
+	
+	#heatmapthemead-widget-position-header.heatmapthemead-static-header-widget {
+		margin-top: .5em;
+	}
+
+/* HEADER 800px
+========================================== */
+
+	#heatmapthemead-header-text {
+		text-align: center;
+		width: 100%;
+		margin-left: 0px;
+	}
+	
+	#heatmapthemead-header-text h1 {
+		margin-top: 10px;
+		line-height: 120%;
+		font-size: 1.3em;
+		font-weight: bold;
+		/* margin-top: 0; */
+	}
+	
+	#heatmapthemead-header-text p#site-title {
+		margin-top: 10px;
+		font-size: 1.3em;
+		line-height: 120%;
+		font-weight: bold;
+		/* margin-top: 0; */
+	}
+	
+	#heatmapthemead-header-text h2 {
+		font-size: .9em;
+		line-height: 120%;
+	}
+	
+	#heatmapthemead-header-text p#site-description {
+		font-size: 1em;
+		line-height: 120%;
+	}
+	
+	#heatmapthemead-header-image { 
+		float: none;
+		text-align: center;
+	}
+
+/* CONTENT + SECONDARY SIDEBAR 800px
+========================================== */
+	
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-main {
+		max-width: 100%;	
+	}
+	
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-the-content {  
+		margin: 0;
+	}
+	
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-secondary-sidebar  {
+		padding-left:330px; 
+		width: 100%; 
+		clear:both;
+	}	
+	
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-the-content-container {
+		margin-right: 15px;
+	}
+	
+	
+	/* Arrange the sidebar widgets beneath the content */
+	
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-secondary-sidebar .widget {
+		float: left;
+		width: 300px;
+		margin-right: 20px;
+	}
+	
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-secondary-sidebar-container {
+		margin-top: 0px;
+	}
+	
+
+/* WIDGETS 800px
+========================================== */
+
+	.only-search {
+		margin-top: 0em;
+		margin-bottom: .5em;
+		margin-right: 0px;
+		text-align: center;
+		float: none;
+	}
+
+
+	#heatmapthemead-header-branding input#s {
+		width: 50%;
+	}
+	
+	#heatmapthemead-widget-position-header .heatmapthemead-social-icons {
+		margin-top: -5px;
+		margin-bottom: 10px;
+	}	
+}
+
+
+/* CLICK MISSILE DETECTS A MOBILE
+============================================================ */
+
+	.heatmapthemead-reading-on-a-mobile #heatmapthemead-main {
+		max-width: 100%;	
+	}
+	
+	.heatmapthemead-reading-on-a-mobile  #heatmapthemead-the-content {  
+		margin: 0;
+	}
+	
+	.heatmapthemead-reading-on-a-mobile  #heatmapthemead-primary-sidebar  { 
+		clear:both;
+		width: 100%;
+		margin-left: 0px;
+		margin-right: 0px; 
+	}
+	
+	.heatmapthemead-reading-on-a-mobile  #heatmapthemead-secondary-sidebar  { 
+		width: 100%;
+		float: right;
+		margin-left: 0px;
+		margin-right: 0px;
+	}	
+	
+	.heatmapthemead-reading-on-a-mobile  #heatmapthemead-primary-sidebar-container {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	.heatmapthemead-reading-on-a-mobile  #heatmapthemead-the-content-container {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	.heatmapthemead-reading-on-a-mobile  #heatmapthemead-secondary-sidebar-container  {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	/* Reset the arrangement of the sidebar widgets beneath the content */
+	
+	.heatmapthemead-reading-on-a-mobile  #heatmapthemead-secondary-sidebar .widget {
+		float: none;
+		width: auto;
+		margin-right: 0px;
+	}
+	
+	.heatmapthemead-reading-on-a-mobile  #heatmapthemead-primary-sidebar-container {
+		margin-top: 0px;
+	}
+
+
+/* 600px
+============================================================ */
+@media screen and (max-width: 600px) {
+
+/* HEADER IMAGE
+========================================== */
+	
+	#heatmapthemead-header-image { 
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+
+/* FEATURED IMAGE
+========================================== */	
+/*	
+	.heatmapthemead-featured-image-floatleft .heatmapthemead-featured-image { 
+		float:none;
+		margin-right: 0px;
+	}
+*/
+	
+
+/* BOTH SIDEBARS 600px
+========================================== */
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-main {
+		max-width: 100%;	
+	}
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-the-content {  
+		margin: 0;
+	}
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-primary-sidebar  { 
+		clear:both;
+		width: 100%;
+		margin-left: 0px;
+		margin-right: 0px; 
+	}
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-secondary-sidebar  { 
+		width: 100%;
+		float: right;
+		margin-left: 0px;
+		margin-right: 0px;
+	}	
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-primary-sidebar-container {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-the-content-container {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-secondary-sidebar-container  {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	/* Reset the arrangement of the sidebar widgets beneath the content */
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-secondary-sidebar .widget {
+		float: none;
+		width: auto;
+		margin-right: 0px;
+	}
+	
+	.heatmapthemead-layout-both-sidebars #heatmapthemead-primary-sidebar-container {
+		margin-top: 0px;
+	}
+	
+
+/* PRIMARY SIDEBAR + CONTENT 600px
+========================================== */
+	
+	.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-main {
+		max-width: 100%;	
+	}
+	
+	.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-the-content {  
+		margin: 0;
+	}
+	
+	.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-primary-sidebar  {  
+		clear:both;
+		width: 100%;
+		margin-left: 0px; 
+	}
+	
+	.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-primary-sidebar-container {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-the-content-container {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	/* Reset the arrangement of the sidebar widgets beneath the content */
+	
+	.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-primary-sidebar-container {
+		margin-top: 0px;
+	}
+	
+/* CONTENT + SECONDARY SIDEBAR 600px
+========================================== */
+
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-the-content {  
+		margin: 0;
+	}
+
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-the-content-container {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-secondary-sidebar-container  {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-secondary-sidebar {
+		padding-left:325px;	
+	}
+	
+	/* Reset the arrangement of the sidebar widgets beneath the content */
+	
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-secondary-sidebar .widget {
+		float: none;
+		width: auto;
+		margin-right: 0px;
+	}
+	
+	.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-primary-sidebar-container {
+		margin-top: 0px;
+	}
+	
+	
+/* CONTENT ONLY 600px
+========================================== */
+	
+	.heatmapthemead-layout-content #heatmapthemead-the-content-container {
+		margin-right: 10px;
+		margin-left: 10px;
+	}	
+
+/* WIDGETS 600px
+========================================== */
+	
+	#heatmapthemead-widget-position-leaderboard {
+		margin-left: 0px;
+		margin-right: 0px;
+	}	
+	
+	#heatmapthemead-widget-position-header .widget {
+		margin-bottom: 0;
+		line-height: 0;
+	}			
+
+/* HEADINGS 600px
+========================================== */
+
+	#heatmapthemead-the-content-container h1 {
+		font-size: 1.4em;
+	}
+	
+	#heatmapthemead-the-content-container h2.h2-simulate-h1 {
+		font-size: 1.4em;
+	}
+	
+	#heatmapthemead-the-content-container h2 {
+		font-size: 1.2em;
+	}
+	
+	#heatmapthemead-the-content-container h3 {
+		font-size: .9em;
+	}
+	
+	#heatmapthemead-the-content-container h4 {
+		font-size: .8em;
+	}
+	
+	#heatmapthemead-the-content-container h5 {
+		font-size: .7em;
+	}
+
+	#heatmapthemead-the-content-container h6 {
+		font-size: .7em;
+	}
+	
+	#heatmapthemead-primary-menu .main-small-navigation p,
+	#heatmapthemead-secondary-menu .secondary-small-navigation p {
+	background: url(images/menu-icon.png) no-repeat 10px 11px;
+	}
+	
+/* GALLERY 600px
+========================================== */
+	
+	.gallery img {
+		box-shadow: none;
+		border-radius: 0;
+		border: none;
+		padding: 10px;
+	}
+	
+/* LIKE BUTTONS 600px
+========================================== */	
+	.heatmapthemead-like-buttons li {
+		float: none;
+		margin-bottom: 5px;
+	}	
+	
+	.heatmapthemead-like-buttons {
+		height: 90px;
+	}	
+
+
+/* POST NAVIGATION BUTTONS 600px
+========================================== */	
+	#heatmapthemead-the-content-container .nav-next {
+		float: none;
+		text-align: left;
+		clear:both;
+	}
+}
+
+/* PREVENT IFRAMES IN WIDGETS FROM BREAKING LAYOUT ON MOBILES
+============================================================ */
+
+@media screen and (max-width: 640px) {.widget .heatmapthemead_ad_widget iframe {max-width: 630px;}}
+@media screen and (max-width: 600px) {.widget .heatmapthemead_ad_widget iframe {max-width: 590px;}}
+@media screen and (max-width: 540px) {.widget .heatmapthemead_ad_widget iframe {max-width: 530px;}}
+@media screen and (max-width: 480px) {.widget .heatmapthemead_ad_widget iframe {max-width: 470px;}}
+@media screen and (max-width: 320px) {.widget .heatmapthemead_ad_widget iframe {max-width: 310px;}}
+@media screen and (max-width: 240px) {.widget .heatmapthemead_ad_widget iframe {max-width: 230px;}}
+
+
+/* CONTENT COLUMNS DEBUG COLOURS */
+/* Uncomment these to reveal the actual size of the columns in the theme */
+
+/*
+#heatmapthemead-the-content {background-color:#FF0;}
+#heatmapthemead-the-content-container {background-color:#F60;}
+#heatmapthemead-secondary-sidebar {background-color:#CF0;}
+#heatmapthemead-secondary-sidebar-container {background-color:#F9F;}
+#heatmapthemead-primary-sidebar {background-color:#39F;}
+#heatmapthemead-primary-sidebar-container {background-color: #6FF;}
+*/
+
+/* feedburner email subscription widget in the sidebar */
+input#feedburner_email_widget_sbef_email {
+        margin-right: 10px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        font-size: 14px;
+        height: 22px;
+	width: 176px;
+        line-height: 1em;
+        padding: 4px 10px 4px 5px;
+}
+input#feedburner_email_widget_sbef_submit {
+        font-size: 14px;
+        line-height: 1em;
+        height: 32px;
+        padding: 4px 4px 4px 4px;
+}
+
+/* feedburner email subscription form at the bottom of post */
+h4.subs-title {
+	padding-bottom: 3px;
+	margin-bottom: 5px;
+        color: #445263;
+}
+
+input#feedburner_email_widget_bottom_email {
+        margin-right: 10px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        font-size: 14px;
+        height: 22px;
+	width: 130px;
+        line-height: 1em;
+        padding: 4px 10px 4px 5px;
+}
+
+input#feedburner_submit {
+        font-size: 14px;
+        line-height: 1em;
+        height: 32px;
+        padding: 4px 4px 4px 4px;
+}
+
+table#content {
+	border-collapse:collapse;
+}
+table#content td {
+	border: 1px solid black;
+	padding: 5px;
+}
+
+.widget_categories ul {
+   margin-left: 20px;
+   list-style: square;
+}
+
+.widget_rss ul {
+   margin-left: 20px;
+   list-style: square;
+}
+
+.tagcloud {
+	line-height: 130%;
+}
+

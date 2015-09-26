@@ -1531,6 +1531,7 @@ $(document).ready(function(){
                                 $('#myFrame').contents().find('div')[0].remove();
                                 $('#myFrame').contents().find('#speaker').remove();
                                 $('#myFrame').contents().find('#title').remove();
+                                $('#myFrame').contents().find('#kiwixtoolbar').remove();
                                 $('.framaTed').fadeIn();
 
                                 record_historic (false);
@@ -1568,6 +1569,7 @@ $(document).ready(function(){
                             $('#myFrame').load(function(){ 
                                 $('#myFrame').contents().find('.kiwix').remove();
                                 $('#myFrame').contents().find('div')[0].remove() ;
+                                $('#myFrame').contents().find('form').remove() ;
                                 $('#myFrame').contents().find('body').css('background-color','white');
                                 $('#myFrame').contents().find('body').css('margin-top','0px');
                                 $('#myFrame').contents().find('.toc').eq(0).addClass('lexique');
@@ -1639,12 +1641,16 @@ $(document).ready(function(){
     		if(window.kwiki_inline=="off"){ 
     			
     			$('.historic').addClass('red')
+    			$('.historic').removeClass('blue')
 
     			setTimeout(function  () {
     				$('.historic').removeClass('red');
+    			    $('.historic').addClass('blue')
+    				
     			},3000);
     		}else{
     			$('.historic').removeClass('red');		
+    			$('.historic').addClass('blue');		
     		}
     	},5000);
     })
@@ -1721,6 +1727,511 @@ $(document).ready(function(){
     var youpi = setTimeout(function () {
     	$('.com_pinooy').fadeIn();
     },1500);
+
+
+
+    //////////////////////////////////////////////////////////myschool//////////////////////////////////////////////////
+    $('.myschool').click(function  () {
+    	
+    	$('.file_up_click').unbind('click');
+
+        $('.cathegory').fadeOut();
+
+    	//We display the interface my school
+    	var button_add   = '<a class="btn-floating btn-large waves-effect waves-light blue file_up_click" style="display:none;"><i class="mdi-content-add"></i></a>';
+    	var autocomplete = '<div class="ui-widget cathegory" style="display:none;"><label for="tags">Catégories: </label><input id="tags"><a class="waves-effect waves-light btn blue record_file"><i class="mdi-action-done tiny"></i></a></div>';
+    	var loader       = '<br><span class="file_name_up" style="display:none;"></span> <span class="percentage_num" style="display:none;"></span><br><div class="progress during_up" style="display:none;"><div class="determinate" style="width: 0%"></div></div>';
+        
+    	$('.wiki_content').html('<div class="myschool_display"><center>'+autocomplete+button_add+loader+'</center><div class="row play_list"></div><a class="waves-effect waves-light btn blue back_list" style="display:none;"><i class="mdi-hardware-keyboard-backspace"></i></a> <div class="list_folder row" style="display:none;"></div></div>');
+
+        //Display category by folder
+        setTimeout(function  () {
+        	display_folder();
+        },1000);
+
+    	$.getJSON($('#url_json').attr('url')+'all_file_uploaded.json',{_: new Date().getTime()},function(data) {
+            
+            window.playlist = data;
+            
+            var limit = 15; //Limit of card
+            
+            $.each(data, function(entryIndex, entry) {
+
+              if(entryIndex<limit){
+
+                $('.play_list').append('<div class="col m4">'+create_card (entry['file_cat'],entry['file_title'],entry['file_hash'])+'</div>')
+
+                manage_playlist();
+              }
+            });
+        });
+
+
+        function manage_playlist () {
+
+        	$(document).ready(function(){
+
+                	$('.change_category').unbind('click')
+                	
+                	$('.change_category').click(function  () { 
+
+                		setTimeout(function  () {
+                			get_json_of_file(); 
+                		},500)
+
+                		$('.change_category').fadeIn();
+
+                        $('.this_mini').parent().remove();
+                		
+                		var change_category = $(this);
+
+                		change_category.fadeOut();
+
+                		var cat = change_category.parent().parent().attr('category');
+
+                		var this_file_hash = change_category.parent().parent().attr('file_hash');
+                       
+                		var form_edit = '<div class="input-field"><input type="text" id="tag_input" file_hash="'+this_file_hash+'" old="'+cat+'" class="this_mini" value="'+cat+'"></div>';
+
+                		change_category.parent().append(form_edit);
+
+                		$(document).ready(function(){
+
+                			$('.this_mini').unbind('focus','keyup','blur');
+
+                			$('.this_mini').focus(function(){ 
+
+                                $('.this_mini').keyup(function(evenement){ 
+
+                                	var this_hash = $(this).attr('file_hash');
+
+                                    var codeTouche = evenement.which || evenement.keyCode;
+
+                                    if(codeTouche==13)//On lance la recherche si on appui sur la touche Entré
+				                    {
+				                        if($('.this_mini').val()!=''){ 
+                                            
+                                            $('.this_cat[file_hash="'+this_hash+'"]').text($('.this_mini').val());
+
+                                            if($('.this_mini').val()!=$('.this_mini').attr('old')){
+
+                                            	complete_record_of_file($('.this_mini').val(),'',this_hash)	
+                                            }
+				                        } 
+                                      change_category.fadeIn();
+                                      $('.this_mini').parent().remove();
+                                      //notty_it('<i class="mdi-action-done tiny"></i>');
+                                      return false;	  
+			                        }  
+                                });
+
+                              return false;  	 
+                            });
+                		})
+
+                		return false;
+                	})
+
+                    $('.back_list').unbind('click')
+                    $('.back_list').click(function  () {
+                    	
+                    	$('.play_list').fadeIn()
+                    	$('.list_folder').hide()
+                    	$('.back_list').fadeOut()
+
+                    	setTimeout(function  () { 
+                    		
+                    		$('#folder').animate({scrollTop : '0px'},1000); 
+                    	},1000)
+
+                    })
+
+
+                    $('.see_video').unbind('click')
+
+                    $('.see_video').click(function  () {
+
+                    	var this_video = $(this).attr('href');
+                    	
+				        //$('.display_video').html('<iframe frameBorder="0" src="'+$('#site_url').attr('url')+'/see_video/'+$(this).attr('href')+'" width="100%" style="height:100em;padding-top:5px" name="myFrame" id="myFrame"></iframe>');
+                        $('#display_video').openModal({
+                            dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                            opacity: .5, // Opacity of modal background
+                            in_duration: 300, // Transition in duration
+                            out_duration: 200, // Transition out duration
+                            ready: function() {
+                                //preload="auto"
+                                var href = $('#base_url').attr('base_url')+'assets/uploader/uploads/'+this_video;
+                                
+                                var html ='<video id="this_displayer" class="responsive-video" controls > <source class="feel_source" src="'+href+'" type="video/mp4"></video>';
+                                
+                            	$('.player_video').html(html);
+
+                            	var video = document.getElementById("this_displayer");
+
+                            	video.play();
+                            }, // Callback for Modal open
+                            complete: function() {
+                            	 var video = document.getElementById("this_displayer");
+                            	 video.pause();
+                                 video.src = ""; // Stops audio download.
+                                 video.load(); // Initiate a new load, required in Firefox 3.x. 
+                                 $('.feel_source').attr('src','')
+                            } // Callback for Modal close
+                        });
+
+                        
+                        return false;
+                    })
+                })
+        }
+
+
+        
+        //Display all folder of categories
+        function display_folder () {
+
+            $('.play_list').append('<h3 id="folder">Cathégorie</h3><div class="row folder"></div>'); 
+        	
+            $.getJSON($('#url_json').attr('url')+'all_file_uploaded_cat.json',{_: new Date().getTime()},function(data) {
+            
+                $.each(data, function(entryIndex, entry) {
+
+                    var html = '<div class="card-panel col m3 this_folder" cat="'+entry['file_cat']+'" id="'+entry['file_cat']+'"><span class="black-text text-darken-2"><h4>'+entry['file_cat']+'</h3><center><i class="large mdi-file-folder-open"></i></center></span></div>'
+                    
+                    $('.folder').append(html);
+
+                    $(document).ready(function(){
+
+                    	$('.this_folder').unbind('click')
+
+                    	$('.this_folder').click(function  () {
+                    		
+                    		//We hide the play_list 
+                    		$('.play_list').hide();
+
+                    		//We display this files of this folder 
+                    		$('.list_folder').html('');
+                    		$('.list_folder').fadeIn();
+                    		$('.back_list').fadeIn()
+
+                    		var this_file_cat = $(this).attr('cat');
+
+                            $.each(window.playlist, function(entryIndex, entry) {
+                               
+                                if(entry['file_cat']==this_file_cat){
+
+                                	$('.list_folder').append('<div class="col m4">'+create_card (entry['file_cat'],entry['file_title'],entry['file_hash'])+'</div>');
+                                    
+                                    manage_playlist();
+
+                                    window.crolling = entry['file_cat'];
+                                }
+                            })
+
+                            return false;
+                    	})
+                    })
+                })
+            })
+        }
+         
+
+
+         //Display the button to upload file
+    	setTimeout(function  () {
+    		$('.file_up_click').fadeIn();
+    	},500)
+    	
+        $(document).ready(function(){
+
+           	$('.file_up_click').click(function  () {
+
+    	        $('#file_up').unbind('click')
+
+           		$('#file_up').click()
+           	})
+
+
+           	// send a file
+            $("#file_up").change(function  () { 
+            
+                window.file_ready = document.getElementById('file_up').files[0];
+                $('.file_name_up').fadeIn()
+                $('.file_name_up').html( window.file_ready.name)
+
+                $('.cathegory').fadeOut();
+             
+                beforeSubmit();
+            });
+
+
+            $('.record_file').click(function  () { 
+            	
+            	//If there is a value we record
+            	if($('#tags').val()!=''){
+                   complete_record_of_file($('#tags').val(),'',window.file_hash) 
+            	}
+
+            	$('.file_name_up,.cathegory,.during_up,.percentage_num').fadeOut();
+            	window.notty_it('<i class="mdi-action-done tiny"></i>');
+
+            	$('.myschool').click();//We click to display new uploaded file
+            	return false;
+            })
+        })
+
+    	return false;
+    })
+
+
+    function create_card (category,titre,file_hash,number) {
+
+    	if(category!=undefined){
+    		
+            //We get the extention
+            var extension = file_hash.split('.');
+            var extension = extension[extension.length-1];
+            var final_extension;
+            var type_media;
+
+            switch(extension){
+            	case'gif':
+            	case'jpeg':
+            	case'jpg':
+            	case'png':
+                   final_extension = '<i class="mdi-editor-insert-photo"></i>';
+                   type_media = '<a class="btn-floating btn-small waves-effect waves-light blue right" href="'+$('#base_url').attr('base_url')+'assets/uploader/uploads/'+file_hash+'" download="'+titre+'"><i class="mdi-file-file-download"></i></a>';
+            	break;
+
+            	case'pdf':
+            	case'doc':
+            	case'docx':
+                   final_extension = '<i class="mdi-content-text-format"></i>';
+                   type_media = '<a class="btn-floating btn-small waves-effect waves-light blue right" href="'+$('#base_url').attr('base_url')+'assets/uploader/uploads/'+file_hash+'" download="'+titre+'"><i class="mdi-file-file-download"></i></a>';
+                break;
+
+                case'mp3':
+                   final_extension = '<i class="mdi-hardware-headset"></i>';
+                   type_media = '<a class="btn-floating btn-small waves-effect waves-light blue right" href="'+$('#base_url').attr('base_url')+'assets/uploader/uploads/'+file_hash+'" download="'+titre+'"><i class="mdi-hardware-headset"></i></a>';
+                break;
+
+                case'mp4':
+                   final_extension = '<i class="mdi-maps-local-movies"></i>';
+                   type_media = '<a class="btn-floating btn-small waves-effect waves-light blue right see_video" href="'+file_hash+'" download="'+titre+'"><i class="mdi-av-play-arrow"></i></a>';
+                break;
+
+                case'zip':
+                   final_extension = '<i class="mdi-content-archivemdi-content-archive"></i>';
+                   type_media = '<a class="btn-floating btn-small waves-effect waves-light blue right" href="'+$('#base_url').attr('base_url')+'assets/uploader/uploads/'+file_hash+'" download="'+titre+'"><i class="mdi-file-file-download"></i></a>';
+                break;
+            }
+
+    		titre = titre.split('.');
+    	    titre = titre[0];
+    	    var my_card ='<div class="card small cat_'+number+'" category="'+category+'" file_hash="'+file_hash+'" number="'+number+'">';
+    	    my_card    +='<div class="card-image"><img src="./assets/js/images/sample-1.jpg"><span class="card-title">'+final_extension+'</i><span class="this_cat" file_hash="'+file_hash+'">'+category+'</span></span></div>';
+    	    my_card    +='<div class="card-content"><p>'+titre+'</p></div>';
+            my_card    +='<div class="card-action"><a class="change_category" href="#"><i class="mdi-editor-mode-edit"></i></a>'+type_media+'</div>';      
+            my_card    +='</div>';  
+            
+            return my_card;
+    	}else{
+    		var retour = '<div class="card-panel"><span class="red-text text-darken-2">There is no file</span></div>';
+    		return retour;
+    	}
+    }
+
+
+    function beforeSubmit(){
+      
+        var fsize = window.file_ready.size; //get file size
+        var ftype = window.file_ready.type; // get file type
+        
+        //allow file types 
+        switch(ftype)
+           { 
+            case 'image/png': 
+            case 'image/gif': 
+            case 'image/jpeg': 
+            case 'image/pjpeg':
+            case 'text/plain':
+            //case 'text/html':
+            case 'application/x-zip-compressed':
+            case 'application/pdf':
+            case 'application/msword':
+            case 'application/vnd.ms-excel':
+            case 'video/mp4':
+            case 'audio/mp3':
+                send_file_with_ajax(window.file_ready);
+                $('#file_up').val(null);
+            break;
+            default:
+             $('.percentage_num').fadeIn();
+             $('.percentage_num').html(' : <span class="red-text text-darken-2 message_upload"><b>'+ftype+'</b> Unsupported file type!</span>');
+             return false
+           }
+    
+        //Allowed file size is less than 5 MB (1048576 = 1 mb) 
+    }
+
+
+    function send_file_with_ajax(file){
+
+        window.file_name = file.name;//On prend le nom du fichier comme message
+        window.type_mime = file.type;
+
+       var formdata = new FormData();
+       formdata.append("fichier", file);
+       var ajax = new XMLHttpRequest();
+       ajax.addEventListener("load", actionTerminee, false);
+       ajax.addEventListener("error", enErreur, false);
+       ajax.addEventListener("abort", operationAnnulee, false);
+       ajax.upload.addEventListener("progress", enProgression, false);
+ 
+       ajax.open("POST", $('.message_ajax').attr('url_for_file_upload'));
+       ajax.send(formdata);
+    }
+
+
+
+
+    function enProgression(e){
+       var pourcentage = Math.round((e.loaded * 100) / e.total);
+       percent_loader(pourcentage);
+    }
+
+
+ 
+    function actionTerminee(e){ 
+
+        window.file_hash = e.target.responseText;
+        
+        //Send to ajax (write to save to mysql and write to json)//Copie to the disque
+        var data_form = {'title':window.file_ready.name,'hash':window.file_hash,'copy_to_disc':$('.message_ajax').attr('copy_to_disc'),'size':window.file_ready.size};
+        
+        $.ajax({ 
+
+                url: $('.message_ajax').attr('record_file'),
+
+                type: 'POST',
+
+                async : true,
+
+				dataType:"json",
+
+				error: function(e){
+
+						$('#info_msg_wait').fadeOut();//On efface la box qui fait patienter
+
+						console.log(e);},
+
+                data: data_form,
+
+                success: function(response) {
+
+
+                    window.all_cat_array= [];
+
+                    $.each(response, function(entryIndex, entry) {
+
+                       var cat = entry['file_cat'];
+                        if(cat!=''){
+
+                       	 window.all_cat_array.push(cat);
+                       	
+                       	 $(document).ready(function(){
+
+                       	 	$( "#tags" ).autocomplete({
+                                source: window.all_cat_array
+                            });
+                       	 })
+                       }  
+                    });
+
+
+                    $('.percentage_num').html('<i class="mdi-action-done tiny"></i>');
+                    $('.cathegory').fadeIn();//Open the form category
+                }
+        })
+    }
+
+
+
+    function enErreur(e){ 
+
+        $('.percentage_num').html('<span class="red-text text-darken-2 message_upload">'+e+'</span>');
+    }
+
+    function operationAnnulee(e){
+
+        window.popup($('.upload_message').attr('up_'+e));
+    }
+
+
+    function percent_loader(percent){
+
+        $('.during_up').fadeIn();
+        $('.during_up .determinate').attr('style','width:'+percent+'%');
+        $('.percentage_num').fadeIn()
+        $('.percentage_num').html(percent+'%');
+    }
+
+    
+
+
+    function complete_record_of_file(category,description,file_hash) {
+    	
+    	$.ajax({
+
+            url: $('.message_ajax').attr('complete_record_of_file'),
+                            
+            type: 'POST',
+                            
+            async : false,
+                            
+            //dataType:'json',
+
+            data: {'category':category,'description':description,'file_hash':file_hash},
+                           
+            error: function(e){ console.log(e);},
+                         
+            success:function(){
+                
+                //window.notty_it('<i class="mdi-action-done tiny"></i>');
+            }
+        });
+    }
+
+
+
+    function get_json_of_file () {
+
+    	window.all_cat_array= [];
+
+    	$.getJSON($('#url_json').attr('url')+'all_file_uploaded_cat.json',{_: new Date().getTime()},function(data) {
+          
+           $.each(data, function(entryIndex, entry) {
+
+            var cat = entry['file_cat'];
+            if(cat!=''){
+
+                window.all_cat_array.push(cat);
+                       	
+                $(document).ready(function(){
+
+                    $("#tag_input").autocomplete({
+                        source: window.all_cat_array
+                    });
+                })
+             }  
+            });
+        });
+
+    }
+               
+
+    //////////////////////////////////////////////////////////myschool//////////////////////////////////////////////////
 
     
      
