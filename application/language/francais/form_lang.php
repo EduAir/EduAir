@@ -138,8 +138,8 @@ $lang['form_connection']        = "OK";
 $lang['form_filiere']           = "Acronyme et niveau de votre filière<br>Exemple:BI2 pour dire filière 'Biologie' niveau '2'.";
 $lang['form_conn']              = "Connexion";
 $lang['form_insc']              = "Inscription";
-$lang['form_try']               = "Téléphone ou mot de passe incorrecte";
-$lang['form_yet']               = "Un autre utilisateur utilise déjà ce numéro";
+$lang['form_try']               = "Connexion incorrecte";
+$lang['form_yet']               = "Numéro utilisé";
 $lang['form_no_network']        = "Vous n'êtes pas sur le réseau Kwiizi";
 $lang['form_no_friend']         = "Vous n'avez aucun contact dans vore liste";
 $lang['form_add_friend']        = "Ajouter des contacts";
@@ -163,6 +163,9 @@ $lang['form_file_declined']     = "Fichier rejeté";
 $lang['form_file_transfert']    = "Selectionnez votre fichier à envoyer";
 $lang['form_file_asker']        = "Patientez s'il vous plait...";
 $lang['form_file_download']     = "Télécharger";
+$lang['form_wrong_pass']        = "Mauvais pass";
+$lang['form_right_pass']        = "Correct";
+
 
 
 

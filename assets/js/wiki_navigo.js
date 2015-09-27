@@ -1771,6 +1771,12 @@ $(document).ready(function(){
 
         	$(document).ready(function(){
 
+        		//We verify the session if the user an upload file
+           		$.post($('.message_ajax').attr('url_verify') , function(response) {
+
+           			$('.message_ajax').attr('allow',$.trim(response)) 
+           		});
+
                 	$('.change_category').unbind('click')
                 	
                 	$('.change_category').click(function  () { 
@@ -1947,11 +1953,41 @@ $(document).ready(function(){
 
            	$('.file_up_click').click(function  () {
 
-    	        $('#file_up').unbind('click')
+           		if($('.message_ajax').attr('allow')=='yes'){
+           			
+           			$('#file_up').unbind('click');
 
-           		$('#file_up').click()
+           		    $('#file_up').click()
+           		}else{
+
+           			//If no session we add form
+                        var pass =  prompt('Pass','');
+
+                        if(pass!='' || pass!=null){
+
+           		            $.post($('.message_ajax').attr('url_get_session'), {'password': pass}, function(data) {
+
+           		            	data = $.trim(data);
+           		            	$('.message_ajax').attr('allow',data) 
+           		           	   
+           		           	    if(data=='yes'){ 
+                                    
+                                    //If yes We click t the browse button
+                                    $(document).ready(function(){
+                                        
+                                        notty_it($('.message_ajax').attr('correct_pass'))
+                                    })
+    	                            
+           		           	    }else{ 
+           		           	    	notty_it($('.message_ajax').attr('incorrect_pass'))
+           		           	    }
+           		           	});
+                        }
+           		}
            	})
 
+
+          
 
            	// send a file
             $("#file_up").change(function  () { 

@@ -44,6 +44,8 @@ define('NODE','http://'.HOSTER.':8080/');
 define('PEER_HOST',HOSTER);
 define('PEER_PORT',9000);
 
+define('PASSWORD_UPLOAD','begoo#44');
+
 /*
 |--------------------------------------------------------------------------
 | File Stream Modes

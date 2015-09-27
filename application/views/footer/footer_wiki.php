@@ -334,7 +334,7 @@
 
 
     <span class="upload_file" style="display:none"><input type="file" id="file_up" name="file_up"></span>
-    <div class="message_ajax" complete_record_of_file="<?php echo site_url().'/wikipedia/wiki/complete_record_file'; ?>" record_file="<?php echo site_url().'/wikipedia/wiki/record_file'; ?>" copy_to_disc="<?php echo DISC_COPY ;?>" url_for_file_upload_dir="<?php echo base_url();?>assets/uploader/uploads/"  url_for_file_upload="<?php echo base_url();?>assets/uploader/processupload.php" url_for_send="<?php echo site_url();?>/user/record_message" no_receiver="<?php echo $this->lang->line('form_no_receiver'); ?>"></div>
+    <div class="message_ajax" allow="" url_get_session="<?php echo site_url().'/wikipedia/wiki/is_password'; ?>"  url_verify="<?php echo site_url().'/wikipedia/wiki/upload_access'; ?>" correct_pass="<?php echo $this->lang->line('form_right_pass'); ?>" incorrect_pass="<?php echo $this->lang->line('form_wrong_pass'); ?>" complete_record_of_file="<?php echo site_url().'/wikipedia/wiki/complete_record_file'; ?>" record_file="<?php echo site_url().'/wikipedia/wiki/record_file'; ?>" copy_to_disc="<?php echo DISC_COPY ;?>" url_for_file_upload_dir="<?php echo base_url();?>assets/uploader/uploads/"  url_for_file_upload="<?php echo base_url();?>assets/uploader/processupload.php" url_for_send="<?php echo site_url();?>/user/record_message" no_receiver="<?php echo $this->lang->line('form_no_receiver'); ?>"></div>
 	
 	
 	

@@ -133,6 +133,39 @@ public function index()
   }
 
 
+  //This is for authentification when uploading file
+public function is_password()
+    {
+     //on définit les règles de succès:         
+    $this->form_validation->set_rules('password','password','required|trim|xss_clean');
+      
+    if($this->form_validation->run())
+    {       
+        if($this->input->post('password')==PASSWORD_UPLOAD){
+
+          $this->session->set_userdata('upload',true);
+
+          echo "yes";
+        }else{
+          echo "no";
+        }
+    }                     
+  }
+
+
+
+   //This is for verify if the user can upload a file
+public function upload_access()
+  {
+     if($this->session->userdata('upload')){
+
+        echo "yes";
+     }else{
+        echo "no";
+     }                     
+  }
+
+
 
 	
 	

@@ -136,8 +136,8 @@ $lang['form_inscription']       = "Sign up";
 $lang['form_connection']        = "OK";
 $lang['form_filiere']           = "Acronym and level of your branch<br>Example:BI2 for 'Biology' branch and level '2'.";
 $lang['form_conn']              = "Sign in";
-$lang['form_try']               = "Phone number or incorrect password";
-$lang['form_yet']               = "An other user uses already this number";
+$lang['form_try']               = "Incorrect login";
+$lang['form_yet']               = "Number used";
 $lang['form_no_network']        = "You are not on the Kwiizi network";
 $lang['form_no_friend']         = "You have no contact on your list";
 $lang['form_add_friend']        = "Add contact";
@@ -161,6 +161,8 @@ $lang['form_file_declined']     = "Rejected file";
 $lang['form_file_transfert']    = "Choose your fie to send";
 $lang['form_file_asker']        = "Please Wait...";
 $lang['form_file_download']     = "Download";
+$lang['form_wrong_pass']        = "Wrong password";
+$lang['form_right_pass']        = "Correct";
 
 
 
