@@ -22,9 +22,9 @@ $(document).ready(function(){
 
       //How to display the right menu
       if(caller=='none'){
-        config_loader_as_receiver();
+          config_loader_as_sender();
       }else{
-        config_loader_as_sender();
+         config_loader_as_receiver();
       }
 
 
