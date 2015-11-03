@@ -1426,6 +1426,7 @@ $(document).ready(function(){
                                         //We prepare results
                                         var form_data = {'zim_file':window.actual_zim,'page':window.actual_number_of_result,'string_search':window.chaine,'zim':window.actual_zim_type};
                                         console.log(form_data);
+                                        
                                         $.ajax({ 
 
                                             url: $('#get_API').attr('api_search_plus'),
@@ -1629,31 +1630,6 @@ $(document).ready(function(){
 		return false;
 	});
 
-
-
-
-
-    //This make the historic button blinking when there is not connection to the server
-    $(function(){
-
-    	setInterval(function  () { 
-    		
-    		if(window.kwiki_inline=="off"){ 
-    			
-    			$('.historic').addClass('red')
-    			$('.historic').removeClass('blue')
-
-    			setTimeout(function  () {
-    				$('.historic').removeClass('red');
-    			    $('.historic').addClass('blue')
-    				
-    			},3000);
-    		}else{
-    			$('.historic').removeClass('red');		
-    			$('.historic').addClass('blue');		
-    		}
-    	},5000);
-    })
 
 
     /////////////////////////////////Manage Appcache////////////////////////////////////////////////////////

@@ -111,7 +111,7 @@ public function index()
         break;
      }
      $this->parser->parse('footer/footer_wiki',$data); 
-    }  
+    } 
      
   }
 
@@ -172,7 +172,7 @@ public function upload_access()
 //Ici on affiche le fichier js qui gère l'affichage du wiki
 public function page_content()
     {
-	   echo '<script type="text/javascript" src="'.base_url().'assets/js/wiki_content.js"></script>';
+	   echo '<script type="text/javascript" src="http://'.HOSTER.'/assets/js/wiki_content.js"></script>';
 	}
 	
 	
@@ -269,7 +269,7 @@ public function explodeIt_and_FeelPAgeId()
            $json_zim = 'image_medecine.json';
         }
         
-        $str_data = file_get_contents(base_url().'assets/json/'.$json_zim);
+        $str_data = file_get_contents('http://'.HOSTER.'/assets/json/'.$json_zim);
         
         $data = json_decode($str_data,true);
  
@@ -443,7 +443,7 @@ public function explodeIt_and_FeelPAgeId()
     //Store search on a json file
     function record_search($string){ 
 
-      $str_data = file_get_contents(base_url().'assets/json/search.json');
+      $str_data = file_get_contents('http://'.HOSTER.'/assets/json/search.json');
 
       $data = json_decode($str_data,true);
  
@@ -461,7 +461,7 @@ public function explodeIt_and_FeelPAgeId()
     function go_and_search($string,$zim,$type){
 
       //We get the zim file now
-      $str_data = file_get_contents(base_url().'assets/json/zim.json');
+      $str_data = file_get_contents('http://'.HOSTER.'/assets/json/zim.json');
 
       if($zim=='TED'){ //If it this TED article, we get the json file
 
@@ -533,7 +533,7 @@ public function explodeIt_and_FeelPAgeId()
 	    if($this->form_validation->run()) 
 		  { 	          
 		     //We get the zim file now
-          $str_data = file_get_contents(base_url().'assets/json/zim.json');
+          $str_data = file_get_contents('http://'.HOSTER.'/assets/json/zim.json');
 
 		      $data = json_decode($str_data,true);
 

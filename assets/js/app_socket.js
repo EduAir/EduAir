@@ -235,7 +235,30 @@ $(document).ready(function(){
          // Requesting to Database every 2 seconds
         var auto_refresher = setInterval(function ()
         { 
-                  
+
+          socket.emit('is_connect')
+
+          setTimeout(function  () {
+            
+            if(window.kwiki_inline!='on'){
+               
+               $('.attente').html('<img style="width:50%;" class="bulle" title="'+$('#url_image_logo').attr('nothing')+'" data-placement="bottom" src="'+$('#url_image_logo').attr('url')+'begoo.png"> <br><br><br> <div class="alert alert-info">'+$('#url_image_logo').attr('mode_out')+' </div>');  
+                         
+                ////////////////////////Manage the menu top///////////////////////////
+                $('.off_hider').fadeOut();//Hide all menu on top
+
+
+                ////////////////////////Manage the menu top///////////////////////////
+                window.kwiki_inline ='off';
+                console.log('Client offline');
+
+                $('.historic').addClass('red')
+                $('.historic').removeClass('blue')
+            }
+          },2000)
+
+
+            /*      
 				    $.ajax({
 
 				            type: 'post',
@@ -267,20 +290,29 @@ $(document).ready(function(){
 
 									}
 										 
-			        });
+			        });*/
         }, 5000);
 
 
+        socket.on('online',function  () {
+          
+          window.kwiki_inline ='on';
+          ////////////////////////Manage the menu top///////////////////////////
+          $('.off_hider').fadeIn();//Hide all menu on top
+          $('.historic').addClass('blue')
+          $('.historic').removeClass('red') 
+                         
+          ////////////////////////Manage the menu top///////////////////////////
+        })
 
 
-
-        $('.hello').click(function  () {
+        $('.hello').click(function  () { 
 
           window.click = $(this).attr('reason');
 
           if(window.on_following_duo==true){
             
-            open_hello (false,false,false);
+            open_hello(false,false,false);
 
           }else{
 
@@ -288,37 +320,15 @@ $(document).ready(function(){
 
               open_type_of_communication();
 
-            }else{
+            }else{ 
 
-                $.ajax({
+              //We verify if this pc as a identifier {'hash','name',bolean:true or flase meaning that if the profil is complete}
+              if(verify_token()==false){ 
 
-                  type: 'post',
-
-                  url: $("#form_connection").attr('url')+'session',
-
-                  async : true,
-
-                  error: function(error){ 
-              
-                    window.notty_it($("#form_connection").attr('no_network'))
-                        
-                        console.log(error);
-                  },
-              
-                  success: function(data){
-
-                    data = $.trim(data);
-
-                      if(data!='connected'){
-                             
-                        open_modal_connexion();
-
-                      }else{ 
-
-                        open_type_of_communication();
-                      }
-                  }
-                });
+                open_modal_connexion();
+              }else{
+                open_type_of_communication();
+              }
             }          
           }
 
@@ -327,9 +337,12 @@ $(document).ready(function(){
 
 
 
+
+
        //We manage connection
         $('.pinooy').click(function () {
-        	//We close the hello modal
+        	
+          //We close the hello modal
         	$('#hello').closeModal();
 
         	open_edit();
@@ -350,7 +363,7 @@ $(document).ready(function(){
 				    	
 				    	window.notty_it($("#form_connection").attr('no_network'))
                         
-                        console.log(error);
+                console.log(error);
 				    },
 							
 				    success: function(data){
@@ -369,277 +382,288 @@ $(document).ready(function(){
 				    	}
 				    }
 		        });
-         },250);
-    })
+          },250);
+        })
 
 
+        
 
 
-        	
-
-
-
+        //Ask user to write name
         function open_modal_connexion() {
 
            window.connection = true;
-        	
-        	$('#connection').openModal({
-
-								dismissible: false,// Modal can be dismissed by clicking outside of the modal
-
-                                ready: function() {                                 	
-                                     close_edit();
-                                     $('.hiden_form').fadeOut();
-                                     $('.add_form').parent().fadeIn();
-        	                           $('.title_statu').html($('.title_statu').attr('connexion'));
-                                     $('.edit_pass').parent().fadeOut();
-                                     window.editing = false;
-                                }, // Callback for Modal open
-
-                                complete: function() {open_edit();
-                                                      wipe_form (); 
-                                                      } // Callback for Modal close
-			    });
-        }
-
-
-
-        function open_modal_edit_count () {
-
-           window.connection  = false;
-    
+          
           $('#connection').openModal({
 
                 dismissible: false,// Modal can be dismissed by clicking outside of the modal
 
                                 ready: function() {                                   
                                      close_edit();
-                                     $('.hiden_form').fadeIn();
-                                     $('.add_form').parent().fadeOut();
-                                     $('.title_statu').html($('.title_statu').attr('edit')+' <i class="mdi-image-edit"></i>');
-                                     $('.form_phone').val(window.user_number);
-                                     $('.form_pass').val('');
-                                     $('.form_passconf').val('');
-                                     $('.form_username').val(window.username);
-                                     $('.form_filiere').val(window.user_level);
-                                     $('.pass_edit').fadeOut();
-                                     $('.edit_pass').parent().fadeIn();
-                                     $('.hide_all').fadeOut();
-                                     window.editing     = true;
-                                    
+
+                              //We download the list of all username
+                              socket.emit('get_user',$('.hoster').attr('url'));
+
+                              socket.on('list_user',function(data) {
+                                  window.all_user = data;
+                              })
+                                     
                                 }, // Callback for Modal open
 
                                 complete: function() {open_edit();
-                                                      wipe_form ();
-                                                      $('.hide_all').fadeIn();
-                                                      window.editing     = false;
+                                                      wipe_form (); 
                                                       } // Callback for Modal close
           });
+
+          /*
+
+          window.nameFounded = false;
+
+          if(window.custom==true){
+
+            var username =  prompt(window.customMessage,window.this_name);
+
+          }else{
+
+            var username =  prompt($('.user_data').attr('username'),'');
+          }
+          
+          if(username!=null && $.trim(username)!=''){
+
+            //Je vérifie à la BD sil est le seul
+            socket.emit('get_user',$('.hoster').attr('url'));
+
+            socket.on('list_user',function(data) { 
+
+              window.temp_username = username;
+
+              $.each(data, function(entryIndex, entry) {
+
+                if(window.temp_username==entry["username"]){
+                  window.nameFounded=true;
+                }
+
+                if(entryIndex+1==Object.keys(data).length){
+
+                  if(window.nameFounded==true){
+
+                    window.custom=true;
+                    window.customMessage = $('#alert').attr('name_used') ;
+                    open_modal_connexion();
+                    window.nameFounded=true;
+                  }else{
+
+                     //j'enregistre dans la bd
+                    $.ajax({ 
+
+                      url: $('#url_connect').text(),
+
+                      type: 'POST',
+
+                      async : true,
+
+                      data :{'username':$.trim(window.temp_username),'hash':$.jStorage.get('hash')},
+
+                      dataType:"json",
+
+                      error: function(e){
+
+                          console.log(e);
+                        },
+
+                      success: function(data) {
+
+                      if(data.response=='done'){
+                        //Si son nom nest pas présent on marque connecté et On enregistre son username
+                        $.jStorage.set('local_username',username);
+                        $.jStorage.set('local_userdata',true);
+
+                        window.notty_it($('#statu_user').attr('connected'));
+
+                        //On continue sur le bouton cliqué
+                        open_type_of_communication();
+
+                        window.custom = false;
+                        window.customMessage =false;
+                      }else{
+
+                         window.custom=true;
+                         window.customMessage = data.message.replace('<p>','').replace('</p>','');
+                         window.notty_it(data.message);
+                         open_modal_connexion();
+                      }
+                      }
+                    })
+                  }
+                }
+              })
+            })
+          }else{
+            open_modal_connexion()
+          } */
         }
-
-
-        $('.edit_pass').toggle(
-          
-          function(){
-            $('.pass_edit').fadeIn();
-            window.pass_edited  = true;//We put true to say that the password is not edited
-          },
-          function(){
-            $('.pass_edit').fadeOut();
-            window.pass_edited  = false;//We put false to say that the password is not edited
-          }
-        );
-
-
-        $('.add_form').toggle(
-          
-          function(){
-            $('.hiden_form').fadeIn();
-            window.connection   =false;
-            window.registration =true;
-            $('.title_statu').html($('.title_statu').attr('inscription'));
-          },
-          function(){
-            $('.hiden_form').fadeOut();
-            window.connection   =true;
-            window.registration =false;
-            $('.title_statu').html($('.title_statu').attr('connexion'));
-          }
-        );
-
-
-        //We scroll to the bottom of the box for inscruption in order to present the last input.
-        $('.form_passconf').focus(function() {
-          
-          $('.scroll_content').animate({scrollTop : $('.scroll_content').width()},2000);
-        })
-       
-
 
 
         //Open the fixed button for communication
         function open_edit() {
-        	
-        	$('.com_pinooy').fadeIn();
+          
+          $('.com_pinooy').fadeIn();
         }
 
         //Close the fixed button for communication
         function close_edit() {
-        	
-        	$('.com_pinooy').fadeOut();
+          
+          $('.com_pinooy').fadeOut();
         }
 
-        
 
-        $('.add_friend').toggle(
-          function  () {
-            $('.hiden_form').fadeIn();
-            $('.title_statu').html($('.title_statu').attr('inscription'));
-            window.connection = false;
-          },
-          function  () {
-            $('.hiden_form').fadeOut();
-            $('.title_statu').html($('.title_statu').attr('connexion'));
-            window.connection = true;
-          }
-        );
+        $('.form_username').keyup(function(evenement){ 
+            // Si evenement.which existe, codeTouche vaut celui-ci.
+            // Sinon codeTouche vaut evenement.keyCode.
+          var codeTouche = evenement.which || evenement.keyCode;
 
-        
-        window.connection = true;//We telling to this click that the submit is for sign in not for sign up
-        
-        $('.valid_sumit').click(function(){
+          var caracter = $.trim($('.form_username').val()).length;
 
-        	if(window.connection==true){ 
+          if(caracter<3){
 
-                var form_data = {'number':$('.form_phone').val(),'pass':$('.form_pass').val()};
-                var url       = 'connexion_trait';
-        	}
+            $('.error_name').html($('#alert').attr('name_short'))
+          }else{
 
-          if(window.registration==true){ 
-              var form_pass     = $('.form_pass').val();
-              var form_passconf = $('.form_passconf').val();
-              var form_data     = {'number':$('.form_phone').val(),'pass':form_pass,'passconf':form_passconf,'username':$('.form_username').val(),'filiere':$('.form_filiere').val(),'editing':window.editing,'pass_edited':window.pass_edited};
-              var url = 'register_trait';
-          }
+              $('.error_name').html('');
+              window.apply = true;
+              window.temp_username = $('.form_username').val();
 
+              $.each(window.all_user, function(entryIndex, entry) {
 
-          if(window.editing==true){
-
-            var form_data = {'number':$('.form_phone').val(),'username':$('.form_username').val(),'filiere':$('.form_filiere').val()};
-            var url = 'edit_account';
-          }
-
-
-          if(window.pass_edited==true){
-              var form_data = {'pass':$('.form_pass').val(),'passconf':$('.form_passconf').val()};
-              var url = 'edit_pass';
-          }
-
-        	$.ajax({
-
-				    type: 'post',
-
-				    url: $("#form_connection").attr('url')+url,
-
-				    data:form_data,
-
-				    async : true,
-
-				    error: function(error){ console.log(error)},
-							
-				    success: function(data){ 
-
-						  if(data.statu=='yep'){
-
-                if(window.connection==true || window.registration==true){
-                  
-                  window.notty_it($('#statu_user').attr('connected'));
-                  
-                   open_type_of_communication();
-
-                  window.connection   = false;
-                  window.registration = false;
+                if(window.temp_username==entry["username"]){
+                  $('.error_name').html($('#alert').attr('name_used'));
+                  window.apply = false;
                 }
+              });
+          }
+
+          if(codeTouche==13)//On lance la recherche si on appui sur la touche Entré
+          {   
+            
+            $('.valid_sumit').click();   
+            return false;   
+          }  
+        });
+
+        
+        $('.valid_sumit').click(function  () {
+          apply_name();
+        })
 
 
-                if(window.editing==true){
-                  window.notty_it($('#statu_user').attr('edited'));
-                  window.editing = false;
-                  window.pass_edited = false;
-                }
-
-
-                $('#connection').closeModal();
-                load_data_connection(data.result[0]);
-                wipe_form ();
-                open_edit();
-						  }else{
-							  window.notty_it(data.erreurs);
-						  }
-					  }
-			    });
-      });
-
-      
-    var on_load = get_data_connection();
-
-    //We take all the variable session on the server
-      function get_data_connection () {
-
-         $.ajax({
-
-            type: 'post',
-
-            url: $("#form_connection").attr('url_get_data'),
-
-            async : true,
-
-            dataType:"json",
-
-            error: function(error){ console.log(error)},
-              
-            success: function(data){ console.log(data)
+        function apply_name () {
+          if(window.apply==true){
                 
-                if(data.statu=='yes'){
+              //j'enregistre dans la bd
+                    $.ajax({ 
 
-                  user = data.result[0];
-                  load_data_connection (user)
-                } 
+                      url: $('#url_connect').text(),
+
+                      type: 'POST',
+
+                      async : true,
+
+                      data :{'username':$.trim(window.temp_username),'hash':$.jStorage.get('hash')},
+
+                      dataType:"json",
+
+                      error: function(e){
+
+                          console.log(e);
+                        },
+
+                      success: function(data) {
+
+                        if(data.response=='done'){
+                        //Si son nom nest pas présent on marque connecté et On enregistre son username
+                        window.username = window.temp_username;
+                        $.jStorage.set('local_username',window.temp_username);
+                        $.jStorage.set('local_userdata',true);
+                        $.jStorage.set('username',window.temp_username);
+                        window.username = window.temp_username;
+
+                        window.notty_it($('#statu_user').attr('connected'));
+
+                        //On continue sur le bouton cliqué
+                        open_type_of_communication();
+
+                        $('#connection').closeModal();
+                        open_edit();
+                        wipe_form (); 
+                        }else{
+                         $('.error_name').html(data.message.replace('<p>','').replace('</p>',''));
+                        }
+                      }
+                    })
             }
-          });
         }
-
-
-
-      function load_data_connection (user) {
-        
-        window.user_id     = user.user_id;
-        window.username    = user.username;
-        window.user_number = user.user_number;
-        window.user_level  = user.user_level;
-        $.jStorage.set('my_user_id',window.user_id);
-        window.all_my_data = {'user_id':window.user_id,'user_number':window.user_number,'user_level':window.user_level};
-        socket.emit('welcome',window.all_my_data);
-      }
 
 
 
        function wipe_form () {
-       	//We wipe form
-			    $('.form_phone').val('');
-			    $('.form_pass').val('');
-			    $('.form_passconf').val('');
-			    $('.form_username').val('');
-			    $('.form_filiere').val('');
+        //We wipe form
+          $('.form_username').val('');
        }
+
+
+
+         //Verify is the connection is complete
+        function verify_token () { 
+          
+          if($.jStorage.get('local_userdata',false)==false){ 
+            return false;
+          }else{
+            return true;
+          }
+        }
+      
+   
+
+      var data_loader = load_data_connection(); //We Load all the data of the user when loading page
+
+
+      function load_data_connection () {
+
+        if($.jStorage.get('hash',false)==false){
+
+            generate_hash_user();
+        }else{
+          var hash = $.trim($.jStorage.get('hash'));
+          socket.emit('welcome',hash);
+          window.user_id     = hash;
+          window.user_number = hash;
+          window.username    = $.jStorage.get('username');
+          $.post($('#url_connect').attr('hash_url') ,{'username':window.username,'user_number':window.user_number}, function(console_msg) {console.log(console_msg)})
+        }
+      }
+
+
+      function generate_hash_user () { 
+        
+        $.post($('#url_connect').attr('hash_url') ,{}, function(hash) { 
+            
+            hash = $.trim(hash);
+            socket.emit('welcome',hash); 
+            window.user_number = hash;
+             window.user_id = hash;
+
+            $.jStorage.set('hash',hash);
+        });
+      }
+
 
 
 
 
       function open_type_of_communication() { 
        	   
-       	    switch(window.click){
-       	   	    case 'friend': 
+       	    switch(window.click){ 
+       	   	    case 'friend':
        	   	        open_list_friend();
        	   	        break;
 
@@ -755,7 +779,7 @@ $(document).ready(function(){
 
 
    
-        function open_list_friend() {
+        function open_list_friend() { 
 
           if(window.device=='mobile'){
             window.hide_page();
@@ -768,19 +792,21 @@ $(document).ready(function(){
             //We verify if the owner on this list of friend is the user connected
             var user_id = $.jStorage.get('my_user_id',false);
 
-            if(user_id==false || user_id!=window.user_id){
+            if(user_id==false || user_id!=window.user_id){ 
               
               $.jStorage.set('my_user_id',window.user_id);
 
               take_friend_list_from_database(true);
-            }else{
+            }else{ 
 
-              if(list_friend){
+              if(!list_friend){ 
 
-                if(list_friend.length==0){//if ther is no friend
-                 //We send message to notice no friend list
+                  //if ther is no friend
+                  //We send message to notice no friend list
                   no_friends();
-                    
+                  //We send message to notice no friend list
+                  take_friend_list_from_database(true);
+
                 }else{
 
                   $('.content_of_list').html('<div class="user_list collection"><a href="+" class="collection-item add_friend card-panel blue-text text-darken-2">'+$('.no_friend').attr('add_contact')+'<i class="small mdi-social-person-add"></i></a></div>');
@@ -804,12 +830,9 @@ $(document).ready(function(){
                     }
                   }
                 }
-              }else{ 
-            	//We send message to notice no friend list
-            	take_friend_list_from_database(true);
-            }
+              }
           }
-        }
+        
 
         //var cool = take_friend_list_from_database(true);
 
@@ -825,22 +848,28 @@ $(document).ready(function(){
 
                     error: function(error){ console.log(error)},
               
-                    success: function(data){
+                    success: function(data){ 
 
                       if(request==true){
 
                         if(data.statu=='no_friend'){
                           no_friends()
-                        }else{ 
-                          //We record the friend list on local
-                           $.jStorage.set('my_friends',[]);
-                          for (var i = 0; i < data.friend.length; i++) { 
-                            add_friend_on_storage_list (data.friend[i].friend_number,data.friend[i].friend_name,true);
 
-                            if(i==data.friend.length-1){
-                              open_list_friend ();
+                        }else{
+                          if(data.statu!='disconnected'){
+
+                            //We record the friend list on local
+                            $.jStorage.set('my_friends',[]);
+                            
+                            for (var i = 0; i < data.friend.length; i++) {
+
+                              add_friend_on_storage_list (data.friend[i].friend_number,data.friend[i].friend_name,true);
+
+                              if(i==data.friend.length-1){
+                                open_list_friend();
+                              }
                             }
-                          };
+                           }
                         }
                       }
                     }
@@ -862,54 +891,105 @@ $(document).ready(function(){
         	
         	$(document).ready(function(){
                
-                $('.add_friend,.ok_add').unbind('click');
+              $('.add_friend,.ok_add').unbind('click');
 
         	    $('.add_friend').click(function () {
+
         	        $('#add_friend').openModal({
-                        ready: function() { close_edit();$('.error_guest').html('');}, // Callback for Modal open
+                        ready: function() { close_edit();
+                                            $('.error_guest').html('');
+                                            //We download the list of all username
+                                             socket.emit('get_user',$('.hoster').attr('url'));
+                                              
+                                              socket.on('list_user',function(data) {
+                                               
+                                                autocomplete_friend_list(data)
+                                              })}, // Callback for Modal open
+
                         complete: function() {open_edit() } // Callback for Modal close
                     });
         	        return false;
                 })
 
-                $('.ok_add').click(function(){ 
+                $('.ok_add').click(function(){
 
-                	var name  = $('.guest_name').val();
-                	var phone = $('.guest_phone').val();
+                  if($.trim($('.guest_name').val())!=''){
 
-                	var form_data = {'name':name,'phone':phone};
-                	
-                	$.ajax({
+                    var name_founded = window.friend_tab_find_username.indexOf($('.guest_name').val());
 
-				            type: 'post',
+                    if(name_founded==-1){ //If we dont find the name in the user list
 
-				            url: $(".no_friend").attr('adding_friend_url'),
+                      $('.error_guest').html($('#alert').attr('unknow_user'));
+                    }else{
 
-				            data:form_data,
+                      var name  = $('.guest_name').val();
+                      var phone = window.friend_tab_find_number[name_founded] ;
 
-				            async : true,
+                      var form_data = {'name':name,'phone':phone};
+                  
+                      $.ajax({
 
-				            error: function(error){ console.log(error)},
-							
-				            success: function(data){
+                        type: 'post',
+
+                        url: $(".no_friend").attr('adding_friend_url'),
+
+                        data:form_data,
+
+                        async : true,
+
+                        error: function(error){ console.log(error)},
+              
+                        success: function(data){
                             
                             if(data.statu=='fail'){
 
-                            	$('.error_guest').html(data.message);
+                              $('.error_guest').html(data.message);
                             }else{ 
-                            	
-                            	$('#add_friend').closeModal();
-                            	window.notty_it($('.no_friend').attr('added'));
-                            	add_friend_on_visual_list(phone,name);
-                            	add_friend_on_storage_list(phone,name,false);
-                	           $('.guest_name').val('');
-                	           $('.guest_phone').val('');
+                              
+                              $('#add_friend').closeModal();
+                              window.notty_it($('.no_friend').attr('added'));
+                              add_friend_on_visual_list(phone,name);
+                              add_friend_on_storage_list(phone,name,false);
+                             $('.guest_name').val('');
                             }
                         }
-                    });
+                      });
+                    }
+                  } 
+                	
                 })
             });
         }
+
+
+
+        function autocomplete_friend_list (data) {
+
+          window.all_friends= [];
+          window.friend_tab_find_number=[];
+          window.friend_tab_find_username=[];
+ 
+           $.each(data, function(entryIndex, entry) {
+
+            var friend = entry['username'];
+            window.friend_tab_find_username.push(entry['username']);
+            window.friend_tab_find_number.push(entry['user_number']);
+
+            if(friend!=''){
+
+                window.all_friends.push(friend);
+                        
+                $(document).ready(function(){ 
+
+                    $("#icon_guest_name").autocomplete({
+                        source: window.all_friends
+                    });
+                })
+             }  
+            });
+       
+
+    }
 
 
 
@@ -970,8 +1050,9 @@ $(document).ready(function(){
               window.interloc_num      = $(this).attr('href');
               window.interloc_username = $(this).attr('user_name');
 
+               $('#hello').openModal();
         			//we open the chat
-				    open_chat_box(); //on affiche la fenêtre de chat
+				    //open_chat_box(); //on affiche la fenêtre de chat
 
 				    var name = $(this).text(); //mdi-editor-attach-file
 				   
@@ -985,12 +1066,11 @@ $(document).ready(function(){
         }
 
 
-
         function command_click_box () { 
 
           $(document).ready(function(){
 
-            $('.com').unbind('blink');
+            $('.com').unbind('click');
 
             $('.com').click(function(){   
    
@@ -998,6 +1078,8 @@ $(document).ready(function(){
 
                   case 'camera':
                     open_hello('me',false);
+                    $('#hello').closeModal();
+                    open_edit();
                    break;
 
                   case 'file':
@@ -1005,6 +1087,9 @@ $(document).ready(function(){
                     //Send permission
                     Materialize.toast($('.get_input').attr('asker'));
                     socket.emit('can_you_take_this',{'caller_number':window.user_number,'caller_name':window.username,'called_number':window.interloc_num,'room':room});
+                    $('#hello').closeModal();
+                    open_edit();
+                   
                    break;
 
                   case 'follow':
@@ -1102,6 +1187,8 @@ $(document).ready(function(){
           open_hello('not_me',data_calling.room);
 
           $('#toast-container').html('');
+
+          open_edit();
 
           return false;
         });
@@ -1218,6 +1305,7 @@ $(document).ready(function(){
                                      $("#chat_div").chatbox("option", "boxManager").addMsg(window.username, msg);//on écrit son message en local
 
                                      socket.emit('send_message',{'sender_name':window.username,'sender_num':window.user_number,'sender_msg':msg,'interloc_num':window.interloc_num});
+
                                   }
       });
       
@@ -1236,7 +1324,7 @@ $(document).ready(function(){
     window.open_chat = false;
 
     //We recive message 
-    socket.on('new_message', function (data) {
+    socket.on('new_message', function (data) { 
       //We open the chat box if it is not open
       if(window.open_chat==false){
          

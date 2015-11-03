@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="fr" manifestt="<?php echo base_url();?>manifest/hi.manifestt">
+<html lang="fr" manifestt="<?php echo base_url();?>manifest/hi.manifesttt">
 
 <head>
 	<meta charset="utf-8">

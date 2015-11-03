@@ -4,13 +4,13 @@ CACHE MANIFEST
 
 
 ../assets/css/begoo.css
-../assets/css/bootstrap.min.css
-../assets/css/bootstrap-responsive.css
+../assets/css/materialize.min.css
 ../assets/css/jquery-ui.css
 ../assets/css/jquery.ui.chatbox.css
-../assets/css/jquery.classynotty.css
 ../assets/css/boldlight.css
 ../assets/css/scrollToTop.css
+../assets/css/video.css
+../assets/css/ted.css
 
 
 ../assets/js/jquery/jquery.js
@@ -23,7 +23,6 @@ CACHE MANIFEST
 
 
 
-../assets/js/bootstrap.min.js
 ../assets/js/chatboxManager.js
 ../assets/js/click.js
 ../assets/js/header.js
@@ -34,19 +33,18 @@ CACHE MANIFEST
 ../assets/js/wiki_search_result.js
 ../assets/js/wiki_contact.js
 ../assets/js/last_notes.js
-../assets/js/jquery.classynotty.js
 ../assets/js/jquery.scrollToTop.min.js
 ../assets/node/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js
 ../assets/node/api/easyrtc.js
 ../assets/js/app_socket.js
-../assets/js/jquery.noty.js
-../assets/js/default.js
-../assets/js/bottomRight.js
-../assets/js/centerLeft.js
 ../assets/js/chat_seeMessage.js
 ../assets/js/humane.min.js
-../assets/js/topCenter.js
-../assets/node/peer.js
+../assets/node/node_modules/simplewebrtc/latest.js
+../assets/node/node_modules/simplewebrtc/latest.js
+../assets/js/materialize.min.js
+../assets/js/wiki_search.js
+../assets/js/jquery.loadingdots.js
+../assets/js/blocksit.min.js
 
 
 ../assets/img/glyphicons-halflings-white.png
@@ -72,6 +70,7 @@ CACHE MANIFEST
 ../assets/image_notif/chrome.png
 ../assets/image_notif/logo_begoo.jpg
 ../assets/css/images/up.png
+../assets/img/favo_ico.png
 
 
 ../assets/font/fontawesome-webfont.svg

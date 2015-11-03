@@ -26,8 +26,8 @@
 	<div id="url_session" style="display:none;"><?php echo site_url();?>/user/connect/session</div>
     
 	<!-- Url du controlleur de connexion pour ajax -->
-	<div id="url_connect" style="display:none;"><?php echo site_url();?>/user/connect/connexion</div>
-    
+    <div id="url_connect" hash_url="<?php echo site_url();?>/user/connect/hash_user" style="display:none;"><?php echo site_url();?>/user/connect/hash_name</div>
+	
 	<!-- Block qui affiche le petit box de signalement de nouveau message et qui après,explose après -->
 	<div id="new" style="display:none;">
 	    <div class="new_messsage alert alert-info">
@@ -111,49 +111,14 @@
 
 
     
-    <div id="connection" class="modal modal-fixed-footer">
+    <div id="connection" class="modal">
         <div class="modal-content scroll_content">
-            <h4 class="title_statu" edit="<?php echo $this->lang->line('form_compte'); ?>" connexion="<?php echo $this->lang->line('form_conn'); ?>" inscription="<?php echo $this->lang->line('form_inscription'); ?>">Connexion</h4>
             <div class="row">
+                <span class="red-text text-darken-2 error_name"></span>
                 <div class="input-field">
-                    <i class="mdi-communication-phone prefix"></i>
-                    <input id="icon_telephone" type="text" class="form_phone">
-                    <label class="hide_all" for="icon_telephone"><?php echo $this->lang->line('form_phone'); ?></label>
-                </div>
-
-                <div class="input-field pass_edit">
-                    <i class="mdi-communication-vpn-key prefix"></i>
-                    <input id="icon_pass" type="password" class="form_pass">
-                    <label for="icon_pass"><?php echo $this->lang->line('form_pass'); ?></label>
-                </div>
-                
-                <p>
-                    <a href="inscription" class="add_form"><?php echo $this->lang->line('form_inscription'); ?></a>
-                </p>
-
-                <p>
-                    <a href="edit_pass" class="edit_pass"><?php echo $this->lang->line('form_edit_pass'); ?></a>
-                </p>
-
-                <div class="hiden_form" style="display:none;">
-                    
-                    <div class="input-field pass_edit">
-                        <i class="mdi-communication-vpn-key prefix"></i>
-                        <input id="icon_passconf" type="password" class="form_passconf">
-                        <label for="icon_passconf"><?php echo $this->lang->line('form_passconf'); ?></label>
-                    </div>
-
-                    <div class="input-field">
-                        <i class="mdi-action-perm-identity prefix"></i>
-                        <input id="icon_username" type="text" class="form_username">
-                        <label class="hide_all" for="icon_username"><?php echo $this->lang->line('form_username'); ?></label>
-                    </div>
-                    
-                    <div class="input-field">
-                        <?php echo $this->lang->line('form_filiere'); ?>
-                        <input id="icon_filiere" type="text" class="form_filiere">
-                        <label class="hide_all" for="icon_filiere"></label>
-                    </div>
+                    <i class="mdi-action-perm-identity prefix"></i>
+                    <input id="icon_username" type="text" class="form_username">
+                    <label class="hide_all" for="icon_username"><?php echo $this->lang->line('form_username'); ?></label>
                 </div>
             </div>
         </div>
@@ -179,6 +144,8 @@
         </div>    
     </div>
 
+    <div class="user_data" username="<?php echo $this->lang->line('form_username'); ?>"></div>
+
 
      <!-- For the file tranfert-->        
     <div class="modal" id="file_transfert">
@@ -197,16 +164,11 @@
     </div>
 
 
-
-
-
     <div id="hello" class="modal">
         <div class="modal-content">
             <div class="row">
-                <div class="col s3"><center><a class="btn-floating btn-large waves-effect waves-light pinooy red" reason="friend"><i class="mdi-communication-contacts"></i></a></center></div>
-                <div class="col s3"><center><a class="btn-floating btn-large waves-effect waves-light pinooy blue" reason="follow_me"><i class="mdi-social-share"></i></a></center></div>
-                <div class="col s3"><center><a class="btn-floating btn-large waves-effect waves-light pinooy orange" reason="my_account"><i class="mdi-action-account-box"></i></a></center></div>
-                <div class="col s3"><center><a class="btn-floating btn-large waves-effect waves-light pinooy red" reason="notification"><i class="mdi-social-notifications"></i></a></center></div>
+                <div class="col s6"><center><a class="com com_camera btn-floating btn-large waves-effect waves-light red" reason="camera"><i class="mdi-notification-voice-chat"></i></a></center></div>
+                <div class="col s6"><center><a class="com com_file btn-floating btn-large waves-effect waves-light blue" reason="file"> <i class="mdi-editor-attach-file"></i></a></center></div>
             </div>
         </div>
     </div>
@@ -236,29 +198,22 @@
     <div id="add_friend" class="modal">
         <div class="modal-content">
             <h3><?php echo $this->lang->line('form_add_friend'); ?></h3>
-            <div class="row">
-                <div class="input-field col s6">
-                    <i class="mdi-communication-phone prefix"></i>
-                    <input id="icon_guest_phone" type="text" class="guest_phone">
-                    <label for="icon_guest_phone"><?php echo $this->lang->line('form_phone'); ?>*</label>
-                </div>
-                <div class="input-field col s6">
+                <div class="input-field">
                     <i class="mdi-action-account-circle prefix"></i>
-                    <input id="icon_guest_name" type="text" class="guest_name">
+                    <input id="icon_guest_name" type="text"  class="guest_name">
                     <label for="icon_guest_name"><?php echo $this->lang->line('form_name'); ?></label>
                 </div>    
-            </div>
+           
             <p><span class="error_guest red-text text-darken-2"></span><p>
             <button class="btn waves-effect waves-light blue ok_add" type="submit" name="action"><?php echo $this->lang->line('form_connection'); ?><i class="mdi-content-send right"></i></button>
+            <button class="btn waves-effect waves-light red modal-action modal-close">X</button>
         </div>
     </div>
 
 
 
 
-	
-
-    <div id="alert" follow_me="<?php echo $this->lang->line('form_follow_me'); ?>" stop_follow="<?php echo $this->lang->line('form_stop_follow'); ?>" follow_user="<?php echo $this->lang->line('form_follow_user'); ?>" follow_refuse="<?php echo $this->lang->line('form_follow_refuse'); ?>" ask_follow="<?php echo $this->lang->line('form_ask_follow'); ?>" click_to_see="<?php echo $this->lang->line('form_click_to_see'); ?>" new_share="<?php echo $this->lang->line('form_new_share'); ?>" no_call="<?php echo $this->lang->line('form_no_call'); ?>" no_active_conv="<?php echo $this->lang->line('form_no_activ_speak'); ?>" form_u_number="<?php echo $this->lang->line('form_u_number'); ?>" form_none_number="<?php echo $this->lang->line('form_none_number'); ?>" error="<?php echo $this->lang->line('form_error'); ?>" nobody="<?php echo $this->lang->line('form_nobody'); ?>" new_call="<?php echo $this->lang->line('form_new_call'); ?>" reject_call="<?php echo $this->lang->line('form_reject_call'); ?>" end_call="<?php echo $this->lang->line('form_call_ended'); ?>"  wat="<?php echo $this->lang->line('form_wat'); ?>" no_contact="<?php echo $this->lang->line('form_no_contact'); ?>" incompatible="<?php echo $this->lang->line('form_incompatible'); ?>" busy="<?php echo $this->lang->line('form_busy'); ?>"></div>
+    <div id="alert" unknow_user="<?php echo $this->lang->line('form_Unk_user'); ?>" name_short="<?php echo $this->lang->line('form_short_name'); ?>" name_used="<?php echo $this->lang->line('form_nameBusy'); ?>" follow_me="<?php echo $this->lang->line('form_follow_me'); ?>" stop_follow="<?php echo $this->lang->line('form_stop_follow'); ?>" follow_user="<?php echo $this->lang->line('form_follow_user'); ?>" follow_refuse="<?php echo $this->lang->line('form_follow_refuse'); ?>" ask_follow="<?php echo $this->lang->line('form_ask_follow'); ?>" click_to_see="<?php echo $this->lang->line('form_click_to_see'); ?>" new_share="<?php echo $this->lang->line('form_new_share'); ?>" no_call="<?php echo $this->lang->line('form_no_call'); ?>" no_active_conv="<?php echo $this->lang->line('form_no_activ_speak'); ?>" form_u_number="<?php echo $this->lang->line('form_u_number'); ?>" form_none_number="<?php echo $this->lang->line('form_none_number'); ?>" error="<?php echo $this->lang->line('form_error'); ?>" nobody="<?php echo $this->lang->line('form_nobody'); ?>" new_call="<?php echo $this->lang->line('form_new_call'); ?>" reject_call="<?php echo $this->lang->line('form_reject_call'); ?>" end_call="<?php echo $this->lang->line('form_call_ended'); ?>"  wat="<?php echo $this->lang->line('form_wat'); ?>" no_contact="<?php echo $this->lang->line('form_no_contact'); ?>" incompatible="<?php echo $this->lang->line('form_incompatible'); ?>" busy="<?php echo $this->lang->line('form_busy'); ?>"></div>
 		
     <div id="friends_liste" url="<?php echo site_url().'/user/user/List_friends'; ?>"></div>
 	

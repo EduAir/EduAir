@@ -1,6 +1,6 @@
 <?php
 
-$lang['form_username']          = "Username";
+$lang['form_username']          = "Nom d'utilisateur";
 $lang['form_number']            = "Identifiant";
 $lang['form_message']           = "Votre message";
 $lang['form_connect']           = "Connecte moi";
@@ -165,6 +165,9 @@ $lang['form_file_asker']        = "Patientez s'il vous plait...";
 $lang['form_file_download']     = "Télécharger";
 $lang['form_wrong_pass']        = "Mauvais pass";
 $lang['form_right_pass']        = "Correct";
+$lang['form_nameBusy']          = "Déja pris";
+$lang['form_short_name']        = "Trop court";
+$lang['form_Unk_user']        = "Utilisateur inexistant";
 
 
 

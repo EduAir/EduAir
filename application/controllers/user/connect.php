@@ -25,6 +25,8 @@ function __construct()
 		
 	  //le helper de texte pour limiter les chaines de caractère lors de certains l'affichages
 	    $this->load->helper('text');
+
+	    $this->load->helper('string');
 		
 		//C'est cette ligne de code qui détecte la langue du navigateur et affiche le site dans la langue correspondante
 		$this->lang->load('form', $this->config->item('language'));
@@ -67,116 +69,40 @@ public function get_my_connection_data()
 }
 	 
 
-//Ici on traite le  formulaire de traitement.
-function connexion_trait()
+//Here we generate the hash of the user.
+function hash_user()
     { 
-       
-	 //on définit les règles de succès: 
-		  $this->form_validation->set_rules('pass',$this->lang->line('form_pass'),'trim|required|xss_clean|min_length[5]|max_length[30]|sha1');
-          $this->form_validation->set_rules('number',$this->lang->line('form_phone'),'trim|required|xss_clean|numeric|min_length[5]');
-		    
-		  //si la validation du formulaire a échouée on redirige vers le formulaire d'inscription
-            if(!$this->form_validation->run())
-			{ 
-			    $resultat = array(
-		                   'erreurs'  => validation_errors(),
-						   'statu'    => 'fail',
-						   );
-		
-               // reste juste à l'encoder en JSON et l'envoyer
-               header('Content-Type: application/json');
-               echo json_encode($resultat);
-            } 
-			else 
-			{
-                //je détruit toute session avant de le connecter
-                $this->session->sess_destroy();
-
-                $statu_connection = $this->connects->connect($this->input->post('number'),$this->input->post('pass'));	
-				
-                if(!$statu_connection)
-			    {
-			     
-				 $resultat = array(
-		                   'erreurs'  => $this->lang->line('form_try'),
-						   'statu'    => 'fail',
-						   );
-		
-                  // reste juste à l'encoder en JSON et l'envoyer
-                  header('Content-Type: application/json');
-                  echo json_encode($resultat);
-			    }
-			    else
-			    {
-			      $resultat = array(
-		                   'result'  => $statu_connection,
-						   'statu'    => 'yep'
-						   );
-		
-                  // reste juste à l'encoder en JSON et l'envoyer
-                  header('Content-Type: application/json');
-                  echo json_encode($resultat);
-			    }
-			}
+      echo  $this->connects->hash_user();	
 	}
 
 
 
+//Here save the name of the user.
+function hash_name()
+    {
+        $this->form_validation->set_rules('hash','hash','trim|required|xss_clean');
+        $this->form_validation->set_rules('username','username','trim|required|xss_clean|max_length[100]|min_length[3]'); 
 
-//Ici on traite le  formulaire d'enregistrement.
-function register_trait()
-    { 
-		   //on définit les règles de succès: 
-		  $this->form_validation->set_rules('pass',$this->lang->line('form_pass'),'trim|required|xss_clean|min_length[5]|max_length[30]|matches[passconf]|sha1');
-		  $this->form_validation->set_rules('passconf', $this->lang->line('form_passconf'),'trim|required|xss_clean|min_length[5]|max_length[30]|sha1');
-          $this->form_validation->set_rules('number',$this->lang->line("form_phone"),'trim|required|xss_clean|numeric|min_length[5]');
-          $this->form_validation->set_rules('filiere',$this->lang->line('form_filiere'),'trim|required|xss_clean|max_length[100]|min_length[2]');
-          $this->form_validation->set_rules('username',$this->lang->line('form_username'),'trim|required|xss_clean|max_length[100]|min_length[4]');
-         
-		    
-		  //si la validation du formulaire a échouée on redirige vers le formulaire d'inscription
-            if(!$this->form_validation->run())
-			{ 
-			    $resultat = array(
-		                   'erreurs'  => validation_errors(),
-						   'statu'    => 'fail',
-						   );
+        if($this->form_validation->run())
+		{
+			$this->connects->hash_name($this->input->post('hash'),$this->input->post('username'));
+
+			$resultat = array(
+		        'message'  => '',
+			    'response' => 'done');
+		}else{
+			 $resultat = array(
+		        'message'     => validation_errors(),
+				'response'    => 'fail');
+		}
+
 		
-               // reste juste à l'encoder en JSON et l'envoyer
-               header('Content-Type: application/json');
-               echo json_encode($resultat);
-            } 
-			else 
-			{ 
-                //je détruit toute session avant de le connecter
-                $this->session->sess_destroy();	
-				
-				$data_signup = $this->connects->sign_up($this->input->post('username'),$this->input->post('pass'),$this->input->post('number'),$this->input->post('filiere'));
-                
-                if(!$data_signup)
-			    {
-			     
-				  $resultat = array(
-		                   'erreurs'  => $this->lang->line('form_yet'),
-						   'statu'    => 'fail');
-		
-                  // reste juste à l'encoder en JSON et l'envoyer
-                  header('Content-Type: application/json');
-                  echo json_encode($resultat);
-			    }
-			    else
-			    {
-			      $resultat = array(
-		                   'result'  => $data_signup,
-						   'statu'    => 'yep'
-						   );
-		
-                  // reste juste à l'encoder en JSON et l'envoyer
-                  header('Content-Type: application/json');
-                  echo json_encode($resultat);
-			    }
-			}
+        // reste juste à l'encoder en JSON et l'envoyer
+        header('Content-Type: application/json');
+        echo json_encode($resultat);
 	}
+
+
 
 
 
@@ -238,13 +164,13 @@ function edit_account()
 
 
 //Ici on traite le  formulaire d'édition de compte
-function edit_pass()
+function connection()
     { 
-    	if($this->session->userdata('logged_in'))
+    	if(!$this->session->userdata('logged_in'))
     	{
 		   //on définit les règles de succès: 
-          $this->form_validation->set_rules('pass',$this->lang->line('form_pass'),'trim|required|xss_clean|min_length[5]|max_length[30]|matches[passconf]|sha1');
-		  $this->form_validation->set_rules('passconf', $this->lang->line('form_passconf'),'trim|required|xss_clean|min_length[5]|max_length[30]|sha1');
+          $this->form_validation->set_rules('username','username','trim|required|xss_clean');
+		  $this->form_validation->set_rules('user_number', 'user_number','trim|required|xss_clean');
            
 		  //si la validation du formulaire a échouée on redirige vers le formulaire d'inscription
             if(!$this->form_validation->run())
@@ -260,30 +186,7 @@ function edit_pass()
             } 
 			else 
 			{ 
-				$data_signup = $this->connects->edit_pass($this->input->post('pass'));
-                
-                if(!$data_signup)
-			    {
-			     
-				  $resultat = array(
-		                   'erreurs'  => $this->lang->line('form_yet'),
-						   'statu'    => 'fail');
-		
-                  // reste juste à l'encoder en JSON et l'envoyer
-                  header('Content-Type: application/json');
-                  echo json_encode($resultat);
-			    }
-			    else
-			    {
-			      $resultat = array(
-		                   'result'   => $data_signup,
-						   'statu'    => 'yep'
-						   );
-		
-                  // reste juste à l'encoder en JSON et l'envoyer
-                  header('Content-Type: application/json');
-                  echo json_encode($resultat);
-			    }
+			  $this->connects->sign_up($this->input->post('username'),$this->input->post('user_number'));
 			}
 		}
 	}

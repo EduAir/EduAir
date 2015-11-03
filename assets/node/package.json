@@ -1,18 +1,16 @@
 {
-   "name":"kwiki_chat",
-   "version":"0.0.1",
-   "private":"true",
-   "dependencies":{
-        "express" : "3.3.x",
-        "socket.io" : "0.9.x",
-		"winston" : "0.7.x"
-		},
-		
-	"analyze": false,
-
-    "license": "BSD2",
-
-    "engines": {
+  "name": "kwiki_chat",
+  "version": "0.0.1",
+  "private": "true",
+  "dependencies": {
+    "express": "3.3.x",
+    "socket.io": "0.9.x",
+    "winston": "0.7.x",
+    "jsonfile": "~2.2.2"
+  },
+  "analyze": false,
+  "license": "BSD2",
+  "engines": {
     "node": ">=0.8"
-       }
+  }
 }

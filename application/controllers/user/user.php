@@ -48,7 +48,7 @@ function add_friend()
 	    { 
 	       //on définit les règles de succès: 
 		    $this->form_validation->set_rules('name',$this->lang->line('form_name'),'trim|xss_clean|min_length[2]|max_length[30]');
-		    $this->form_validation->set_rules('phone', $this->lang->line('form_phone'),'trim|required|xss_clean|min_length[5]|numeric');
+		    $this->form_validation->set_rules('phone', $this->lang->line('form_phone'),'trim|required|xss_clean|min_length[5]');
             
 		    //si la validation du formulaire a échouée on redirige vers le formulaire d'inscription
             if(!$this->form_validation->run())

@@ -9,6 +9,19 @@ var tab_verif_connected = [];//Ce tableau verifi les followed qui son connectés
 var io = require('socket.io').listen(8080,{ log: false }) ;
 var fs = require('fs');
 
+var jsonfile = require('jsonfile')
+var util = require('util')
+ 
+var file = 'user_list.json';
+
+jsonfile.readFile(__dirname+'/'+file, function(err, obj) { console.log(obj)
+	
+	if(obj==undefined){
+		console.log('No user name in the database');
+	}
+})
+
+
 console.log('We Learn Better');
 
 
@@ -208,7 +221,7 @@ io.sockets.on('connection', function (socket) {
 	
 	
 	//C'est ici qu'on gère tchat dans les rooms lors des following
-	socket.on('send_message', function (data) {
+	socket.on('send_message', function (data) { console.log(data)
 	   
 	    //On envoi ce message à tout le monde dans a room
 		socket.broadcast.to(data.interloc_num).emit('new_message',data);   
@@ -239,12 +252,22 @@ io.sockets.on('connection', function (socket) {
 	/////////////////////////////////////////////DUO  chat/webrtc//////////////////////////////////////////////
     
 	//Si l'user vient de se connecter j'ouvre une nouvelle room avec son numéro de téléphone
-	socket.on('welcome', function (data) { 
+	socket.on('welcome', function (hash) { console.log(hash)
 	   
-	    socket.join(data.user_id);	
-	    socket.join(data.user_number);
-	    socket.join(data.user_level);	
+	    socket.join(hash);
+	    
     });
+
+
+    socket.on('get_user',function  (ip) {
+    	
+    	jsonfile.readFile(__dirname+'/'+file, function(err, obj) { 
+    		
+            socket.emit('list_user',obj);
+        })
+    })
+
+
 
     socket.on('welcome_pinooy',function  (number) {
     	
@@ -390,6 +413,12 @@ io.sockets.on('connection', function (socket) {
 		socket.leave(sender+'_room');
 	})
 	/////////////////////////////////////////////Connexion//////////////////////////////////////////////
+
+
+	////////////////////////////////////ping////////////////////////////////////////////////////////////
+	socket.on('is_connect',function  () {
+		socket.emit('online')
+	})
 
     
 

@@ -12,96 +12,67 @@ function __construct()
   
   
  //Cette fonction enregistere un nouvel utilisateur s'il n'est pas déjà enregistré une fois
-public function connect($number,$pass)
+public function hash_user()
     { 
-	     //On cherche s'il s'est déjà connecté une fois
+    	$hash = random_string('alnum', 16);
+	    
+	    //We verify if the hash already exists in the database
 	     $this->db->select('*');
 	     $this->db->from('begoo_user');
-	     $this->db->where('user_number', $number); 
-	     $this->db->where('user_pass',$pass); 
+	     $this->db->where('user_number',$hash); 
 	     $query = $this->db->get();
 	  
-		    if($query->num_rows() > 0)//si oui on crée ses sessions
+		    if($query->num_rows() == 0)//si non We insert this hash on the database
 	        {
-		        foreach ($query->result() as $row)
-                {
-		         $user_data = array(
-                   'username'         => $row->username,
-				   'user_id'          => $row->user_id,
-                   'user_number'      => $number,
-                   'logged_in'        => TRUE,
-                   'user_level'       => $row->user_level,
-				   'user_msg'         => $row->user_msg,
-				   'user_note'        => $row->user_note,
-				   'user_last_connect'=> $row->user_last_connect,
-				   'user_bannis'      => $row->user_bannis
-                   );
-		          $this->session->set_userdata($user_data);
-                }
+	        	$data = array(
+                 'user_number'           => $hash,
+                 'user_date_registration'=> time(),
+                );
 
-                return $query->result_array();
+                $this->db->insert('begoo_user', $data);
+                
+                $this->sign_up('',$hash); //We create session
+
+                return $hash;
 		    }
 		    else 
 		    {
-		     return false;
+		       return $this->hash_user(); //We generate an other hash
 			}		
 	}
 
 
-//Cette fonction enregistere un nouvel utilisateur s'il n'est pas déjà enregistré une fois
-public function get_my_connection_data()
-    { 
-	     //On cherche s'il s'est déjà connecté une fois
-	     $this->db->select('user_id,user_bannis,user_id,user_level,user_msg,user_note,user_number,username,user_last_connect');
-	     $this->db->from('begoo_user');
-	     $this->db->where('user_id', $this->session->userdata('user_id')); 
-	     $query = $this->db->get();
 
-	        foreach ($query->result() as $row)
-            {
-		         $user_data = array(
-                   'username'         => $row->username,
-				   'user_id'          => $row->user_id,
-                   'user_number'      => $row->user_number,
-                   'logged_in'        => TRUE,
-                   'user_level'       => $row->user_level,
-				   'user_msg'         => $row->user_msg,
-				   'user_note'        => $row->user_note,
-				   'user_last_connect'=> $row->user_last_connect,
-				   'user_bannis'      => $row->user_bannis
-                   );
-		          $this->session->set_userdata($user_data);
-            }
-	  
-		return $query->result_array();	
+	public function hash_name($hash,$name) //Here We save the username associate to the hash
+    { 
+    	 
+	    $this->db->where('user_number', $hash);
+        $this->db->update('begoo_user', array('username'=>$name)); 
+
+        $this->sign_up($name,$hash); //We create session
+
+
+        $this->db->select('username,user_number');
+	    $this->db->from('begoo_user');
+	    $query = $this->db->get();
+
+        //We generate a json file of all user
+        $fp = fopen('./assets/node/user_list.json', 'w');
+        fwrite($fp, json_encode($query->result_array()));
+        fclose($fp);
 	}
 
 
-public function sign_up($username,$pass,$number,$filiere)
+
+public function sign_up($username,$hash)
     {
-    	//We see if the number is busy
-	     $this->db->select('user_pass');
-	     $this->db->from('begoo_user');
-	     $this->db->where('user_number', $number); 
-	     $query = $this->db->get();
-	 
-		    if($query->num_rows() > 0)//Oups!
-	        {
-	        	return false;
-	        }else{
-
-	             $data = array(
-                 'user_number'           => $number,
-                 'username'              => $username,
-                 'user_pass'             => $pass,
-                 'user_level'            => $filiere,
-                 'user_date_registration'=> time(),
-                  );
-
-                $this->db->insert('begoo_user', $data); 
-               
-                return $this->connect($number,$pass);
-            }
+    	 $user_data = array(
+                   'username'         => $username,
+                   'user_id'          => $hash,
+                   'user_number'      => $hash,
+                   'logged_in'        => TRUE,
+                   );
+        $this->session->set_userdata($user_data);
     }
 
 
